@@ -1,4 +1,91 @@
 <template>
+
+    <TransitionRoot as="template" :show="open">
+      <Dialog as="div" class="relative z-10" @close="open = false">
+        <TransitionChild as="template" enter="ease-in-out duration-500" enter-from="opacity-0" enter-to="opacity-100" leave="ease-in-out duration-500" leave-from="opacity-100" leave-to="opacity-0">
+          <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
+        </TransitionChild>
+
+        <div class="fixed inset-0 overflow-hidden">
+          <div class="absolute inset-0 overflow-hidden">
+            <div class="pointer-events-none fixed inset-y-0 right-0 flex max-w-full pl-10">
+              <TransitionChild as="template" enter="transform transition ease-in-out duration-500 sm:duration-700" enter-from="translate-x-full" enter-to="translate-x-0" leave="transform transition ease-in-out duration-500 sm:duration-700" leave-from="translate-x-0" leave-to="translate-x-full">
+                <DialogPanel class="pointer-events-auto w-screen max-w-md">
+                  <div class="flex h-full flex-col overflow-y-scroll bg-white shadow-xl">
+                    <div class="flex-1 overflow-y-auto px-4 py-6 sm:px-6">
+                      <div class="flex items-start justify-between">
+                        <DialogTitle class="text-lg font-medium text-gray-900">Shopping cart</DialogTitle>
+                        <div class="ml-3 flex h-7 items-center">
+                          <button type="button" class="relative -m-2 p-2 text-gray-400 hover:text-gray-500" @click="open = false">
+                            <span class="absolute -inset-0.5" />
+                            <span class="sr-only">Close panel</span>
+                            <XMarkIcon class="h-6 w-6" aria-hidden="true" />
+                          </button>
+                        </div>
+                      </div>
+
+                      <div class="mt-8">
+                        <div class="flow-root">
+                          <ul role="list" class="-my-6 divide-y divide-gray-200">
+                            <li v-for="product in products" :key="product.id" class="flex py-6">
+                              <div class="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
+                                <img :src="product.imageSrc" :alt="product.imageAlt" class="h-full w-full object-cover object-center" />
+                              </div>
+
+                              <div class="ml-4 flex flex-1 flex-col">
+                                <div>
+                                  <div class="flex justify-between text-base font-medium text-gray-900">
+                                    <h3>
+                                      <a :href="product.href">{{ product.name }}</a>
+                                    </h3>
+                                    <p class="ml-4">{{ product.price }}</p>
+                                  </div>
+                                  <p class="mt-1 text-sm text-gray-500">{{ product.color }}</p>
+                                </div>
+                                <div class="flex flex-1 items-end justify-between text-sm">
+                                  <p class="text-gray-500">Qty {{ product.quantity }}</p>
+
+                                  <div class="flex">
+                                    <button type="button" class="font-medium text-indigo-600 hover:text-indigo-500">Remove</button>
+                                  </div>
+                                </div>
+                              </div>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="border-t border-gray-200 px-4 py-6 sm:px-6">
+                      <div class="flex justify-between text-base font-medium text-gray-900">
+                        <p>Subtotal</p>
+                        <p>$262.00</p>
+                      </div>
+                      <p class="mt-0.5 text-sm text-gray-500">Shipping and taxes calculated at checkout.</p>
+                      <div class="mt-6">
+                        <a href="#" class="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700">Checkout</a>
+                      </div>
+                      <div class="mt-6 flex justify-center text-center text-sm text-gray-500">
+                        <p>
+                          or
+                          <button type="button" class="font-medium text-indigo-600 hover:text-indigo-500" @click="open = false">
+                            Continue Shopping
+                            <span aria-hidden="true"> &rarr;</span>
+                          </button>
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </DialogPanel>
+              </TransitionChild>
+            </div>
+          </div>
+        </div>
+      </Dialog>
+    </TransitionRoot>
+
+
+
   <div class="bg-white">
 
     <div class="pt-6">
@@ -59,7 +146,7 @@
                 <StarIcon v-for="rating in [0, 1, 2, 3, 4]" :key="rating" :class="[reviews.average > rating ? 'text-gray-900' : 'text-gray-200', 'h-5 w-5 flex-shrink-0']" aria-hidden="true" />
               </div>
               <p class="sr-only">{{ reviews.average }} out of 5 stars</p>
-              <a :href="reviews.href" class="ml-3 text-sm font-medium text-indigo-600 hover:text-indigo-500">{{ reviews.totalCount }} reviews</a>
+              <a :href="reviews.href" class="ml-3 text-sm font-medium text-primary-dark hover:text-primary-dark-hover">{{ reviews.totalCount }} reviews</a>
             </div>
           </div>
 
@@ -85,16 +172,16 @@
             <div class="mt-10">
               <div class="flex items-center justify-between">
                 <h3 class="text-sm font-medium text-gray-900">Size</h3>
-                <a href="#" class="text-sm font-medium text-indigo-600 hover:text-indigo-500">Size guide</a>
+                <a href="#" class="text-sm font-medium text-primary-dark hover:text-primary-dark-hover">Size guide</a>
               </div>
 
               <RadioGroup v-model="selectedSize" class="mt-4">
                 <RadioGroupLabel class="sr-only">Choose a size</RadioGroupLabel>
                 <div class="grid grid-cols-4 gap-4 sm:grid-cols-8 lg:grid-cols-4">
                   <RadioGroupOption as="template" v-for="size in product.sizes" :key="size.name" :value="size" :disabled="!size.inStock" v-slot="{ active, checked }">
-                    <div :class="[size.inStock ? 'cursor-pointer bg-white text-gray-900 shadow-sm' : 'cursor-not-allowed bg-gray-50 text-gray-200', active ? 'ring-2 ring-indigo-500' : '', 'group relative flex items-center justify-center rounded-md border py-3 px-4 text-sm font-medium uppercase hover:bg-gray-50 focus:outline-none sm:flex-1 sm:py-6']">
+                    <div :class="[size.inStock ? 'cursor-pointer bg-white text-gray-900 shadow-sm' : 'cursor-not-allowed bg-gray-50 text-gray-200', active ? 'ring-2 ring-primary-active' : '', 'group relative flex items-center justify-center rounded-md border py-3 px-4 text-sm font-medium uppercase hover:bg-gray-50 focus:outline-none sm:flex-1 sm:py-6']">
                       <RadioGroupLabel as="span">{{ size.name }}</RadioGroupLabel>
-                      <span v-if="size.inStock" :class="[active ? 'border' : 'border-2', checked ? 'border-indigo-500' : 'border-transparent', 'pointer-events-none absolute -inset-px rounded-md']" aria-hidden="true" />
+                      <span v-if="size.inStock" :class="[active ? 'border' : 'border-2', checked ? 'border-primary-active' : 'border-transparent', 'pointer-events-none absolute -inset-px rounded-md']" aria-hidden="true" />
                       <span v-else aria-hidden="true" class="pointer-events-none absolute -inset-px rounded-md border-2 border-gray-200">
                         <svg class="absolute inset-0 h-full w-full stroke-2 text-gray-200" viewBox="0 0 100 100" preserveAspectRatio="none" stroke="currentColor">
                           <line x1="0" y1="100" x2="100" y2="0" vector-effect="non-scaling-stroke" />
@@ -106,7 +193,7 @@
               </RadioGroup>
             </div>
 
-            <button type="submit" class="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">Add to bag</button>
+            <button type="submit" class="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-primary-darker px-8 py-3 text-base font-medium text-white hover:bg-primary-dark-hover focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">Add to bag</button>
           </form>
         </div>
 
@@ -149,7 +236,35 @@
 import { ref } from 'vue'
 import { StarIcon } from '@heroicons/vue/20/solid'
 import { RadioGroup, RadioGroupLabel, RadioGroupOption } from '@headlessui/vue'
+import { Dialog, DialogPanel, DialogTitle, TransitionChild, TransitionRoot } from '@headlessui/vue'
+import { XMarkIcon } from '@heroicons/vue/24/outline'
 
+const products = [
+  {
+    id: 1,
+    name: 'Throwback Hip Bag',
+    href: '#',
+    color: 'Salmon',
+    price: '$90.00',
+    quantity: 1,
+    imageSrc: 'https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-01.jpg',
+    imageAlt: 'Salmon orange fabric pouch with match zipper, gray zipper pull, and adjustable hip belt.',
+  },
+  {
+    id: 2,
+    name: 'Medium Stuff Satchel',
+    href: '#',
+    color: 'Blue',
+    price: '$32.00',
+    quantity: 1,
+    imageSrc: 'https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-02.jpg',
+    imageAlt:
+        'Front of satchel with blue canvas body, black straps and handle, drawstring top, and front zipper pouch.',
+  },
+  // More products...
+]
+
+const open = ref(true)
 const product = {
   name: 'Basic Tee 6-Pack',
   price: '$192',
@@ -206,6 +321,8 @@ const reviews = { href: '#', average: 4, totalCount: 117 }
 
 const selectedColor = ref(product.colors[0])
 const selectedSize = ref(product.sizes[2])
+
+
 </script>
 
 <style>
