@@ -129,7 +129,7 @@
               <div class="bg-white">
                 <div class="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-1 lg:max-w-7xl lg:px-8">
                   <h2 class="sr-only">Products</h2>
-                  <div class="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
+                  <div class="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 xl:gap-x-8">
                     <a v-for="product in products" :key="product.id" :href="product.href" class="group">
                       <div class="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-lg bg-gray-200 xl:aspect-h-8 xl:aspect-w-7">
                         <img :src="product.imageSrc" :alt="product.imageAlt" class="h-full w-full object-cover object-center group-hover:opacity-75" />
@@ -169,9 +169,8 @@ import { XMarkIcon } from '@heroicons/vue/24/outline'
 import { ChevronDownIcon, FunnelIcon, MinusIcon, PlusIcon, Squares2X2Icon } from '@heroicons/vue/20/solid'
 
 const sortOptions = [
-  { name: 'Most Popular', href: '#', current: true },
-  { name: 'Best Rating', href: '#', current: false },
-  { name: 'Newest', href: '#', current: false },
+
+  { name: 'Newest', href: '#', current: true },
   { name: 'Price: Low to High', href: '#', current: false },
   { name: 'Price: High to Low', href: '#', current: false },
 ]
@@ -206,12 +205,14 @@ const filters = [
     id: 'size',
     name: 'Size',
     options: [
-      { value: '2l', label: '2L', checked: false },
-      { value: '6l', label: '6L', checked: false },
-      { value: '12l', label: '12L', checked: false },
-      { value: '18l', label: '18L', checked: false },
-      { value: '20l', label: '20L', checked: false },
-      { value: '40l', label: '40L', checked: true },
+      { value: 'xxs', label: 'XXS', checked: false },
+      { value: 'xs', label: 'XS', checked: false },
+      { value: 's', label: 'S', checked: false },
+      { value: 'm', label: 'M', checked: false },
+      { value: 'l', label: 'L', checked: false },
+      { value: 'xl', label: 'XL', checked: true },
+      { value: '2xl', label: '2XL', checked: true },
+      { value: '3xl', label: '3XL', checked: true },
     ],
   },
 ]
@@ -226,6 +227,10 @@ const products = [
     price: '$48',
     imageSrc: 'https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-01.jpg',
     imageAlt: 'Tall slender porcelain bottle with natural clay textured body and cork stopper.',
+    color: ["red", "green"],
+    gender: ["unisex"],
+    size: ["2l"],
+    type: "clothing"
   },
   {
     id: 2,

@@ -110,22 +110,30 @@
                            leave="transition ease-in-out duration-300 transform" leave-from="translate-x-0"
                            leave-to="-translate-x-full">
             <DialogPanel class="relative flex w-full max-w-xs flex-col overflow-y-auto bg-white pb-12 shadow-xl">
-              <div class="flex px-4 pb-2 pt-5">
+
+              <div class="flex items-center justify-between px-4 py-2">
+                <h1 class="text-gray-950 font-kaisei-decol text-2xl font-bold	pb-1">Verde</h1>
+
                 <button type="button"
-                        class="relative -m-2 inline-flex items-center justify-center rounded-md p-2 text-gray-400"
-                        @click="open = false">
-                  <span class="absolute -inset-0.5"/>
+                        @click="open = false"
+                        class="-mr-2 flex h-10 w-10 items-center justify-center rounded-md bg-white p-2 text-gray-400">
                   <span class="sr-only">Close menu</span>
-                  <XMarkIcon class="h-6 w-6" aria-hidden="true"/>
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                       stroke="currentColor" aria-hidden="true" data-slot="icon" class="h-6 w-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12"></path>
+                  </svg>
                 </button>
               </div>
 
-
               <div class="space-y-6 border-t border-gray-200 px-4 py-6">
                 <div class="flow-root">
-                  <a  class="-m-2 block p-2 font-medium text-gray-900">Women</a>
-                  <a  class="-m-2 block p-2 font-medium text-gray-900">Men</a>
-                  <router-link :to="{name: 'collection'}"  class="-m-2 block p-2 font-medium text-gray-900">Collection</router-link>
+                  <a class="-m-2 block p-2 font-medium text-gray-900">Women</a>
+                  <a class="-m-2 block p-2 font-medium text-gray-900">Men</a>
+                  <router-link :to="{name: 'collection'}" class="-m-2 block p-2 font-medium text-gray-900">Collection
+                  </router-link>
+                  <a href="#" class="-m-2 block p-2 font-medium text-gray-900">About
+                    us</a>
+
                 </div>
               </div>
 
@@ -170,9 +178,14 @@
             <!-- Flyout menus -->
             <PopoverGroup class="hidden lg:ml-8 lg:block lg:self-stretch">
               <div class="flex h-full space-x-8">
-                <a v-for="page in navigation.pages" :key="page.name" :href="page.href"
-                   class="flex items-center text-sm font-medium text-gray-900 hover:text-gray-800">{{ page.name }}</a>
+                <a href="#" class="flex items-center text-sm font-medium text-gray-900 hover:text-gray-800">Men</a>
+                <a href="#" class="flex items-center text-sm font-medium text-gray-900 hover:text-gray-800">Women</a>
+                <router-link class="flex items-center text-sm font-medium text-gray-900 hover:text-gray-800"
+                             :to="{name: 'collection'}">Collection
+                </router-link>
+                <a href="#" class="flex items-center text-sm font-medium text-gray-900 hover:text-gray-800">About us</a>
               </div>
+
             </PopoverGroup>
 
             <div class="ml-auto flex items-center">
