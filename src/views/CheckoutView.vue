@@ -80,18 +80,18 @@
               <div class="mt-6 space-y-6">
                 <div class="relative flex gap-x-3">
                   <div class="flex h-6 items-center">
-                    <input id="standard" name="delivery-method" type="radio" class="h-4 w-4  border-gray-300 text-indigo-600 focus:ring-indigo-600" />
+                    <input id="standard" checked name="delivery-method" type="radio" class="h-4 w-4  border-gray-300 text-indigo-600 focus:ring-indigo-600" />
                   </div>
 
                   <div class="text-sm leading-6">
-                    <label for="standard" class="font-medium text-gray-900">Standard: <b>$5</b> </label>
+                    <label for="standard"  class="font-medium text-gray-900">Standard: <b>$5</b> </label>
                     <p class="text-gray-500">4-10 business days</p>
                   </div>
                 </div>
 
                 <div class="relative flex gap-x-3">
                   <div class="flex h-6 items-center">
-                    <input id="candidates" name="delivery-method" type="radio" class="h-4 w-4  border-gray-300 text-indigo-600 focus:ring-indigo-600" />
+                    <input id="candidates" name="delivery-method"  type="radio" class="h-4 w-4  border-gray-300 text-indigo-600 focus:ring-indigo-600" />
                   </div>
                   <div class="text-sm leading-6">
                     <label for="candidates" class="font-medium text-gray-900">Express: <b>$15</b></label>
@@ -104,17 +104,129 @@
             </fieldset>
           </div>
         </div>
+
+
+        <div class="border-b border-gray-900/10 pb-12">
+          <h2 class="text-base font-semibold leading-7 text-gray-900">Payment method</h2>
+
+          <div class="mt-0 space-y-10">
+
+          </div>
+        </div>
+
+
       </div>
 
-      <div class="mt-6 flex items-center justify-end gap-x-6">
-        <button type="button" class="text-sm font-semibold leading-6 text-gray-900">Cancel</button>
-        <button type="submit" class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Save</button>
-      </div>
+
     </form>
+
+    <div class="pointer-events-auto w-screen max-w-md">
+      <div class="flex  flex-col bg-white border-primary-light-active border rounded	">
+        <div class="flex-1 overflow-y-auto px-4 py-6 sm:px-6">
+          <div class="flex items-start justify-between">
+            <div class="text-lg font-medium text-gray-900">Order summary</div>
+
+          </div>
+
+          <div class="mt-8">
+            <div class="flow-root">
+              <ul role="list" class="-my-6 divide-y divide-gray-200">
+                <li v-for="product in products" :key="product.id" class="flex py-6">
+                  <div class="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
+                    <img :src="product.imageSrc" :alt="product.imageAlt"
+                         class="h-full w-full object-cover object-center"/>
+                  </div>
+
+                  <div class="ml-4 flex flex-1 flex-col">
+                    <div>
+                      <div class="flex justify-between text-base font-medium text-gray-900">
+                        <h3>
+                          <a :href="product.href">{{ product.name }}</a>
+                        </h3>
+                        <p class="ml-4">{{ product.price }}</p>
+                      </div>
+                      <p class="mt-1 text-sm text-gray-500">{{ product.color }}</p>
+                    </div>
+                    <div class="flex flex-1 items-end justify-between text-sm">
+                      <p class="text-gray-500">Qty {{ product.quantity }}</p>
+
+                      <div class="flex">
+                        <button type="button" class="font-medium text-indigo-600 hover:text-indigo-500">
+                          Remove
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="border-t border-gray-200 px-4 py-6 sm:px-6">
+
+          <div class="flex justify-between text-base font-sm text-gray-900">
+            <p>Subtotal</p>
+            <p class="font-medium">$122.00</p>
+          </div>
+
+          <div class="flex mt-5 justify-between text-base font-sm text-gray-900">
+            <p>Shipping</p>
+            <p class="font-medium">$5.00</p>
+          </div>
+
+
+
+
+        </div>
+
+        <div class="border-t border-gray-200 px-4 py-6 sm:px-6">
+          <div class="flex justify-between text-base font-medium text-gray-900">
+            <p>Total</p>
+            <p >$127.00</p>
+          </div>
+        </div>
+
+        <div  class="border-t border-gray-200 px-4 py-6 sm:px-6">
+          <div >
+            <a href="#"
+               class="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700">Confirm order</a>
+          </div>
+        </div>
+
+
+
+      </div>
+    </div>
 
   </main>
 </template>
 
 <script setup>
-import { PhotoIcon, UserCircleIcon } from '@heroicons/vue/24/solid'
+const products = [
+  {
+    id: 1,
+    name: 'Throwback Hip Bag',
+    href: '#',
+    color: 'Salmon',
+    price: '$90.00',
+    quantity: 1,
+    imageSrc: 'https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-01.jpg',
+    imageAlt: 'Salmon orange fabric pouch with match zipper, gray zipper pull, and adjustable hip belt.',
+  },
+  {
+    id: 2,
+    name: 'Medium Stuff Satchel',
+    href: '#',
+    color: 'Blue',
+    price: '$32.00',
+    quantity: 1,
+    imageSrc: 'https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-02.jpg',
+    imageAlt:
+        'Front of satchel with blue canvas body, black straps and handle, drawstring top, and front zipper pouch.',
+  },
+  // More products...
+]
+
+
 </script>

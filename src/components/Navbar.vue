@@ -94,6 +94,8 @@
     </Dialog>
   </TransitionRoot>
 
+
+
   <div class="bg-white">
     <!-- Mobile menu -->
     <TransitionRoot as="template" :show="open">
@@ -253,14 +255,6 @@ const products = [
   // More products...
 ]
 const openCart = ref(false)
-
-const navigation = {
-  pages: [
-    {name: 'Women', href: '#'},
-    {name: 'Men', href: '#'},
-    {name: 'Collection', href: 'collection'},
-  ],
-}
 
 function handleCartClick() {
   openCart.value = !openCart.value
