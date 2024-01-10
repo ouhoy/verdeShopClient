@@ -162,6 +162,8 @@
               <div class="bg-white">
                 <div class="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-1 lg:max-w-7xl lg:px-8">
                   <h2 class="sr-only">Products</h2>
+                  <p v-show="noProducts" class="mt-1 text-sm leading-6 text-gray-600">There are no products available
+                    with that selection 🥺</p>
                   <div
                       class="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 xl:gap-x-8">
                     <a v-for="product in filteredProducts" :key="product.id" :href="product.href" class="group">
@@ -211,7 +213,7 @@ const sortOptions = ref([
   {name: 'Price: High to Low', href: '#', current: false},
 ])
 
-
+const noProducts = ref(false)
 const subCategories = [
   {name: 'Clothing', href: '#'},
   {name: 'Shoes', href: '#'},
@@ -375,6 +377,7 @@ function sortProductsByType() {
 
   // TODO before cleaning look for checked boxes
 
+  noProducts.value = false;
   filteredProducts.value = []
 
   if (checked.length == 0) {
@@ -391,6 +394,9 @@ function sortProductsByType() {
   })
 
   // TODO: If options are selected but no product show dialog
+  if (filteredProducts.value.length == 0) {
+    noProducts.value = true;
+  }
 
 }
 
