@@ -1,4 +1,7 @@
 <script setup lang="ts">
+
+
+
 </script>
 
 <template>
@@ -17,7 +20,7 @@
           </button>
           <button
               class="font-medium rounded-full max-h-12 flex items-center justify-center py-4 px-8 border-2 border-primary-darker text-primary-darker text-md">
-            Know more
+            Our story
           </button>
 
 

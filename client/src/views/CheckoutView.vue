@@ -121,7 +121,7 @@
     </form>
 
     <div class="pointer-events-auto w-screen max-w-md">
-      <div class="flex  flex-col bg-white border-primary-light-active border rounded	">
+      <div class="flex  flex-col bg-white border-gray-200 border rounded	">
         <div class="flex-1 overflow-y-auto px-4 py-6 sm:px-6">
           <div class="flex items-start justify-between">
             <div class="text-lg font-medium text-gray-900">Order summary</div>

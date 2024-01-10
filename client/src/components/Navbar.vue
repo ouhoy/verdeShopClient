@@ -228,7 +228,7 @@ import {
   TransitionRoot,
   DialogTitle
 } from '@headlessui/vue'
-import {Bars3Icon, MagnifyingGlassIcon, ShoppingBagIcon, XMarkIcon} from '@heroicons/vue/24/outline'
+import {Bars3Icon, ShoppingBagIcon, XMarkIcon} from '@heroicons/vue/24/outline'
 
 const products = [
   {

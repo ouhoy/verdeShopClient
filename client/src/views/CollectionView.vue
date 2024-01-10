@@ -94,6 +94,7 @@
 
           <div class="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-4">
             <!-- Filters -->
+
             <form class="hidden lg:block">
               <h3 class="sr-only">Categories</h3>
               <ul role="list" class="space-y-4 border-b border-gray-200 pb-6 text-sm font-medium text-gray-900">
@@ -180,7 +181,7 @@ const subCategories = [
   { name: 'Accessories', href: '#' },
 ]
 const filters = [
-  {
+ {
     id: 'gender',
     name: 'Gender',
     options: [
