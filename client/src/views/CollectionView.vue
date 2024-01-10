@@ -267,6 +267,7 @@ const products = ref([
     imageAlt: 'Tall slender porcelain bottle with natural clay textured body and cork stopper.',
     colors: ["red", "green"],
     gender: ["unisex"],
+    options: ["red", "green", "unisex", "2l"],
     size: ["2l"],
     type: "clothing"
   },
@@ -280,6 +281,7 @@ const products = ref([
     colors: ["green"],
     gender: ["unisex", "men"],
     size: ["2xl", "l", "m"],
+    options: ["green", "unisex", "men", "2xl", "l", "m"],
     type: "clothing"
   },
   {
@@ -291,6 +293,7 @@ const products = ref([
     imageAlt: 'Person using a pen to cross a task off a productivity paper card.',
     colors: ["blue"],
     gender: ["men"],
+    options: ["blue", "men", "s", "l", "m"],
     size: ["s", "l", "m"],
     type: "clothing"
   },
@@ -304,11 +307,12 @@ const products = ref([
     colors: ["white"],
     gender: ["women"],
     size: ["s", "l", "m"],
+    options: ["white", "women", "s", "l", "m"],
     type: "clothing"
   },
 
 ])
-const filteredProducts = ref<any>(new Set([...products.value]));
+const filteredProducts = ref<any>(products.value);
 
 
 const sortProducts = () => {
@@ -326,12 +330,12 @@ const sortProducts = () => {
   }
 
 
-  filteredProducts.value = new Set(filtered);
+  filteredProducts.value = filtered;
   return filtered;
 };
 
 enum Section {
-  Color = "color",
+  Colors = "colors",
   Size = "size",
   Gender = "gender"
 
@@ -350,43 +354,47 @@ function handleProductTypeChange(section: string, option: string) {
   })
 
   // @ts-ignore
-  sortProductsByType(section, option);
+  sortProductsByType(section);
 
 
 }
 
 
-function sortProductsByType(section: Section, o: string) {
+function sortProductsByType() {
 
-  const productSectionIndex = filters.value.findIndex((filter) => filter.id === section);
-  const productSectionType = filters.value[productSectionIndex];
 
-  const selected = productSectionType.options.filter(option => {
-    if (option.checked) return option
+  const checked = []
+
+  // Get checked items
+  filters.value.forEach(filter => {
+    filter.options.forEach(option => {
+      if (option.checked) checked.push(option.value)
+    })
   })
 
 
-  products.value.filter(product => {
+  // TODO before cleaning look for checked boxes
 
-    return selected.forEach(option => {
+  filteredProducts.value = []
 
-      if (product[section].includes(option.value)) {
-        filteredProducts.value.add(product)
-      }else {
-        filteredProducts.value.delete(product)
-      }
+  if (checked.length == 0) {
+    filteredProducts.value = products.value;
+  }
 
+  products.value.forEach((product) => {
+
+    // if product category has item type add to array
+    checked.forEach((word) => {
+      if (product.options.includes(word)) addUniqueValueById(filteredProducts.value, product.id, product);
     })
 
   })
-
-  // TODO: If all options are not selected show all products
 
   // TODO: If options are selected but no product show dialog
 
 }
 
-function addUniqueValueById(array: any[], id:number, value: any) {
+function addUniqueValueById(array: any[], id: number, value: any) {
   // Check if the ID already exists in the array
   const existingItem = array.find(item => item.id === id);
 
