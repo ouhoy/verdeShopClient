@@ -133,9 +133,8 @@
                   <a class="-m-2 block p-2 font-medium text-gray-900">Men</a>
                   <router-link :to="{name: 'collection'}" class="-m-2 block p-2 font-medium text-gray-900">Collection
                   </router-link>
-                  <a href="#" class="-m-2 block p-2 font-medium text-gray-900">About
-                    us</a>
-
+                  <a href="#" class="-m-2 block p-2 font-medium text-gray-900">Story</a>
+                  <a href="#" class="-m-2 block p-2 font-medium text-gray-900">Track order</a>
                 </div>
               </div>
 
@@ -185,20 +184,18 @@
                 <router-link class="flex items-center text-sm font-medium text-gray-900 hover:text-gray-800"
                              :to="{name: 'collection'}">Collection
                 </router-link>
-                <a href="#" class="flex items-center text-sm font-medium text-gray-900 hover:text-gray-800">About us</a>
+                <a href="#" class="flex items-center text-sm font-medium text-gray-900 hover:text-gray-800">Story</a>
+                <a href="#" class="flex items-center text-sm font-medium text-gray-900 hover:text-gray-800">Track order</a>
               </div>
 
             </PopoverGroup>
 
             <div class="ml-auto flex items-center">
               <div class="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
-                <router-link :to="{name: 'login'}" class="text-sm font-medium text-gray-700 hover:text-gray-800">Sign
-                  in
-                </router-link>
-                <span class="h-6 w-px bg-gray-200" aria-hidden="true"/>
-                <router-link :to="{name: 'signup'}" class="text-sm font-medium text-gray-700 hover:text-gray-800">Create
-                  account
-                </router-link>
+
+<!--                <router-link :to="{name: 'signup'}" class="text-sm font-medium text-gray-700 hover:text-gray-800">-->
+<!--                  Track orders-->
+<!--                </router-link>-->
               </div>
 
               <!-- Cart -->

@@ -71,7 +71,7 @@
                 <MenuItems class="absolute right-0 z-10 mt-2 w-40 origin-top-right rounded-md bg-white shadow-2xl ring-1 ring-black ring-opacity-5 focus:outline-none">
                   <div class="py-1">
                     <MenuItem v-for="option in sortOptions" :key="option.name" v-slot="{ active }">
-                      <a :href="option.href" :class="[option.current ? 'font-medium text-gray-900' : 'text-gray-500', active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm']">{{ option.name }}</a>
+                      <a @click="handleSortOptionClick(option.name)" :href="option.href" :class="[option.current ? 'font-medium text-gray-900' : 'text-gray-500', active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm']">{{ option.name }}</a>
                     </MenuItem>
                   </div>
                 </MenuItems>
@@ -151,8 +151,8 @@
   </div>
 </template>
 
-<script setup>
-import { ref } from 'vue'
+<script setup lang="ts">
+import {ref} from 'vue'
 import {
   Dialog,
   DialogPanel,
@@ -169,12 +169,15 @@ import {
 import { XMarkIcon } from '@heroicons/vue/24/outline'
 import { ChevronDownIcon, FunnelIcon, MinusIcon, PlusIcon, Squares2X2Icon } from '@heroicons/vue/20/solid'
 
-const sortOptions = [
+const sortOptions = ref([
 
   { name: 'Newest', href: '#', current: true },
   { name: 'Price: Low to High', href: '#', current: false },
   { name: 'Price: High to Low', href: '#', current: false },
-]
+])
+
+
+
 const subCategories = [
   { name: 'Clothing', href: '#' },
   { name: 'Shoes', href: '#' },
@@ -185,7 +188,7 @@ const filters = [
     id: 'gender',
     name: 'Gender',
     options: [
-      { value: 'unisex', label: 'Unisex', checked: true },
+      { value: 'unisex', label: 'Unisex', checked: false },
       { value: 'men', label: 'Men', checked: false },
       { value: 'women', label: 'Women', checked: false },
     ],
@@ -195,10 +198,10 @@ const filters = [
     name: 'Colors',
     options: [
       { value: 'white', label: 'White', checked: false },
-      { value: 'beige', label: 'Beige', checked: false },
-      { value: 'blue', label: 'Blue', checked: true },
-      { value: 'brown', label: 'Brown', checked: false },
       { value: 'green', label: 'Green', checked: false },
+      { value: 'beige', label: 'Beige', checked: false },
+      { value: 'blue', label: 'Blue', checked: false },
+      { value: 'brown', label: 'Brown', checked: false },
       { value: 'purple', label: 'Purple', checked: false },
     ],
   },
@@ -211,16 +214,16 @@ const filters = [
       { value: 's', label: 'S', checked: false },
       { value: 'm', label: 'M', checked: false },
       { value: 'l', label: 'L', checked: false },
-      { value: 'xl', label: 'XL', checked: true },
-      { value: '2xl', label: '2XL', checked: true },
-      { value: '3xl', label: '3XL', checked: true },
+      { value: 'xl', label: 'XL', checked: false },
+      { value: '2xl', label: '2XL', checked: false },
+      { value: '3xl', label: '3XL', checked: false },
     ],
   },
 ]
 
 const mobileFiltersOpen = ref(false)
 
-const products = [
+const products = ref([
   {
     id: 1,
     name: 'Earthen Bottle',
@@ -258,5 +261,45 @@ const products = [
     imageAlt: 'Hand holding black machined steel mechanical pencil with brass tip and top.',
   },
   // More products...
-]
+])
+
+
+const sortProducts = () => {
+  // Apply filters based on sortOptions, filters, and subCategories
+  const filtered = [...products.value];
+
+  // Apply sort option
+  const sortOption = sortOptions.value.find((option) => option.current);
+  if (sortOption && sortOption.name === 'Newest') {
+    // For example: Sort by newest, assuming 'Newest' is selected
+
+    filtered.sort((a, b) => b.id - a.id);
+  } else if (sortOption && sortOption.name === 'Price: Low to High') {
+    // Sort by price from low to high
+
+
+    filtered.sort((a, b) => parseFloat(a.price.slice(1)) - parseFloat(b.price.slice(1)));
+  } else if (sortOption && sortOption.name === 'Price: High to Low') {
+    // Sort by price from high to low
+
+
+    filtered.sort((a, b) => parseFloat(b.price.slice(1)) - parseFloat(a.price.slice(1)));
+  }
+
+  // Apply filters
+  // You can implement logic here to filter based on filters and subCategories
+
+  products.value = filtered;
+  return filtered;
+};
+
+function handleSortOptionClick(name: string){
+
+  sortOptions.value.forEach((option, index)=>{
+    sortOptions.value[index].current = option.name === name;
+  })
+  sortProducts();
+
+}
+
 </script>
