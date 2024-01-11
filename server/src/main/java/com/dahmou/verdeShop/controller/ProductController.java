@@ -7,6 +7,9 @@ import com.dahmou.verdeShop.model.Type;
 import com.dahmou.verdeShop.repository.ProductCollectionRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/")
@@ -20,11 +23,37 @@ public class ProductController {
         this.repository = repository;
     }
 
+    @GetMapping("")
+    public List<Product> findAll(){
+        return repository.getAllProducts();
+    }
+
+    @GetMapping("/{id}")
+     public Product findById(@PathVariable int id){
+        Product product = repository.getProduct(id);
+        if (product == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+        return product;
+    }
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("")
     public void create(@RequestBody Product product) {
         repository.createProduct(product);
+    }
+
+
+    @ResponseStatus(HttpStatus.CREATED)
+    @PostMapping("/{id}")
+    public void update(@RequestBody @PathVariable int id,  Product product) {
+        repository.updateProduct(id,product);
+    }
+
+    @ResponseStatus(HttpStatus.CREATED)
+    @PostMapping("/{id}")
+    public void delete(@RequestBody @PathVariable int id) {
+        repository.deleteProduct(id);
     }
 
 }
