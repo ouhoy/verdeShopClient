@@ -46,7 +46,7 @@ public class ProductController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PutMapping("/{id}")
-    public void update(@RequestBody @PathVariable int id,  Product product) {
+    public void update( @PathVariable int id, @RequestBody  Product product) {
         repository.updateProduct(id,product);
     }
 
