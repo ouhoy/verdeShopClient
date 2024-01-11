@@ -4,6 +4,8 @@ import com.dahmou.verdeShop.model.Gender;
 import com.dahmou.verdeShop.model.Product;
 import com.dahmou.verdeShop.model.Size;
 import com.dahmou.verdeShop.model.Type;
+import com.dahmou.verdeShop.util.ResultSetHelper;
+import com.dahmou.verdeShop.util.ResultSetHelperEnum;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -25,25 +27,23 @@ public class ProductCollectionRepository {
 
     private static Product mapRow(ResultSet rs, int rowNum) throws SQLException {
 
-        String[] highlights = (String[]) rs.getArray("highlights").getArray();
-        String[] imageSrc = (String[]) rs.getArray("image_src").getArray();
-        String[] colors = (String[]) rs.getArray("colors").getArray();
-        String[] options = (String[]) rs.getArray("options").getArray();
-        Size[] size = (Size[]) rs.getArray("size").getArray();
+        Size[] size = ResultSetHelperEnum.getEnumArray(rs, "sizes", Size.class);
+
+
 
         return new Product(
                 rs.getInt("id"),
                 rs.getString("name"),
                 rs.getInt("price"),
                 rs.getString("description"),
-                highlights,
+                ResultSetHelper.getStringArray(rs, "highlights"),
                 rs.getString("details"),
-                imageSrc,
+                ResultSetHelper.getStringArray(rs, "image_src"),
                 rs.getString("image_alt"),
-                colors,
+                ResultSetHelper.getStringArray(rs, "colors"),
                 Gender.valueOf(rs.getString("gender")),
                 size,
-                options,
+                ResultSetHelper.getStringArray(rs, "options"),
                 Type.valueOf(rs.getString("type"))
         );
 

@@ -45,13 +45,13 @@ public class ProductController {
 
 
     @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping("/{id}")
+    @PutMapping("/{id}")
     public void update(@RequestBody @PathVariable int id,  Product product) {
         repository.updateProduct(id,product);
     }
 
     @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping("/{id}")
+    @DeleteMapping("/{id}")
     public void delete(@RequestBody @PathVariable int id) {
         repository.deleteProduct(id);
     }
