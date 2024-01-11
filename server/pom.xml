@@ -12,7 +12,7 @@
 	<artifactId>verdeShop</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>verdeShop</name>
-	<description>Online shoping app</description>
+	<description>Online Shopping App</description>
 	<properties>
 		<java.version>17</java.version>
 	</properties>
@@ -20,6 +20,10 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-validation</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
