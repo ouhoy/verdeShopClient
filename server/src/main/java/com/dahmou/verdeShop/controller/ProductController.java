@@ -1,9 +1,6 @@
 package com.dahmou.verdeShop.controller;
 
-import com.dahmou.verdeShop.model.Gender;
 import com.dahmou.verdeShop.model.Product;
-import com.dahmou.verdeShop.model.Size;
-import com.dahmou.verdeShop.model.Type;
 import com.dahmou.verdeShop.repository.ProductCollectionRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;

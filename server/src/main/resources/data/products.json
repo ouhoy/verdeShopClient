@@ -1,0 +1,282 @@
+[
+
+  {
+    "id": 1,
+    "name": "MEN's Water-Repellent Hooded Versatile Jacket",
+    "price": 110,
+    "description": "Built for running, training and yoga, our Unlimited collection helps keep you moving throughout the year, thanks to its premium materials and innovative features. This breathable jacket is built around super stretchy fabric that moves with you from box jumps to back bends. Durable water-repellent coating helps keep you prepared for unexpected showers. Plus, it neatly packs down into a slim, built-in pouch for maximum convenience and space saving in your gym bag.",
+    "highlights": [
+      "The recycled polyester used in Nike products begins as recycled plastic bottles, which are cleaned, shredded into flakes and converted into pellets. From there, the pellets are spun into new, high-quality yarn used in our products, delivering peak performance with a lower impact on the environment.",
+      "In addition to reducing waste, recycled polyester reduces carbon emissions by up to 30% compared to virgin polyester. Nike diverts an average of 1 billion plastic bottles annually from landfills and waterways.",
+      "Learn more about our Move to Zero journey towards zero carbon and zero waste, including how we're working to design product with sustainability in mind and help protect the future of where we live and play."
+    ],
+    "details": "Additional details about the product.",
+    "imageSrc": [
+      "https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/4ab59367-da2c-4253-bc55-1d053ddb4a22/unlimited-mens-water-repellent-hooded-versatile-jacket-56pDjs.png",
+      "https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/c1e041b8-e3c3-4897-8400-d3ef79437b8b/unlimited-mens-water-repellent-hooded-versatile-jacket-56pDjs.png",
+      "https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/5f196c3a-08db-4037-8c37-dd29e12fa12e/unlimited-mens-water-repellent-hooded-versatile-jacket-56pDjs.png",
+      "https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/490bbcfa-9a33-40c6-b6f5-18f97c1442a5/unlimited-mens-water-repellent-hooded-versatile-jacket-56pDjs.png"
+    ],
+    "imageAlt": "Product Image",
+    "colors": [
+      "green",
+      "black",
+      "brown",
+      "blue"
+    ],
+    "gender": "MEN",
+    "sizes": [
+      "XS", "S", "M", "L","XL", "XXL", "XXXL"
+    ],
+    "options": ["MEN","green","black","brown","blue", "XS", "S", "M", "L","XL", "XXL", "XXXL"],
+    "type": "CLOTHING"
+
+
+  },
+  {
+    "id": 2,
+    "name": "Nike Sportswear Club Fleece",
+    "price": 48.97,
+    "description": "A closet staple, the Nike Sportswear Club Fleece Pullover Hoodie combines classic style with the soft comfort of fleece.",
+    "highlights": [
+      "Note: Material percentages may vary depending on factory. Check label for actual content.",
+      "Standard fit for a relaxed, easy feel",
+      "Ribbed hem and cuffs",
+      "Fabric: Body: 80-82% cotton/18-20% polyester. Hood lining: 100% cotton."
+    ],
+    "details": "A closet staple, the Nike Sportswear Club Fleece Pullover Hoodie combines classic style with the soft comfort of fleece.",
+    "imageSrc": [
+      "https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/cc6a1283-a849-4123-8b31-e73731ba960d/sportswear-club-fleece-pullover-hoodie-Gw4Nwq.png",
+      "https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/74dfd52a-67ad-49a2-aaa6-c7f1c1d85db6/sportswear-club-fleece-pullover-hoodie-Gw4Nwq.png",
+      "https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/209bd882-84fd-47dc-bb85-2cd78856d859/sportswear-club-fleece-pullover-hoodie-Gw4Nwq.png",
+      "https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/eda8f2e7-af1c-4fbc-9067-8ff37704ab2d/sportswear-club-fleece-pullover-hoodie-Gw4Nwq.png"
+    ],
+    "imageAlt": "Product Image",
+    "colors": [
+      "green",
+      "white",
+      "red",
+      "blue"
+    ],
+    "gender": "UNISEX",
+    "sizes": [
+      "XXS", "S", "M", "L","XL", "XXL", "XXXL"
+    ],
+    "options": ["MEN","green","white","red","blue", "XXS", "S", "M", "L","XL", "XXL", "XXXL"],
+    "type": "CLOTHING"
+
+
+  },
+  {
+    "id": 3,
+    "name": "Nike Sportswear Phoenix Fleece",
+    "price": 75,
+    "description": "Grounded in style, comfort and versatility, meet our take on luxury loungewear. Dropped shoulder seams create a relaxed look, while midweight fleece makes this V-neck top cozy enough to wear around the house yet elevated enough to wear out in the city.",
+    "highlights": [
+      "Elongated ribbing",
+      "Embroidered Swoosh logo",
+      "Body: 80% cotton/20% polyester. Rib: 97% cotton/3% spandex.",
+      "Machine wash"
+    ],
+    "details": "Grounded in style, comfort and versatility, meet our take on luxury loungewear. Dropped shoulder seams create a relaxed look, while midweight fleece makes this V-neck top cozy enough to wear around the house yet elevated enough to wear out in the city.",
+    "imageSrc": [
+      "https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/c8f6ac4c-007d-4af3-b6d0-2ae1976cb1a4/sportswear-phoenix-fleece-womens-cropped-v-neck-top-9rHq1f.png",
+      "https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/de853893-e834-4b30-8e78-0fed78a75b05/sportswear-phoenix-fleece-womens-cropped-v-neck-top-9rHq1f.png",
+      "https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/8c44cd39-9472-4e09-bb18-ca5af9b505d4/sportswear-phoenix-fleece-womens-cropped-v-neck-top-9rHq1f.png",
+      "https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/92340bbc-f6d9-4053-bf8d-db8bcd2932fe/sportswear-phoenix-fleece-womens-cropped-v-neck-top-9rHq1f.png"
+    ],
+    "imageAlt": "Product Image",
+    "colors": [
+      "green",
+      "black",
+      "orewood",
+      "mauve"
+    ],
+    "gender": "WOMEN",
+    "sizes": [
+      "XS", "M", "L","XL", "XXL"
+    ],
+    "options": ["WOMEN","green","black","orewood","mauve", "XS", "M", "L","XL", "XXL"],
+    "type": "CLOTHING"
+  },
+
+  {
+    "id": 4,
+    "name": "Nike Peak",
+    "price": 30,
+    "description": "Crafted for warmth, comfort and style, our Nike Peak beanie brings the goods for any cool weather outing. The cuffed design with an embroidered Nike Futura logo on the cuff is classic and easy to style. Feeling slouchy? Uncuff it. Going for the fisherman look? Cuff it up and let it ride a bit higher.",
+    "highlights": [
+      "Nike Peak is a mid-depth classic beanie that’s versatile enough for your everyday needs.",
+      "Soft knit yarns feel warm and snug on your head.",
+      "Cuffed design lets you wear it how you like."
+    ],
+    "details": "Crafted for warmth, comfort and style, our Nike Peak beanie brings the goods for any cool weather outing. The cuffed design with an embroidered Nike Futura logo on the cuff is classic and easy to style. Feeling slouchy? Uncuff it. Going for the fisherman look? Cuff it up and let it ride a bit higher.",
+    "imageSrc": [
+      "https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/c2357385-ddc0-47b6-8267-7a646e2d3a9e/peak-tall-cuff-futura-beanie-S5gBGl.png",
+      "https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/a897a86f-7a58-49f5-a5a6-33d9f4e9573b/peak-tall-cuff-futura-beanie-S5gBGl.png",
+      "https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/dcb056ee-d641-4777-b038-af48dfabd03f/peak-tall-cuff-futura-beanie-S5gBGl.png",
+      "https://static.nike.com/a/images/t_default/ac872926-9b8d-48d7-9d73-c1f28c6a44be/peak-tall-cuff-futura-beanie-S5gBGl.png"
+    ],
+    "imageAlt": "Product Image",
+    "colors": [
+      "green"
+    ],
+    "gender": "UNISEX",
+    "sizes": [],
+    "options": ["UNISEX","green"],
+    "type": "ACCESSORIES"
+  },
+
+  {
+    "id": 5,
+    "name": "Nike Dri-FIT ADV Rise",
+    "price": 32,
+    "description": "The structured high-depth design of the Nike Rise Cap features advanced sweat-wicking fabric that helps to keep you cool and fresh all day long. We finished it off with a flexible AeroBill and super breathable feel, so you can focus on hitting each rep and reaching the next goal." ,
+    "highlights": [
+      "Nike Dri-FIT ADV technology combines moisture-wicking fabric with advanced engineering and features to help you stay dry and comfortable.",
+      "Nike AeroBill technology combines breathability with sweat-wicking comfort to help reduce distractions.",
+      "Woven fabric is lightweight and durable.",
+      "SwooshFlex elastic closure stretches for a fit that feels just right."
+    ],
+    "details": "Additional details about the product.",
+    "imageSrc": [
+      "https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/2a38c2ce-1221-4d57-9471-22ca0f1d0ce3/dri-fit-adv-rise-structured-swooshflex-cap-BXVlFc.png",
+      "https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/6b88fc39-a8e2-4903-b9d3-a4a188c3dbb6/dri-fit-adv-rise-structured-swooshflex-cap-BXVlFc.png",
+      "https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/41f8a749-4b13-4809-8533-6e8120f29127/dri-fit-adv-rise-structured-swooshflex-cap-BXVlFc.png",
+      "https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/bddbb437-f464-446c-b983-e5afb8dc6d42/dri-fit-adv-rise-structured-swooshflex-cap-BXVlFc.png"
+    ],
+    "imageAlt": "Product Image",
+    "colors": [
+      "green"
+    ],
+    "gender": "UNISEX",
+    "sizes": [],
+    "options": ["UNISEX","green"],
+    "type": "ACCESSORIES"
+
+
+  },
+  {
+    "id": 6,
+    "name": "Nike Sportswear",
+    "price": 27,
+    "description": "A clean design that fits your style and your essentials, the Nike Sportswear Crossbody Bag features a zipper back pocket and magnetic flap close. It's made from fabric that contains a blend of at least 65% recycled fibers.",
+    "highlights": [
+      "An internal stash pocket and zipper back pocket keep your keys, cards and phone organized and stored securely.",
+      "Messenger bag-style magnetic flap closure provides quick access to your essentials.",
+      "Premium shoulder strap provides styling and fit options."
+    ],
+    "details": "Additional details about the product.",
+    "imageSrc": [
+      "https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/fb0bddb7-525f-42af-b1d6-8f4e1cd3022a/sportswear-womens-futura-365-crossbody-bag-3l-p2Wf1g.png",
+      "https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/d29042ca-4a30-4a72-b554-e71cd49bc3c7/sportswear-womens-futura-365-crossbody-bag-3l-p2Wf1g.png",
+      "https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/a45f2624-20b2-4ee0-97d0-1c85615c9aad/sportswear-womens-futura-365-crossbody-bag-3l-p2Wf1g.png",
+      "https://static.nike.com/a/images/t_PDP_144_v1/f_auto/9f740479-b9d4-4005-be14-858907e75fce/sportswear-womens-futura-365-crossbody-bag-3l-p2Wf1g.png"
+    ],
+    "imageAlt": "Product Image",
+    "colors": [
+      "green",
+      "purple",
+      "black"
+    ],
+    "gender": "WOMEN",
+    "sizes": [],
+    "options": ["WOMEN","green", "purple", "black"],
+    "type": "ACCESSORIES"
+
+
+  },
+
+  {
+    "id": 7,
+    "name": "Nike SB Force 58",
+    "price": 60.97,
+    "description": "The latest and greatest innovation to hit the streets, the Force 58 gives you the durability of a cupsole with the flexibility of vulcanized SHOES. Made from canvas and suede and finished with perforations on the toe, the whole look is infused with heritage basketball DNA." ,
+    "highlights": [
+      "Suede and canvas are the perfect pairing of durability and breathability.",
+      "Perforations and Swoosh on the toe are a nod to heritage basketball styles.",
+      "Rubber sole has a full cupsole stitch for exceptional durability.",
+      "Tri-star shapes on the sole expand and contract for better grip and boardfeel right out of the box."
+    ],
+    "details": "Additional details about the product.",
+    "imageSrc": [
+      "https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/53719920-bfb7-4f50-9513-a4446285c120/sb-force-58-skate-SHOES-Txk6xG.png",
+      "https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/4ec55b3b-4911-4118-ac08-f5dca5b3c10a/sb-force-58-skate-SHOES-Txk6xG.png",
+      "https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/991a6b36-edf9-4caa-bfe8-729d4215e3f7/sb-force-58-skate-SHOES-Txk6xG.png",
+      "https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/ace5a056-1c85-44e5-a15c-a506a60183eb/sb-force-58-skate-shoe-Txk6xG.png"
+    ],
+    "imageAlt": "Product Image",
+    "colors": [
+      "green",
+      "purple",
+      "orange",
+      "black"
+    ],
+    "gender": "UNISEX",
+    "sizes": ["XS", "M", "L", "XXL","XXXL"],
+    "options": ["UNISEX","green", "purple", "orange", "black","XS", "M", "L", "XXL","XXXL"],
+    "type": "SHOES"
+
+
+  },
+
+  {
+    "id": 8,
+    "name": "Nike Air Force 1 Mid LE",
+    "price": 83.97,
+    "description": "The Nike Air Force 1 Mid LE brings back the ’82 hardwood icon into an everyday style in all-white or all-black. The durability, feel and Air-Sole cushioning are still there in this classic style you know and love.",
+    "highlights": [
+      "Cupsole construction",
+      "Perforations on toe",
+      "Shown: Sea Glass/Melon Tint/White/Honeydew"
+    ],
+    "details": "Additional details about the product.",
+    "imageSrc": [
+      "https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/ae5cc5cf-a6bb-440a-934d-e30ea6dc94dc/air-force-1-mid-le-big-kids-SHOES-W0dKGw.png",
+      "https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/b0ec4bf8-b610-4e51-a46b-25d19b0a4f59/air-force-1-mid-le-big-kids-SHOES-W0dKGw.png",
+      "https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/6f96d08c-200a-4b91-adc3-688c5d981837/air-force-1-mid-le-big-kids-SHOES-W0dKGw.png",
+      "https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/c7c933ca-9cee-4770-81a6-29514bf64a2f/air-force-1-mid-le-big-kids-SHOES-W0dKGw.png"
+    ],
+    "imageAlt": "Product Image",
+    "colors": [
+      "green"
+    ],
+    "gender": "UNISEX",
+    "sizes": ["XXS", "L", "XXL","XXXL"],
+    "options": ["UNISEX","green","XXS", "L", "XXL","XXXL"],
+    "type": "SHOES"
+
+
+  },
+  {
+    "id": 9,
+    "name": "Jordan Hex",
+    "price": 83.97,
+    "description": "Go beyond the flip-flop in these modern slides. Featuring a molded foam footbed with a squared-off toe, it's an instant warm-weather favorite.",
+    "highlights": [
+      "Deep heel cup is molded for a stable, comfortable fit.",
+      "Raised toe bar helps provide grip as you walk.",
+      "Jordan is debossed in the heel."
+    ],
+    "details": "Additional details about the product.",
+    "imageSrc": [
+      "https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco,u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/7858b581-8e5a-4d06-b82f-3022002ed330/jordan-hex-womens-slides-6QFjPZ.png",
+      "https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco,u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/5892c820-43ed-4fdd-ae94-672a011e87e0/jordan-hex-womens-slides-6QFjPZ.png",
+      "https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco,u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/f2692c52-79f1-41e6-a76e-df33c433b700/jordan-hex-womens-slides-6QFjPZ.png",
+      "https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco,u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/6d757479-4156-4200-a949-6ab307e8160f/jordan-hex-womens-slides-6QFjPZ.png"
+    ],
+    "imageAlt": "Product Image",
+    "colors": [
+      "green"
+    ],
+    "gender": "WOMEN",
+    "sizes": ["XS","M", "L", "XL","XXL","XXXL"],
+    "options": ["UNISEX","green", "XS","M", "L", "XL","XXL","XXXL"],
+    "type": "SHOES"
+
+
+  }
+
+
+
+]
