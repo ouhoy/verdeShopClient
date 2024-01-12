@@ -149,7 +149,9 @@
                              :name="`${section.id}[]`" :value="option.value" type="checkbox" :checked="option.checked"
                              class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"/>
                       <label :for="`filter-${section.id}-${optionIdx}`"
-                             class="ml-3 text-sm text-gray-600">{{ option.label }}</label>
+                             class="ml-3 text-sm text-gray-600" style="text-transform: capitalize;">{{
+                          option.label
+                        }}</label>
                     </div>
                   </div>
                 </DisclosurePanel>
@@ -166,14 +168,14 @@
                     with that selection 🥺</p>
                   <div
                       class="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 xl:gap-x-8">
-                    <a v-for="product in filteredProducts" :key="product.id" :href="product.href" class="group">
+                    <a v-for="product in filteredProducts" :key="product.id" :href="product.id.toLocaleString()" class="group">
                       <div
                           class="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-lg bg-gray-200 xl:aspect-h-8 xl:aspect-w-7">
-                        <img :src="product.imageSrc" :alt="product.imageAlt"
+                        <img :src="product.imageSrc[0]" :alt="product.imageAlt"
                              class="h-full w-full object-cover object-center group-hover:opacity-75"/>
                       </div>
                       <h3 class="mt-4 text-sm text-gray-700">{{ product.name }}</h3>
-                      <p class="mt-1 text-lg font-medium text-gray-900">{{ product?.price }}</p>
+                      <p class="mt-1 text-lg font-medium text-gray-900">${{ product.price }}</p>
                     </a>
                   </div>
                 </div>
@@ -189,7 +191,7 @@
 </template>
 
 <script setup lang="ts">
-import {ref} from 'vue'
+import {onMounted, ref} from 'vue'
 import {
   Dialog,
   DialogPanel,
@@ -205,6 +207,10 @@ import {
 } from '@headlessui/vue'
 import {XMarkIcon} from '@heroicons/vue/24/outline'
 import {ChevronDownIcon, FunnelIcon, MinusIcon, PlusIcon, Squares2X2Icon} from '@heroicons/vue/20/solid'
+import type {ColorItem, Product} from "../../types";
+
+const products = ref<Product[]>([]);
+const filteredProducts = ref<Product[]>(products.value);
 
 const sortOptions = ref([
 
@@ -212,8 +218,9 @@ const sortOptions = ref([
   {name: 'Price: Low to High', href: '#', current: false},
   {name: 'Price: High to Low', href: '#', current: false},
 ])
+const mobileFiltersOpen = ref(false)
 
-const noProducts = ref(false)
+const noProducts = ref(false);
 const subCategories = [
   {name: 'Clothing', href: '#'},
   {name: 'Shoes', href: '#'},
@@ -251,97 +258,30 @@ const filters = ref([
       {value: 'm', label: 'M', checked: false},
       {value: 'l', label: 'L', checked: false},
       {value: 'xl', label: 'XL', checked: false},
-      {value: '2xl', label: '2XL', checked: false},
-      {value: '3xl', label: '3XL', checked: false},
+      {value: 'xxl', label: '2XL', checked: false},
+      {value: 'xxxl', label: '3XL', checked: false},
     ],
   },
 ])
 
-const mobileFiltersOpen = ref(false)
-
-const products = ref([
-  {
-    id: 1,
-    name: 'Earthen Bottle',
-    href: '#',
-    price: '$48',
-    imageSrc: 'https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-01.jpg',
-    imageAlt: 'Tall slender porcelain bottle with natural clay textured body and cork stopper.',
-    colors: ["red", "green"],
-    gender: ["unisex"],
-    options: ["red", "green", "unisex", "2l"],
-    size: ["2l"],
-    type: "clothing"
-  },
-  {
-    id: 2,
-    name: 'Nomad Tumbler',
-    href: '#',
-    price: '$35',
-    imageSrc: 'https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-02.jpg',
-    imageAlt: 'Olive drab green insulated bottle with flared screw lid and flat top.',
-    colors: ["green"],
-    gender: ["unisex", "men"],
-    size: ["2xl", "l", "m"],
-    options: ["green", "unisex", "men", "2xl", "l", "m"],
-    type: "clothing"
-  },
-  {
-    id: 3,
-    name: 'Focus Paper Refill',
-    href: '#',
-    price: '$89',
-    imageSrc: 'https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-03.jpg',
-    imageAlt: 'Person using a pen to cross a task off a productivity paper card.',
-    colors: ["blue"],
-    gender: ["men"],
-    options: ["blue", "men", "s", "l", "m"],
-    size: ["s", "l", "m"],
-    type: "clothing"
-  },
-  {
-    id: 4,
-    name: 'Machined Mechanical Pencil',
-    href: '#',
-    price: '$35',
-    imageSrc: 'https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-04.jpg',
-    imageAlt: 'Hand holding black machined steel mechanical pencil with brass tip and top.',
-    colors: ["white"],
-    gender: ["women"],
-    size: ["s", "l", "m"],
-    options: ["white", "women", "s", "l", "m"],
-    type: "clothing"
-  },
-
-])
-const filteredProducts = ref<any>(products.value);
-
-
+// Sorting Methods:
 const sortProducts = () => {
   const filtered = [...filteredProducts.value];
 
-  // Apply sort option
   const sortOption = sortOptions.value.find((option) => option.current);
 
   if (sortOption && sortOption.name === 'Newest') {
     filtered.sort((a, b) => b.id - a.id);
   } else if (sortOption && sortOption.name === 'Price: Low to High') {
-    filtered.sort((a, b) => parseFloat(a.price.slice(1)) - parseFloat(b.price.slice(1)));
+    filtered.sort((a, b) => a.price - b.price);
   } else if (sortOption && sortOption.name === 'Price: High to Low') {
-    filtered.sort((a, b) => parseFloat(b.price.slice(1)) - parseFloat(a.price.slice(1)));
+    filtered.sort((a, b) => b.price - a.price);
   }
 
 
   filteredProducts.value = filtered;
   return filtered;
 };
-
-enum Section {
-  Colors = "colors",
-  Size = "size",
-  Gender = "gender"
-
-}
 
 function handleProductTypeChange(section: string, option: string) {
 
@@ -361,11 +301,10 @@ function handleProductTypeChange(section: string, option: string) {
 
 }
 
-
 function sortProductsByType() {
 
 
-  const checked = []
+  const checked = [] as string[];
 
   // Get checked items
   filters.value.forEach(filter => {
@@ -388,7 +327,8 @@ function sortProductsByType() {
 
     // if product category has item type add to array
     checked.forEach((word) => {
-      if (product.options.includes(word)) addUniqueValueById(filteredProducts.value, product.id, product);
+      console.log(product.id, product.options)
+      if (product.options.toString().toLocaleLowerCase().includes(word.toLowerCase())) addUniqueValueById(filteredProducts.value, product.id, product);
     })
 
   })
@@ -410,7 +350,6 @@ function addUniqueValueById(array: any[], id: number, value: any) {
   }
 }
 
-
 function handleSortOptionClick(name: string) {
 
   sortOptions.value.forEach((option, index) => {
@@ -419,5 +358,31 @@ function handleSortOptionClick(name: string) {
   sortProducts();
 
 }
+
+
+// API Calling
+
+onMounted(async () => {
+  const data = await fetch("http://localhost:8080/");
+  const result = await data.json();
+  console.log(result)
+  products.value = [...result]
+  filteredProducts.value = [...result];
+  const uniqueColorsSet = new Set();
+
+  result.forEach((product: Product) => {
+    product.colors.forEach((color: string) => {
+      uniqueColorsSet.add(color);
+    });
+  });
+
+  const colors: ColorItem[] = []
+  uniqueColorsSet.forEach((color) => {
+    colors.push({value: `${color}`, label: `${color}`, checked: false})
+  })
+
+  filters.value[1].options = colors;
+  console.log(filteredProducts.value)
+})
 
 </script>
