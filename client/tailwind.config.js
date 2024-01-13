@@ -18,6 +18,11 @@ export default {
         "primary-dark-hover": "#626455",
         "primary-dark-active": "#494b3f",
         "primary-darker": "#393a31",
+        "orewood-600": "#d6d3d1",
+        "mauve-600": "#9d174d",
+        "pink-600": "#ec4899",
+        "brown-600": "#431407",
+        "black-600": "#000"
 
 
 

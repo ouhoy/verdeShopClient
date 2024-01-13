@@ -17,6 +17,13 @@ export type ColorItem = {
     checked: boolean;
 };
 
+export type ColorSelection = {
+    name: string,
+    class: string,
+    selectedClass: string
+    id: number
+}
+
 export interface Product {
     id:number,
     name: string,
