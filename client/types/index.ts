@@ -31,6 +31,7 @@ export interface Product {
     description: string,
     highlights: string[]
     details: string,
+    thumbnail: string,
     imageSrc: string[],
     imageAlt: string,
     colors: string[],

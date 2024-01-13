@@ -12,11 +12,12 @@ public record Product(
         String description,
         String[] highlights,
         String details,
+        String thumbnail,
         String[] imageSrc,
         String imageAlt,
         String[] colors,
         Gender gender,
-        Size[] sizes,
+        String[] sizes,
         String[] options,
         Type type
 

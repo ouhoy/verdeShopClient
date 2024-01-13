@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Arrays;
 import java.util.List;
 
 @Repository
@@ -38,11 +39,12 @@ public class ProductCollectionRepository {
                 rs.getString("description"),
                 ResultSetHelper.getStringArray(rs, "highlights"),
                 rs.getString("details"),
+                rs.getString("thumbnail"),
                 ResultSetHelper.getStringArray(rs, "image_src"),
                 rs.getString("image_alt"),
                 ResultSetHelper.getStringArray(rs, "colors"),
                 Gender.valueOf(rs.getString("gender")),
-                size,
+                ResultSetHelper.getStringArray(rs, "sizes"),
                 ResultSetHelper.getStringArray(rs, "options"),
                 Type.valueOf(rs.getString("type"))
         );
@@ -57,12 +59,13 @@ public class ProductCollectionRepository {
     }
 
     public void createProduct(Product product) {
-        String sql = "INSERT INTO Product (name, price, description, highlights, details, image_src, image_alt, colors, gender, sizes, options, type) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        jdbcTemplate.update(sql, product.name(), product.price(), product.description(), product.highlights(), product.details(), product.imageSrc(), product.imageAlt(), product.colors(), product.gender().toString(), product.sizes().toString(), product.options(), product.type().toString());
+        String sql = "INSERT INTO Product (name, price, description, highlights, details, thumbnail,image_src, image_alt, colors, gender, sizes, options, type) VALUES (?, ?, ?, ?, ?, ?, ?,?, ?, ?, ?, ?, ?)";
+        System.out.println(Arrays.toString(product.sizes()));
+        jdbcTemplate.update(sql, product.name(), product.price(), product.description(), product.highlights(), product.details(),  product.thumbnail(),product.imageSrc(), product.imageAlt(), product.colors(), product.gender().toString(), product.sizes(), product.options(), product.type().toString());
     }
     public void updateProduct(int id,Product product) {
-        String sql = "UPDATE Product SET name=?, price=?, description=?, highlights=?, details=?, image_src=?, image_alt=?, colors=?, gender=?, sizes=?, options=?, type=? WHERE id=?";
-        jdbcTemplate.update(sql, product.name(), product.price(), product.description(), product.highlights(), product.details(), product.imageSrc(), product.imageAlt(), product.colors(), product.gender().toString(), product.sizes().toString(), product.options(), product.type().toString(), id);
+        String sql = "UPDATE Product SET name=?, price=?, description=?, highlights=?, details=?, thumbnail=?,image_src=?, image_alt=?, colors=?, gender=?, sizes=?, options=?, type=? WHERE id=?";
+        jdbcTemplate.update(sql, product.name(), product.price(), product.description(), product.highlights(), product.details(),product.thumbnail(), product.imageSrc(), product.imageAlt(), product.colors(), product.gender().toString(),  product.sizes(), product.options(), product.type().toString(), id);
     }
 
     public void deleteProduct(int id){

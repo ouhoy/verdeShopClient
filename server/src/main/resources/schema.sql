@@ -5,6 +5,7 @@ CREATE TABLE IF NOT EXISTS Product  (
                           description TEXT,
                           highlights  VARCHAR(2000) ARRAY,
                           details     TEXT,
+                          thumbnail TEXT,
                           image_src   VARCHAR(2000) ARRAY,
                           image_alt   VARCHAR(255),
                           colors      VARCHAR(255) ARRAY,

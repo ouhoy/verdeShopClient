@@ -74,7 +74,7 @@ onMounted(async () => {
 
     colors.value.push({name: `${color}`, class: `bg-${color}-600`, selectedClass: `ring-${color}-600`, id: index})
   })
-  selectedColor.value = colors.value[3]
+  selectedColor.value = colors.value[0]
 
 })
 
