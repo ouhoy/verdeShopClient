@@ -63,8 +63,8 @@ const closeCart = () => {
                     <div class="flex items-start justify-between">
                       <DialogTitle class="text-lg font-medium text-gray-900">Shopping cart</DialogTitle>
                       <div class="ml-3 flex h-7 items-center">
-                        <button type="button" class="relative -m-2 p-2 text-gray-400 hover:text-gray-500"
-                                @click="isOpen = false">
+                        <button  type="button" class="relative -m-2 p-2 text-gray-400 hover:text-gray-500"
+                                @click="closeCart">
                           <span class="absolute -inset-0.5"/>
                           <span class="sr-only">Close panel</span>
                           <XMarkIcon class="h-6 w-6" aria-hidden="true"/>
