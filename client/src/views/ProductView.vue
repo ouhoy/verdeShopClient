@@ -25,10 +25,9 @@ const sizes = ref([
 
 const colors = ref<ColorSelection[]>([])
 
-const breadcrumbs = [
-  {id: 1, name: 'Men', href: '#'},
-  {id: 2, name: 'Clothing', href: '#'},
-]
+const breadcrumbs = ref([
+
+])
 
 const reviews = {href: '#', average: 4, totalCount: 117}
 
@@ -81,27 +80,18 @@ onMounted(async () => {
 
 watch(selectedColor, ()=>{
 
+  //Sort images based on the selected color
   const index = selectedColor.value.id;
   if (index >= 0 && index < imgBaseArray.value.length) {
-    // Use slice to split the array into two parts and rearrange them
     const leftPart = imgBaseArray.value.slice(0, index);
     const rightPart = imgBaseArray.value.slice(index);
     imgArray.value = rightPart.concat(leftPart);
   }
 
 });
-function shiftArray(arr:any, index:number) {
-  if (index >= 0 && index < arr.length) {
-    // Use slice to split the array into two parts and rearrange them
-    const leftPart = arr.slice(0, index);
-    const rightPart = arr.slice(index);
-    const shiftedArray = rightPart.concat(leftPart);
 
-    return shiftedArray;
-  } else {
-    console.error("Invalid index");
-    return arr; // Return the original array if the index is out of bounds
-  }
+function handleSubmit() {
+  console.log("Added to bag!")
 }
 
 </script>
@@ -185,7 +175,7 @@ function shiftArray(arr:any, index:number) {
             </div>
           </div>
 
-          <form class="mt-10">
+          <form class="mt-10" @submit.prevent="handleSubmit">
             <!-- Colors -->
             <div>
               <h3 class="text-sm font-medium text-gray-900">Color</h3>

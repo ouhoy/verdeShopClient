@@ -382,7 +382,6 @@ onMounted(async () => {
   })
 
   filters.value[1].options = colors;
-  console.log(filteredProducts.value)
 })
 
 </script>
