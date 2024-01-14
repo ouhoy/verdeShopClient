@@ -3,10 +3,14 @@ import {onMounted, ref, watch} from 'vue'
 import {StarIcon} from '@heroicons/vue/20/solid'
 import {RadioGroup, RadioGroupLabel, RadioGroupOption} from '@headlessui/vue'
 import {useRoute} from "vue-router";
-import type {ColorSelection, Product} from "../../types";
+import type {Breadcrumb, ColorSelection, Product} from "../../types";
+import {useCartStore} from "@/stores/cart";
 
 const route = useRoute();
 const productId = route.params.id.toString();
+
+const storeCartProducts = useCartStore();
+
 
 const product = ref<Product>()
 const imgArray = ref<any>();
@@ -25,9 +29,7 @@ const sizes = ref([
 
 const colors = ref<ColorSelection[]>([])
 
-const breadcrumbs = ref([
-
-])
+const breadcrumbs = ref<Breadcrumb[]>([])
 
 const reviews = {href: '#', average: 4, totalCount: 117}
 
@@ -57,14 +59,15 @@ onMounted(async () => {
   })
 
   // TODO: Put this in a function
-  colors.value.push({name: `black`, class: `bg-brown-600`, selectedClass: `ring-brown-600`, id:-1})
-  colors.value.push({name: `black`, class: `bg-red-600`, selectedClass: `ring-red-600`, id:-1})
-  colors.value.push({name: `black`, class: `bg-blue-600`, selectedClass: `ring-blue-600`, id:-1})
-  colors.value.push({name: `black`, class: `bg-orewood-600`, selectedClass: `ring-orewood-600`, id:-1})
-  colors.value.push({name: `black`, class: `bg-pink-600`, selectedClass: `ring-pink-600`, id:-1})
-  colors.value.push({name: `black`, class: `bg-mauve-600`, selectedClass: `ring-mauve-600`, id:-1})
-  colors.value.push({name: `black`, class: `bg-purple-600`, selectedClass: `ring-purple-600`, id:-1})
-  colors.value.push({name: `black`, class: `bg-orange-600`, selectedClass: `ring-orange-600`, id:-1})
+  colors.value.push({name: `black`, class: `bg-brown-600`, selectedClass: `ring-brown-600`, id: -1})
+  colors.value.push({name: `black`, class: `bg-red-600`, selectedClass: `ring-red-600`, id: -1})
+  colors.value.push({name: `black`, class: `bg-blue-600`, selectedClass: `ring-blue-600`, id: -1})
+  colors.value.push({name: `black`, class: `bg-orewood-600`, selectedClass: `ring-orewood-600`, id: -1})
+  colors.value.push({name: `black`, class: `bg-pink-600`, selectedClass: `ring-pink-600`, id: -1})
+  colors.value.push({name: `black`, class: `bg-mauve-600`, selectedClass: `ring-mauve-600`, id: -1})
+  colors.value.push({name: `black`, class: `bg-purple-600`, selectedClass: `ring-purple-600`, id: -1})
+  colors.value.push({name: `black`, class: `bg-orange-600`, selectedClass: `ring-orange-600`, id: -1})
+  colors.value.push({name: `black`, class: `bg-black-600`, selectedClass: `ring-black-600`, id: -1})
 
   colors.value = []
 
@@ -75,10 +78,18 @@ onMounted(async () => {
   })
   selectedColor.value = colors.value[0]
 
+
+  // Set Breadcrumbs
+  breadcrumbs.value.push({id: 0, name: `${product.value?.gender}`, href: "#"}, {
+    id: 1,
+    name: `${product.value?.type}`,
+    href: "#"
+  })
+
 })
 
 
-watch(selectedColor, ()=>{
+watch(selectedColor, () => {
 
   //Sort images based on the selected color
   const index = selectedColor.value.id;
@@ -91,7 +102,24 @@ watch(selectedColor, ()=>{
 });
 
 function handleSubmit() {
-  console.log("Added to bag!")
+
+  // TODO if no size ignore size
+
+  // TODO if one color pick main thumbnail
+
+
+  const id = +productId;
+  const name = `${product.value?.name}`;
+  const price = Number(product.value?.price);
+  const quantity= 1;
+  const imageSrc = imgArray.value[3];
+  const color = selectedColor.value.name;
+  const size = selectedSize.value.name;
+
+  storeCartProducts.addProduct({id, name, price,quantity, color, imageSrc, size})
+
+  console.log("Product has been added!!")
+  console.log(storeCartProducts.cart)
 }
 
 </script>
@@ -126,7 +154,8 @@ function handleSubmit() {
       </nav>
 
       <!-- Image gallery -->
-      <div v-if="imgArray" class="mx-auto mt-6 max-w-2xl sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:gap-x-8 lg:px-8">
+      <div v-if="imgArray"
+           class="mx-auto mt-6 max-w-2xl sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:gap-x-8 lg:px-8">
 
         <div class="aspect-h-4 aspect-w-3 hidden overflow-hidden rounded-lg lg:block">
           <img :src="imgArray[0]" :alt="product?.name" class="h-full w-full object-cover object-center"/>
@@ -180,7 +209,7 @@ function handleSubmit() {
             <div>
               <h3 class="text-sm font-medium text-gray-900">Color</h3>
 
-              <RadioGroup v-model="selectedColor"  class="mt-4">
+              <RadioGroup v-model="selectedColor" class="mt-4">
                 <RadioGroupLabel class="sr-only">Choose a color</RadioGroupLabel>
                 <div class="flex items-center space-x-3">
                   <RadioGroupOption as="template" v-for="color in colors" :key="color.name" :value="color"

@@ -52,3 +52,9 @@ export interface OrderedProduct {
     size: string
 
 }
+
+export interface Breadcrumb  {
+    id: number,
+    name:string,
+    href: string
+}
