@@ -3,6 +3,9 @@
 import {Dialog, DialogPanel, DialogTitle, TransitionChild, TransitionRoot} from "@headlessui/vue";
 import {XMarkIcon} from "@heroicons/vue/24/outline";
 import {ref} from "vue";
+import {useCartStore} from "@/stores/cart";
+
+const storeCartProducts = useCartStore();
 
 const openCart = ref(false)
 const emit = defineEmits()
@@ -32,11 +35,7 @@ const products = [
   },
   // More products...
 ]
-
-const closeCart = () => {
-  // Notify the parent component about the state change
-  emit('toggle', false);
-};
+const closeCart = () => {emit('toggle', false)};
 
 
 

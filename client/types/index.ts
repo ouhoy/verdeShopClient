@@ -41,3 +41,14 @@ export interface Product {
     type: Type
 
 }
+
+export interface OrderedProduct {
+    id:number,
+    name: string,
+    price: number,
+    quantity: number,
+    imageSrc: string,
+    color: string,
+    size: string
+
+}

@@ -110,7 +110,7 @@
                 <a href="#" class="group -m-2 flex items-center p-2">
                   <ShoppingBagIcon class="h-6 w-6 flex-shrink-0 text-primary-darker group-hover:text-gray-500"
                                    aria-hidden="true"/>
-                  <span class="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">0</span>
+                  <span class="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">{{storeCartProducts.products.length}}</span>
                   <span class="sr-only">items in cart, view bag</span>
                 </a>
               </div>
@@ -134,6 +134,11 @@ import {
 } from '@headlessui/vue'
 import {Bars3Icon, ShoppingBagIcon, XMarkIcon} from '@heroicons/vue/24/outline'
 import Cart from "@/components/Cart.vue";
+
+import {useCartStore} from "@/stores/cart";
+
+const storeCartProducts = useCartStore();
+
 
 
 const open = ref(false)
