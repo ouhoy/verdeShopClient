@@ -115,8 +115,9 @@ function handleSubmit() {
   const imageSrc = imgArray.value[3];
   const color = selectedColor.value.name;
   const size = selectedSize.value.name;
+  const href = `/product/${productId}`
 
-  storeCartProducts.addProduct({id, name, price,quantity, color, imageSrc, size})
+  storeCartProducts.addProduct({id, name, price,quantity, color, imageSrc, size, href})
 
   console.log("Product has been added!!")
   console.log(storeCartProducts.cart)

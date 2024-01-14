@@ -1,5 +1,6 @@
 import {defineStore} from 'pinia'
 import type {OrderedProduct} from "../../types";
+import {state} from "vue-tsc/out/shared";
 
 export const useCartStore = defineStore('cart', {
     state: () => ({
@@ -21,6 +22,7 @@ export const useCartStore = defineStore('cart', {
                 if (matchingProduct) {
                     // Product with the same id, color, and size found, increase quantity
                     matchingProduct.quantity += product.quantity;
+                    matchingProduct.price += product.price * product.quantity
                 } else {
                     // No matching product found, add the new product
                     this.cart.push(product);
@@ -31,14 +33,16 @@ export const useCartStore = defineStore('cart', {
             }
 
         },
-        removeProduct(id: number) {
+        removeProduct(index: number) {
 
-            this.products.forEach((existingProduct: OrderedProduct, index: number) => {
-                if (existingProduct.id === id) {
-                    this.products.splice(index, 1)
-                }
-            })
+            this.cart.splice(index, 1)
 
+        }
+    }
+    ,
+    getters: {
+        getTotalPrice:(state)=> {
+            return state.cart.reduce((total, product) => total + product.price, 0);
         }
     }
 

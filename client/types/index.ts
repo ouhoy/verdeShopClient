@@ -47,6 +47,7 @@ export interface OrderedProduct {
     name: string,
     price: number,
     quantity: number,
+    href: string,
     imageSrc: string,
     color: string,
     size: string

@@ -7,6 +7,8 @@ import {useCartStore} from "@/stores/cart";
 
 const storeCartProducts = useCartStore();
 
+
+
 const openCart = ref(false)
 const emit = defineEmits()
 const {isOpen}= defineProps<{isOpen:boolean}>()
@@ -74,9 +76,10 @@ const closeCart = () => {emit('toggle', false)};
                     <div class="mt-8">
                       <div class="flow-root">
                         <ul role="list" class="-my-6 divide-y divide-gray-200">
-                          <li v-for="product in products" :key="product.id" class="flex py-6">
+                          <p v-if="storeCartProducts.cart.length === 0" class="font-medium text-sm text-gray-950">Your cart is empty please buy from us 🥺.</p>
+                          <li v-for="product in storeCartProducts.cart" :key="product.id" class="flex py-6">
                             <div class="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
-                              <img :src="product.imageSrc" :alt="product.imageAlt"
+                              <img :src="product.imageSrc" :alt="product.name"
                                    class="h-full w-full object-cover object-center"/>
                             </div>
 
@@ -86,9 +89,9 @@ const closeCart = () => {emit('toggle', false)};
                                   <h3>
                                     <a :href="product.href">{{ product.name }}</a>
                                   </h3>
-                                  <p class="ml-4">{{ product.price }}</p>
+                                  <p class="ml-4">${{ product.price }}</p>
                                 </div>
-                                <p class="mt-1 text-sm text-gray-500">{{ product.color }}</p>
+                                <p class="mt-1 text-sm text-gray-500" style="text-transform: capitalize;">{{ product.color }}, {{product.size}}</p>
                               </div>
                               <div class="flex flex-1 items-end justify-between text-sm">
                                 <p class="text-gray-500">Qty {{ product.quantity }}</p>
@@ -106,10 +109,10 @@ const closeCart = () => {emit('toggle', false)};
                     </div>
                   </div>
 
-                  <div class="border-t border-gray-200 px-4 py-6 sm:px-6">
+                  <div v-if="storeCartProducts.cart.length > 0" class="border-t border-gray-200 px-4 py-6 sm:px-6">
                     <div class="flex justify-between text-base font-medium text-gray-900">
                       <p>Subtotal</p>
-                      <p>$262.00</p>
+                      <p>${{storeCartProducts.getTotalPrice}}</p>
                     </div>
                     <p class="mt-0.5 text-sm text-gray-500">Shipping and taxes calculated at checkout.</p>
                     <div class="mt-6">
