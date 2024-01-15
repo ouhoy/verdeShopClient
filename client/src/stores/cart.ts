@@ -33,15 +33,27 @@ export const useCartStore = defineStore('cart', {
             }
 
         },
-        removeProduct(index: number) {
+        removeProduct(productToRemove: OrderedProduct) {
 
-            this.cart.splice(index, 1)
+
+            this.cart.forEach((product, index) => {
+
+                const sameId = productToRemove.id === product.id;
+                const sameColor = productToRemove.color === product.color;
+                const sameSize = productToRemove.size === product.size;
+                const sameQuantity = productToRemove.quantity === product.quantity;
+
+                if (sameId && sameColor && sameSize && sameQuantity) {
+                    this.cart.splice(index, 1)
+
+                }
+            })
 
         }
     }
     ,
     getters: {
-        getTotalPrice:(state)=> {
+        getTotalPrice: (state) => {
             return state.cart.reduce((total, product) => total + product.price, 0);
         }
     }

@@ -4,6 +4,7 @@ import {Dialog, DialogPanel, DialogTitle, TransitionChild, TransitionRoot} from 
 import {XMarkIcon} from "@heroicons/vue/24/outline";
 import {ref} from "vue";
 import {useCartStore} from "@/stores/cart";
+import type {OrderedProduct} from "../../types";
 
 const storeCartProducts = useCartStore();
 
@@ -13,33 +14,13 @@ const openCart = ref(false)
 const emit = defineEmits()
 const {isOpen}= defineProps<{isOpen:boolean}>()
 
-const products = [
-  {
-    id: 1,
-    name: 'Throwback Hip Bag',
-    href: '#',
-    color: 'Salmon',
-    price: '$90.00',
-    quantity: 1,
-    imageSrc: 'https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-01.jpg',
-    imageAlt: 'Salmon orange fabric pouch with match zipper, gray zipper pull, and adjustable hip belt.',
-  },
-  {
-    id: 2,
-    name: 'Medium Stuff Satchel',
-    href: '#',
-    color: 'Blue',
-    price: '$32.00',
-    quantity: 1,
-    imageSrc: 'https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-02.jpg',
-    imageAlt:
-        'Front of satchel with blue canvas body, black straps and handle, drawstring top, and front zipper pouch.',
-  },
-  // More products...
-]
 const closeCart = () => {emit('toggle', false)};
 
+function handleRemove(product: OrderedProduct){
 
+  storeCartProducts.removeProduct(product);
+
+}
 
 </script>
 
@@ -97,7 +78,7 @@ const closeCart = () => {emit('toggle', false)};
                                 <p class="text-gray-500">Qty {{ product.quantity }}</p>
 
                                 <div class="flex">
-                                  <button type="button" class="font-medium text-indigo-600 hover:text-indigo-500">
+                                  <button @click="handleRemove(product)" type="button" class="font-medium text-indigo-600 hover:text-indigo-500">
                                     Remove
                                   </button>
                                 </div>

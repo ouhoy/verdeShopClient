@@ -1,3 +1,36 @@
+<script setup>
+
+import {useCartStore} from "@/stores/cart.ts";
+
+const products = [
+  {
+    id: 1,
+    name: 'Throwback Hip Bag',
+    href: '#',
+    color: 'Salmon',
+    price: '$90.00',
+    quantity: 1,
+    imageSrc: 'https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-01.jpg',
+    imageAlt: 'Salmon orange fabric pouch with match zipper, gray zipper pull, and adjustable hip belt.',
+  },
+  {
+    id: 2,
+    name: 'Medium Stuff Satchel',
+    href: '#',
+    color: 'Blue',
+    price: '$32.00',
+    quantity: 1,
+    imageSrc: 'https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-02.jpg',
+    imageAlt:
+        'Front of satchel with blue canvas body, black straps and handle, drawstring top, and front zipper pouch.',
+  },
+  // More products...
+]
+const storeCartProducts = useCartStore();
+
+
+</script>
+
 <template>
   <main class="mt-20 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex gap-20">
     <form>
@@ -131,9 +164,9 @@
           <div class="mt-8">
             <div class="flow-root">
               <ul role="list" class="-my-6 divide-y divide-gray-200">
-                <li v-for="product in products" :key="product.id" class="flex py-6">
+                <li v-for="product in storeCartProducts.cart" :key="product.id" class="flex py-6">
                   <div class="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
-                    <img :src="product.imageSrc" :alt="product.imageAlt"
+                    <img :src="product.imageSrc" :alt="product.name"
                          class="h-full w-full object-cover object-center"/>
                   </div>
 
@@ -167,7 +200,7 @@
 
           <div class="flex justify-between text-base font-sm text-gray-900">
             <p>Subtotal</p>
-            <p class="font-medium">$122.00</p>
+            <p class="font-medium">${{storeCartProducts.getTotalPrice}}</p>
           </div>
 
           <div class="flex mt-5 justify-between text-base font-sm text-gray-900">
@@ -202,31 +235,3 @@
   </main>
 </template>
 
-<script setup>
-const products = [
-  {
-    id: 1,
-    name: 'Throwback Hip Bag',
-    href: '#',
-    color: 'Salmon',
-    price: '$90.00',
-    quantity: 1,
-    imageSrc: 'https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-01.jpg',
-    imageAlt: 'Salmon orange fabric pouch with match zipper, gray zipper pull, and adjustable hip belt.',
-  },
-  {
-    id: 2,
-    name: 'Medium Stuff Satchel',
-    href: '#',
-    color: 'Blue',
-    price: '$32.00',
-    quantity: 1,
-    imageSrc: 'https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-02.jpg',
-    imageAlt:
-        'Front of satchel with blue canvas body, black straps and handle, drawstring top, and front zipper pouch.',
-  },
-  // More products...
-]
-
-
-</script>

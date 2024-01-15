@@ -80,9 +80,9 @@ onMounted(async () => {
 
 
   // Set Breadcrumbs
-  breadcrumbs.value.push({id: 0, name: `${product.value?.gender}`, href: "#"}, {
+  breadcrumbs.value.push({id: 0, name: `${product.value?.gender.toLowerCase()}`, href: "#"}, {
     id: 1,
-    name: `${product.value?.type}`,
+    name: `${product.value?.type.toLowerCase()}`,
     href: "#"
   })
 
@@ -140,7 +140,7 @@ function handleSubmit() {
         <ol role="list" class="mx-auto flex max-w-2xl items-center space-x-2 px-4 sm:px-6 lg:max-w-7xl lg:px-8">
           <li v-for="breadcrumb in breadcrumbs" :key="breadcrumb.id">
             <div class="flex items-center">
-              <a :href="breadcrumb.href" class="mr-2 text-sm font-medium text-gray-900">{{ breadcrumb.name }}</a>
+              <a :href="breadcrumb.href"  class="capitalize mr-2 text-sm font-medium text-gray-900">{{ breadcrumb.name }}</a>
               <svg width="16" height="20" viewBox="0 0 16 20" fill="currentColor" aria-hidden="true"
                    class="h-5 w-4 text-gray-300">
                 <path d="M5.697 4.34L8.98 16.532h1.327L7.025 4.341H5.697z"/>
@@ -149,7 +149,7 @@ function handleSubmit() {
           </li>
           <li class="text-sm">
             <a :href="product?.name" aria-current="page"
-               class="font-medium text-gray-500 hover:text-gray-600">{{ product?.name }}</a>
+               class="capitalize font-medium text-gray-500 hover:text-gray-600">{{ product?.name }}</a>
           </li>
         </ol>
       </nav>
