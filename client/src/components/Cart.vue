@@ -68,7 +68,7 @@ function handleRemove(product: OrderedProduct){
                               <div>
                                 <div class="flex justify-between text-base font-medium text-gray-900">
                                   <h3>
-                                    <a :href="product.href">{{ product.name }}</a>
+                                    <router-link :to="{name: 'product', params: {id: product.id}}" >{{ product.name }}</router-link>
                                   </h3>
                                   <p class="ml-4">${{ product.price }}</p>
                                 </div>
@@ -97,8 +97,8 @@ function handleRemove(product: OrderedProduct){
                     </div>
                     <p class="mt-0.5 text-sm text-gray-500">Shipping and taxes calculated at checkout.</p>
                     <div class="mt-6">
-                      <a href="#"
-                         class="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700">Checkout</a>
+                      <router-link @click="openCart = false" :to="{name: 'checkout'}"
+                         class="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700">Checkout</router-link>
                     </div>
                     <div class="mt-6 flex justify-center text-center text-sm text-gray-500">
                       <p>

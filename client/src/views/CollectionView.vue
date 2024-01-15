@@ -327,7 +327,6 @@ function sortProductsByType() {
 
     // if product category has item type add to array
     checked.forEach((word) => {
-      console.log(product.id, product.options)
       if (product.options.toString().toLocaleLowerCase().includes(word.toLowerCase())) addUniqueValueById(filteredProducts.value, product.id, product);
     })
 
