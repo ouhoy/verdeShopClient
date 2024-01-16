@@ -1,2 +1,4 @@
-package com.dahmou.verdeShop.controller;public class UserController {
+package com.dahmou.verdeShop.controller;
+
+public class UserController {
 }

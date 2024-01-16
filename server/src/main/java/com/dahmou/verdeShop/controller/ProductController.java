@@ -9,7 +9,7 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.List;
 
 @RestController
-@RequestMapping("/")
+@RequestMapping("/v1/products/")
 @CrossOrigin
 public class ProductController {
 
