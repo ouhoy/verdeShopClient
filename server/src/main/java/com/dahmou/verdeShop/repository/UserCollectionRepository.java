@@ -56,8 +56,8 @@ public class UserCollectionRepository {
     }
 
     public void updateUser(int id, User user) {
-        String sql = "UPDATE Users SET (firstname=?, lastname=?,email=?, userType=? WHERE id=?)";
-        jdbcTemplate.update(sql, user.firstName(), user.lastName(), user.email(), user.userType().toString());
+        String sql = "UPDATE Users SET firstname=?, lastname=?,email=?, userType=? WHERE id=?";
+        jdbcTemplate.update(sql, user.firstName(), user.lastName(), user.email(), user.userType().toString(), id);
 
     }
 
