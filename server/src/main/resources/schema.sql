@@ -17,3 +17,12 @@ CREATE TABLE IF NOT EXISTS Product (
                                        type        VARCHAR(255)
 );
 
+CREATE TABLE IF NOT EXISTS Users (
+
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    firstname TEXT,
+    lastname TEXT,
+    email TEXT UNIQUE,
+    userType TEXT
+
+)

@@ -60,7 +60,6 @@ public class ProductCollectionRepository {
 
     public void createProduct(Product product) {
         String sql = "INSERT INTO Product (name, price, description, highlights, details, thumbnail,image_src, image_alt, colors, gender, sizes, options, type) VALUES (?, ?, ?, ?, ?, ?, ?,?, ?, ?, ?, ?, ?)";
-        System.out.println(Arrays.toString(product.sizes()));
         jdbcTemplate.update(sql, product.name(), product.price(), product.description(), product.highlights(), product.details(),  product.thumbnail(),product.imageSrc(), product.imageAlt(), product.colors(), product.gender().toString(), product.sizes(), product.options(), product.type().toString());
     }
     public void updateProduct(int id,Product product) {
