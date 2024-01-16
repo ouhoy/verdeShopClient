@@ -1,6 +1,7 @@
 import {defineStore} from 'pinia'
 import type {OrderedProduct} from "../../types";
 import {state} from "vue-tsc/out/shared";
+import Cookies from 'js-cookie';
 
 export const useCartStore = defineStore('cart', {
     state: () => ({
@@ -31,7 +32,7 @@ export const useCartStore = defineStore('cart', {
                 // Product with the same id doesn't exist at all, add it
                 this.cart.push(product);
             }
-
+            this.saveCartToCookie();
         },
         removeProduct(productToRemove: OrderedProduct) {
 
@@ -49,13 +50,26 @@ export const useCartStore = defineStore('cart', {
                 }
             })
 
-        }
+            this.saveCartToCookie();
+
+
+        },
+        saveCartToCookie() {
+            Cookies.set('cart', JSON.stringify(this.cart), { expires: 7 }); // Adjust the expiry as needed
+        },
+        loadCartFromCookie() {
+            const cartData = Cookies.get('cart');
+            if (cartData) {
+                this.cart = JSON.parse(cartData);
+            }
+        },
     }
     ,
     getters: {
         getTotalPrice: (state) => {
             return state.cart.reduce((total, product) => total + product.price, 0);
         }
-    }
+    },
+    
 
 })

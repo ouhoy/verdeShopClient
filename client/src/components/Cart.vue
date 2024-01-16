@@ -2,13 +2,15 @@
 
 import {Dialog, DialogPanel, DialogTitle, TransitionChild, TransitionRoot} from "@headlessui/vue";
 import {XMarkIcon} from "@heroicons/vue/24/outline";
-import {ref} from "vue";
+import {onMounted, ref} from "vue";
 import {useCartStore} from "@/stores/cart";
 import type {OrderedProduct} from "../../types";
 
 const storeCartProducts = useCartStore();
 
-
+onMounted(()=>{
+  storeCartProducts.loadCartFromCookie();
+})
 
 const openCart = ref(false)
 const emit = defineEmits()

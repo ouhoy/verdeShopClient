@@ -1,5 +1,26 @@
 import {createRouter, createWebHistory} from 'vue-router'
 import HomeView from '../views/HomeView.vue'
+import {auth} from "@/firebase/config";
+
+// @ts-ignore
+const requireAuth = (to, from, next) => {
+    let user = auth.currentUser
+    if (!user) {
+        next({name: 'login'})
+    } else {
+        next()
+    }
+}
+
+// @ts-ignore
+const userAuth = (to, from, next) => {
+    let user = auth.currentUser
+    if (user) {
+        next({name: 'home'})
+    } else {
+        next()
+    }
+}
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -25,15 +46,19 @@ const router = createRouter({
             name: 'collection',
             component: () => import('../views/CollectionView.vue')
         },
-         {
+        {
             path: '/login',
             name: 'login',
-            component: () => import('../views/auth/LoginView.vue')
+            component: () => import('../views/auth/LoginView.vue'),
+            beforeEnter: userAuth,
+
         },
         {
             path: '/signup',
             name: 'signup',
-            component: () => import('../views/auth/SignupView.vue')
+            component: () => import('../views/auth/SignupView.vue'),
+            beforeEnter: userAuth,
+
         }
         ,
         {
@@ -47,7 +72,9 @@ const router = createRouter({
         {
             path: '/checkout',
             name: 'checkout',
-            component: () => import('../views/CheckoutView.vue')
+            component: () => import('../views/CheckoutView.vue'),
+            beforeEnter: userAuth,
+
         }
     ]
 })

@@ -38,7 +38,7 @@ const selectedSize = ref(sizes.value[0])
 
 onMounted(async () => {
 
-  const data = await fetch(`http://localhost:8080/${productId}`);
+  const data = await fetch(`http://localhost:8080/v1/products/${productId}`);
   const result = await data.json();
 
   product.value = result;

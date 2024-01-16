@@ -362,7 +362,7 @@ function handleSortOptionClick(name: string) {
 // API Calling
 
 onMounted(async () => {
-  const data = await fetch("http://localhost:8080/");
+  const data = await fetch("http://localhost:8080/v1/products/");
   const result = await data.json();
   console.log(result)
   products.value = [...result]
