@@ -96,8 +96,8 @@ function handleRemove(product: OrderedProduct){
                       <p>${{storeCartProducts.getTotalPrice}}</p>
                     </div>
                     <p class="mt-0.5 text-sm text-gray-500">Shipping and taxes calculated at checkout.</p>
-                    <div class="mt-6">
-                      <router-link @click="openCart = false" :to="{name: 'checkout'}"
+                    <div   class="mt-6">
+                      <router-link @click="closeCart" :to="{name: 'checkout'}"
                          class="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700">Checkout</router-link>
                     </div>
                     <div class="mt-6 flex justify-center text-center text-sm text-gray-500">
