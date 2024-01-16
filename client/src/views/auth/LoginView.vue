@@ -1,11 +1,10 @@
 <script setup lang="ts">
 
-import FormInput from "@/components/form/FormInput.vue";
 import {ref} from "vue";
+import FormInput from "@/components/form/FormInput.vue";
 import WarningIcon from "@/assets/icons/WarningIcon.vue";
 
-document.querySelector("html")?.classList.add("h-full", "bg-white")
-document.body.classList.add("h-full")
+
 
 const errors = ref({email: "", password:""})
 const email = ref("")
@@ -24,7 +23,7 @@ const password = ref("");
     </div>
 
     <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-      <form class="space-y-6" action="#" method="POST">
+      <form class="space-y-6" >
         <FormInput :model-value="email" label="Email" placeholder="" type="email" :error="errors.email"/>
 
         <div>
@@ -45,11 +44,13 @@ const password = ref("");
           <button type="submit" class="flex w-full justify-center rounded-md bg-primary-darker px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-primary-dark-hover focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-dark">Sign in</button>
         </div>
       </form>
+
       <p class="mt-10 text-center text-sm text-gray-500">
         Not a member?
         {{ ' ' }}
-        <a href="#" class="font-semibold leading-6  text-primary-dark-active hover:text-primary-dark-hover">Creat an account</a>
+        <router-link :to="{name: 'signup'}"  class="font-semibold leading-6  text-primary-dark-active hover:text-primary-dark-hover">Creat an account</router-link>
       </p>
+
     </div>
   </div>
 </template>
