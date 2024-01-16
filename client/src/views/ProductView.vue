@@ -59,19 +59,20 @@ onMounted(async () => {
   })
 
   // TODO: Put this in a function
-  colors.value.push({name: `black`, class: `bg-brown-600`, selectedClass: `ring-brown-600`, id: -1})
-  colors.value.push({name: `black`, class: `bg-red-600`, selectedClass: `ring-red-600`, id: -1})
-  colors.value.push({name: `black`, class: `bg-blue-600`, selectedClass: `ring-blue-600`, id: -1})
-  colors.value.push({name: `black`, class: `bg-orewood-600`, selectedClass: `ring-orewood-600`, id: -1})
-  colors.value.push({name: `black`, class: `bg-pink-600`, selectedClass: `ring-pink-600`, id: -1})
-  colors.value.push({name: `black`, class: `bg-mauve-600`, selectedClass: `ring-mauve-600`, id: -1})
-  colors.value.push({name: `black`, class: `bg-purple-600`, selectedClass: `ring-purple-600`, id: -1})
-  colors.value.push({name: `black`, class: `bg-orange-600`, selectedClass: `ring-orange-600`, id: -1})
-  colors.value.push({name: `black`, class: `bg-black-600`, selectedClass: `ring-black-600`, id: -1})
+  colors.value.push({name: `black`, class: `bg-brown-600`, selectedClass: `ring-brown-600`, id: 1})
+  colors.value.push({name: `black`, class: `bg-red-600`, selectedClass: `ring-red-600`, id: 1})
+  colors.value.push({name: `black`, class: `bg-blue-600`, selectedClass: `ring-blue-600`, id: 1})
+  colors.value.push({name: `black`, class: `bg-orewood-600`, selectedClass: `ring-orewood-600`, id: 1})
+  colors.value.push({name: `black`, class: `bg-pink-600`, selectedClass: `ring-pink-600`, id: 1})
+  colors.value.push({name: `black`, class: `bg-mauve-600`, selectedClass: `ring-mauve-600`, id: 1})
+  colors.value.push({name: `black`, class: `bg-purple-600`, selectedClass: `ring-purple-600`, id: 1})
+  colors.value.push({name: `black`, class: `bg-orange-600`, selectedClass: `ring-orange-600`, id: 1})
+  colors.value.push({name: `black`, class: `bg-black-600`, selectedClass: `ring-black-600`, id: 1})
+
 
   colors.value = []
 
-
+  // @ts-ignore
   result.colors.forEach((color: ColorSelection, index: number) => {
 
     colors.value.push({name: `${color}`, class: `bg-${color}-600`, selectedClass: `ring-${color}-600`, id: index})

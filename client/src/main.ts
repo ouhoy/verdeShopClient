@@ -1,15 +1,35 @@
-import './assets/main.css'
+// import './assets/main.css'
+//
+// import { createApp } from 'vue'
+// import App from './App.vue'
+// import router from './router'
+// import { createPinia } from 'pinia'
+//
+//
+// const app = createApp(App)
+// const pinia = createPinia()
+//
+// app.use(pinia)
+// app.use(router)
+//
+// app.mount('#app')
 
-import { createApp } from 'vue'
-import App from './App.vue'
-import router from './router'
-import { createPinia } from 'pinia'
+import './assets/main.css';
 
+import { createApp } from 'vue';
+import App from './App.vue';
+import { auth } from '@/firebase/config';
+import { onAuthStateChanged } from 'firebase/auth';
+import router from './router';
+import { createPinia } from 'pinia';
 
-const app = createApp(App)
-const pinia = createPinia()
+let app;
 
-app.use(pinia)
-app.use(router)
+const pinia = createPinia();
 
-app.mount('#app')
+onAuthStateChanged(auth, () => {
+    if (!app) {
+        // Ensure Pinia store is created before creating the app
+        app = createApp(App).use(pinia).use(router).mount('#app');
+    }
+});

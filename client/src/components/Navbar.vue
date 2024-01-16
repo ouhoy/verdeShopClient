@@ -100,9 +100,14 @@
             <div class="ml-auto flex items-center">
               <div class="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
 
-<!--                <router-link :to="{name: 'signup'}" class="text-sm font-medium text-gray-700 hover:text-gray-800">-->
-<!--                  Track orders-->
-<!--                </router-link>-->
+                <router-link :to="{name: 'login'}" class="text-sm font-medium text-gray-700 hover:text-gray-800">
+                  Sign in
+                </router-link>
+                <span class="h-6 w-px bg-gray-200" aria-hidden="true" />
+
+                <router-link :to="{name: 'signup'}" class="text-sm font-medium text-gray-700 hover:text-gray-800">
+                  Create Account
+                </router-link>
               </div>
 
               <!-- Cart -->
@@ -137,8 +142,11 @@ import Cart from "@/components/Cart.vue";
 
 import {useCartStore} from "@/stores/cart";
 
-const storeCartProducts = useCartStore();
+import {auth} from "@/firebase/config";
 
+console.log("Current User: ",auth.currentUser)
+
+const storeCartProducts = useCartStore();
 
 
 const open = ref(false)

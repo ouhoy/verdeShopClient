@@ -3,12 +3,20 @@
 import FormInput from "@/components/form/FormInput.vue";
 import {reactive, ref} from "vue";
 import {validateName} from "@/composables/useStringValidaitons";
+import axios from "axios";
+import useSignup from "@/composables/auth/useSignup";
+import {useRouter} from "vue-router";
 
 const errors = reactive({email: "", password: "", firstname: "", lastname: ""})
 const email = ref("")
 const firstName = ref("")
 const lastName = ref("")
 const password = ref("");
+
+const router = useRouter()
+
+
+const {errorMessage, isPending, signup} = useSignup();
 
 function handleSubmit() {
 
@@ -24,8 +32,30 @@ function handleSubmit() {
 
   (password.value.length < 6) ? (errors.password = "Password should be more than 6 characters.") : (errors.password = "")
 
+  console.log(password.value)
+
   if (!errors.password && !errors.email && !errors.firstname && !errors.lastname) {
 
+    const createdUser = {
+      firstName: firstName.value,
+      lastName: lastName.value,
+      email: email.value,
+      // TODO: This should be handled in the backend
+      userType: "SHOPPER"
+    }
+
+
+    axios.post("http://localhost:8080/v1/users/", createdUser).then(async () => {
+
+      isPending.value = true;
+
+      await signup(firstName.value, lastName.value, email.value, password.value)
+      await router.push('/')
+
+    }).catch(error => {
+      isPending.value = false;
+      console.error('Error sending data to the backend:', error);
+    });
   }
 }
 
@@ -47,16 +77,16 @@ function handleSubmit() {
       <form @submit.prevent="handleSubmit" class="space-y-6">
 
         <div class="flex gap-3">
-          <FormInput :model-value="firstName" label="First name" placeholder="" type="text" :error="errors.firstname"/>
-          <FormInput :model-value="lastName" label="Last name" placeholder="" type="text" :error="errors.lastname"/>
+          <FormInput v-model="firstName" label="First name" placeholder="" type="text" :error="errors.firstname"/>
+          <FormInput v-model="lastName" label="Last name" placeholder="" type="text" :error="errors.lastname"/>
         </div>
-        <FormInput :model-value="email" label="Email" placeholder="" type="email" :error="errors.email"/>
-        <FormInput :model-value="password" label="Password" placeholder="" type="password" :error="errors.password"/>
+        <FormInput v-model="email" label="Email" placeholder="" type="email" :error="errors.email"/>
+        <FormInput v-model="password" label="Password" placeholder="" type="password" :error="errors.password"/>
 
         <div>
           <button type="submit"
                   class="flex w-full justify-center rounded-md bg-primary-darker px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-primary-dark-hover focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-dark">
-            Sign up
+            {{isPending? 'Signing Up': 'Sign Up'}}
           </button>
         </div>
       </form>

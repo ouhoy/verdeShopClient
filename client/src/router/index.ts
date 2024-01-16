@@ -51,6 +51,9 @@ const router = createRouter({
             name: 'login',
             component: () => import('../views/auth/LoginView.vue'),
             beforeEnter: userAuth,
+            meta: {
+                hideNavbar: true,
+            }
 
         },
         {
@@ -58,6 +61,9 @@ const router = createRouter({
             name: 'signup',
             component: () => import('../views/auth/SignupView.vue'),
             beforeEnter: userAuth,
+            meta: {
+                hideNavbar: true,
+            }
 
         }
         ,
@@ -73,7 +79,7 @@ const router = createRouter({
             path: '/checkout',
             name: 'checkout',
             component: () => import('../views/CheckoutView.vue'),
-            beforeEnter: userAuth,
+            beforeEnter: requireAuth,
 
         }
     ]

@@ -1,15 +1,40 @@
 <script setup lang="ts">
 
-import {ref} from "vue";
+import {reactive, ref} from "vue";
 import FormInput from "@/components/form/FormInput.vue";
 import WarningIcon from "@/assets/icons/WarningIcon.vue";
+import useLogin from "@/composables/auth/useLogin";
+import {useRouter} from "vue-router";
 
 
-
-const errors = ref({email: "", password:""})
+const {isPending, errorMessage, login} = useLogin();
+const errors = reactive({email: "", password:""})
 const email = ref("")
 const password = ref("");
 
+const router = useRouter()
+
+async function handleSubmit() {
+  errorMessage.value = "";
+  errors.email = "";
+  errors.password = "";
+
+  if(!email.value) {
+    errors.email = "Email is required."
+  }
+  if(!password.value) {
+    errors.password =  "Password is required."
+  }
+
+  if(!errors.email && !errors.password) {
+    await login(email.value, password.value);
+
+    if (!errorMessage.value) await router.push("/");
+
+
+  }
+
+}
 
 </script>
 
@@ -23,8 +48,8 @@ const password = ref("");
     </div>
 
     <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-      <form class="space-y-6" >
-        <FormInput :model-value="email" label="Email" placeholder="" type="email" :error="errors.email"/>
+      <form class="space-y-6" @submit.prevent="handleSubmit" >
+        <FormInput v-model="email" label="Email" placeholder="" type="email" :error="errors.email"/>
 
         <div>
           <div class="flex items-center justify-between">
@@ -35,13 +60,15 @@ const password = ref("");
           </div>
           <div class="mt-2">
             <input v-model="password" id="password" name="password" type="password" autocomplete="current-password" required class="outline-0 block w-full rounded-md border-0 pl-2 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary-darker sm:text-sm sm:leading-6" />
-            <p v-if="errors.password" class="mt-2 flex justify-start gap-1 items-center text-sm text-red-600 dark:text-red-500"><WarningIcon/> <span>{{errors.password}}</span></p>
+            <p v-if="errors.password" class="mt-2 flex justify-start gap-1 items-center text-sm text-red-600 dark:text-red-500"><span>{{errors.password}}</span></p>
 
           </div>
         </div>
 
         <div>
-          <button type="submit" class="flex w-full justify-center rounded-md bg-primary-darker px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-primary-dark-hover focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-dark">Sign in</button>
+          <p v-if="errorMessage" class="mb-2 flex justify-start gap-1 items-center text-sm text-red-600 dark:text-red-500">{{errorMessage}}</p>
+          <button type="submit" class="flex w-full justify-center rounded-md bg-primary-darker px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-primary-dark-hover focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-dark">
+            {{ isPending? 'Signing in...':'Sign in' }}</button>
         </div>
       </form>
 
