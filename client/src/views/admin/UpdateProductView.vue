@@ -1,18 +1,21 @@
 <script setup lang="ts">
 
-import {reactive, ref, watch} from "vue";
-import {RadioGroup, RadioGroupLabel, RadioGroupOption} from "@headlessui/vue";
+import {onMounted, reactive, ref} from "vue";
 import {AvailableColor} from "../../../types";
 import {availableColors, sizes} from "@/availableStockData/availableStock";
 import MainButton from "@/components/buttons/MainButton.vue";
 import axios from "axios";
 import LoadingIcon from "@/assets/icons/LoadingIcon.vue";
+import {useRoute} from "vue-router";
 
-const errors = reactive({title: "", price:"", description: "", highlights: "", thumbnail: "", images:"", colors:""})
+const route = useRoute();
+const PRODUCT_ID = route.params.id;
+
+const errors = reactive({title: "", price: "", description: "", highlights: "", thumbnail: "", images: "", colors: ""})
 
 const title = ref("");
 const price = ref(0);
-const description= ref("");
+const description = ref("");
 const highlights = ref("");
 const thumbnail = ref("");
 const images = ref("")
@@ -59,13 +62,13 @@ function handleSubmit() {
   const selectedColors = []
   const selectedSizes = []
 
-  colors.value.forEach((color)=>{
-    if(color.selected) selectedColors.push(color.name)
+  colors.value.forEach((color) => {
+    if (color.selected) selectedColors.push(color.name)
 
   })
 
-  sizes.value.forEach((size)=>{
-    if(size.selected) selectedSizes.push(size.name)
+  sizes.value.forEach((size) => {
+    if (size.selected) selectedSizes.push(size.name)
   })
 
   const product = {
@@ -73,9 +76,9 @@ function handleSubmit() {
     price: price.value,
     description: description.value,
     highlights: highlights.value.split("\n"),
-    details:"N/A",
+    details: "N/A",
     thumbnail: thumbnail.value,
-    imageSrc: [imageSrc[2],imageSrc[3], imageSrc[1], imageSrc[0]],
+    imageSrc: [imageSrc[2], imageSrc[3], imageSrc[1], imageSrc[0]],
     imageAlt: title.value,
     colors: selectedColors,
     gender: selectedGender.value.toUpperCase(),
@@ -87,11 +90,11 @@ function handleSubmit() {
 
   console.log(selectedColors)
   console.log(product.colors)
-  axios.post("http://localhost:8080/v1/products/", product).then(result=>{
+  axios.post("http://localhost:8080/v1/products/", product).then(result => {
     console.log("OK");
     isPending.value = false;
 
-  }).catch(error=>{
+  }).catch(error => {
     console.log("Something went wrong")
     console.log(error)
     isPending.value = false;
@@ -100,6 +103,40 @@ function handleSubmit() {
 
 }
 
+
+onMounted(async () => {
+  const data = await fetch(`http://localhost:8080/v1/products/${PRODUCT_ID}`);
+  const result = await data.json() as Product;
+
+  title.value = result.name;
+  price.value = result.price;
+  description.value = result.description;
+  highlights.value = result.highlights.join('\n');
+  selectedGender.value = result.gender.toLowerCase();
+  selectedProductType.value = result.type.toLowerCase();
+  thumbnail.value = result.thumbnail;
+  images.value = result.imageSrc.join('\n');
+
+
+
+  // Display selected colors
+  colors.value.forEach((color, index)=> {
+    if(result.colors.includes(color.name)) {
+      colors.value[index].selected = true
+    }
+  })
+
+  // Display selected sizes
+  sizes.value.forEach((size, index)=> {
+    if(result.sizes.includes(size.name)) {
+      sizes.value[index].selected = true
+    }
+  })
+
+
+
+
+})
 </script>
 
 <template>
@@ -127,7 +164,7 @@ function handleSubmit() {
             <div class="sm:col-span-4">
               <label for="title" class="block text-sm font-medium leading-6 text-gray-900">Price</label>
               <div class="mt-2">
-                <input id="price" v-model="price"  name="price" type="number"
+                <input id="price" v-model="price" name="price" type="number"
                        class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
               </div>
             </div>
@@ -277,7 +314,10 @@ function handleSubmit() {
       </div>
 
       <div class="mt-6 flex items-center justify-end gap-x-6">
-        <MainButton v-if="isPending">   <LoadingIcon/> Saving...</MainButton>
+        <MainButton v-if="isPending">
+          <LoadingIcon/>
+          Saving...
+        </MainButton>
         <MainButton v-if="!isPending">Save</MainButton>
       </div>
     </form>

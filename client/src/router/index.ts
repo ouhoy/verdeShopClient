@@ -91,6 +91,14 @@ const router = createRouter({
             meta: {
                 hideNavbar: true,
             }
+        },
+        {
+            path: '/dashboard/update-product/:id',
+            name: 'updateProduct',
+            component: () => import('../views/admin/UpdateProductView.vue'),
+            meta: {
+                hideNavbar: true,
+            }
         }
         ,
         {
