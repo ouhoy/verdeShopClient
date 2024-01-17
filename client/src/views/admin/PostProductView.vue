@@ -6,11 +6,17 @@ import {AvailableColor} from "../../../types";
 import {availableColors, sizes} from "@/availableStockData/availableStock";
 import MainButton from "@/components/buttons/MainButton.vue";
 
-
+const title = ref("");
+const price = ref(0);
+const description= ref("");
+const highlights = ref("");
+// Selected Color
+// Selected Size
+const thumbnail = ref("");
+const images = ref("")
 const selectedGender = ref("men");
 const selectedProductType = ref("clothing")
 const colors = ref<AvailableColor[]>([])
-
 // Add colors
 colors.value = [];
 availableColors.forEach((availableColor: AvailableColor, index: number) => {
@@ -38,12 +44,49 @@ function handleColorChange(state: boolean) {
 }
 
 
+function handleSubmit() {
+
+  const imageSrc = images.value.split("\n");
+
+  const selectedColors = []
+  const selectedSizes = []
+
+  colors.value.forEach((color)=>{
+    if(color.selected) selectedColors.push(color.name)
+
+  })
+
+  sizes.value.forEach((size)=>{
+    if(size.selected) selectedSizes.push(size.name)
+  })
+
+  const product = {
+    name: title.value,
+    price: price.value,
+    description: description.value,
+    highlights: highlights.value.split("\n"),
+    details:"N/A",
+    thumbnail: thumbnail.value,
+    imageSrc: [imageSrc[3],imageSrc[1], imageSrc[2], imageSrc[0]],
+    imageAlt: title.value,
+    colors: selectedColors,
+    gender: selectedGender.value.toUpperCase(),
+    sizes: selectedSizes,
+    options: [...selectedSizes, selectedGender.value.toUpperCase(), ...selectedColors],
+    type: selectedProductType.value.toUpperCase()
+
+  }
+
+  console.log(product, selectedSizes)
+
+}
+
 </script>
 
 <template>
   <main class="mt-20 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row lg:flex-row gap-20">
 
-    <form class="mb-24">
+    <form @submit.prevent="handleSubmit" class="mb-24">
       <div class="space-y-12">
 
 
@@ -57,7 +100,7 @@ function handleColorChange(state: boolean) {
             <div class="sm:col-span-4">
               <label for="title" class="block text-sm font-medium leading-6 text-gray-900">Title</label>
               <div class="mt-2">
-                <input id="title" name="title" type="text"
+                <input v-model="title" id="title" name="title" type="text"
                        class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
               </div>
             </div>
@@ -65,7 +108,7 @@ function handleColorChange(state: boolean) {
             <div class="sm:col-span-4">
               <label for="title" class="block text-sm font-medium leading-6 text-gray-900">Price</label>
               <div class="mt-2">
-                <input id="price" name="price" type="number"
+                <input id="price" v-model="price"  name="price" type="number"
                        class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
               </div>
             </div>
@@ -73,7 +116,7 @@ function handleColorChange(state: boolean) {
             <div class="col-span-full">
               <label for="description" class="block text-sm font-medium leading-6 text-gray-900">Description</label>
               <div class="mt-2">
-                <textarea id="description" name="description" rows="3"
+                <textarea id="description" v-model="description" name="description" rows="3"
                           class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
               </div>
               <p class="mt-3 text-sm leading-6 text-gray-600">Write a few sentences about the product.</p>
@@ -82,7 +125,7 @@ function handleColorChange(state: boolean) {
             <div class="col-span-full">
               <label for="highlights" class="block text-sm font-medium leading-6 text-gray-900">Highlights</label>
               <div class="mt-2">
-                <textarea id="highlights" name="highlights" rows="3"
+                <textarea v-model="highlights" id="highlights" name="highlights" rows="3"
                           class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
               </div>
               <p class="mt-3 text-sm leading-6 text-gray-600">Write a few sentences about the product seperated by a new
@@ -193,7 +236,7 @@ function handleColorChange(state: boolean) {
             <div class="sm:col-span-4">
               <label for="thumbnail" class="block text-sm font-medium leading-6 text-gray-900">Thumbnail</label>
               <div class="mt-2">
-                <input id="thumbnail" name="thumbnail" type="text"
+                <input id="thumbnail" v-model="thumbnail" name="thumbnail" type="text"
                        class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
               </div>
             </div>
@@ -201,7 +244,7 @@ function handleColorChange(state: boolean) {
             <div class="col-span-full">
               <label for="images" class="block text-sm font-medium leading-6 text-gray-900">Images</label>
               <div class="mt-2">
-                <textarea id="images" name="images" rows="3"
+                <textarea id="images" v-model="images" name="images" rows="3"
                           class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
               </div>
               <p class="mt-3 text-sm leading-6 text-gray-600">You must add 4 image urls seperated by a new line.</p>
