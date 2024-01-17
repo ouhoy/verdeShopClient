@@ -3,7 +3,7 @@
 </script>
 
 <template>
-  <form class="mb-20">
+  <form class="mb-24">
     <div class="space-y-12">
 
 

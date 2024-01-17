@@ -73,7 +73,25 @@ const router = createRouter({
             component: () => import('../views/ProductSideView.vue')
         }
 
+        ,
+        {
+            path: '/dashboard',
+            name: 'dashboard',
+            component: () => import('../views/admin/DashboardView.vue'),
+            meta: {
+                hideNavbar: true,
+            }
+        }
 
+        ,
+        {
+            path: '/dashboard/post-product',
+            name: 'postProduct',
+            component: () => import('../views/admin/PostProductView.vue'),
+            meta: {
+                hideNavbar: true,
+            }
+        }
         ,
         {
             path: '/checkout',
