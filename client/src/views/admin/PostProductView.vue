@@ -5,6 +5,7 @@ import {RadioGroup, RadioGroupLabel, RadioGroupOption} from "@headlessui/vue";
 import {AvailableColor} from "../../../types";
 import {availableColors, sizes} from "@/availableStockData/availableStock";
 import MainButton from "@/components/buttons/MainButton.vue";
+import axios from "axios";
 
 const title = ref("");
 const price = ref(0);
@@ -46,6 +47,9 @@ function handleColorChange(state: boolean) {
 
 function handleSubmit() {
 
+
+  // TODO: Validate form
+
   const imageSrc = images.value.split("\n");
 
   const selectedColors = []
@@ -67,7 +71,7 @@ function handleSubmit() {
     highlights: highlights.value.split("\n"),
     details:"N/A",
     thumbnail: thumbnail.value,
-    imageSrc: [imageSrc[3],imageSrc[1], imageSrc[2], imageSrc[0]],
+    imageSrc: [imageSrc[2],imageSrc[3], imageSrc[1], imageSrc[0]],
     imageAlt: title.value,
     colors: selectedColors,
     gender: selectedGender.value.toUpperCase(),
@@ -77,7 +81,14 @@ function handleSubmit() {
 
   }
 
-  console.log(product, selectedSizes)
+  console.log(selectedColors)
+  console.log(product.colors)
+  axios.post("http://localhost:8080/v1/products/", product).then(result=>{
+    console.log("OK")
+  }).catch(error=>{
+    console.log("Something went wrong")
+    console.log(error)
+  })
 
 }
 
