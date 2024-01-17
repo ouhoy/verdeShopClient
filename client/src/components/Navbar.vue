@@ -62,8 +62,17 @@
     </TransitionRoot>
 
     <header class="relative bg-white">
-      <p class="flex h-10 items-center justify-center bg-primary-dark px-4 text-sm font-medium text-white sm:px-6 lg:px-8">
-        Get free delivery on orders over $100</p>
+
+<!--      <div class="w-full bg-gray-50 h-10 flex items-center">-->
+<!--        <div class="flex justify-end items-center w-full mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">-->
+<!--          <div class="flex  justify-center items-center gap-2">-->
+<!--            <p class="text-gray-950 font-medium text-sm ">Hi, {{auth.currentUser.displayName.split(" ")[0]}}</p>-->
+<!--            <UserIcon/>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      <p class="flex h-10 items-center justify-center bg-primary-dark px-4 text-sm font-medium text-white sm:px-6 lg:px-8">-->
+<!--        Get free delivery on orders over $100</p>-->
 
       <nav aria-label="Top" class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div class="border-b border-gray-200">
@@ -97,8 +106,8 @@
 
             </PopoverGroup>
 
-            <div class="ml-auto flex items-center">
-              <div class="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
+            <div  class="ml-auto flex items-center">
+              <div v-if="!auth.currentUser" class="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
 
                 <router-link :to="{name: 'login'}" class="text-sm font-medium text-gray-700 hover:text-gray-800">
                   Sign in
@@ -111,14 +120,18 @@
               </div>
 
               <!-- Cart -->
-              <div @click="toggleCart" class="ml-4 flow-root lg:ml-6">
+              <UserProfileIcon/>
+
+              <div @click="toggleCart" class="ml-4 flow-root lg:ml-6 ">
                 <a href="#" class="group -m-2 flex items-center p-2">
-                  <ShoppingBagIcon class="h-6 w-6 flex-shrink-0 text-primary-darker group-hover:text-gray-500"
+                  <ShoppingBagIcon class="h-6 w-6 flex-shrink-0 text-primary-darker group-hover:text-gray-500 "
                                    aria-hidden="true"/>
                   <span class="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">{{storeCartProducts.cart.length}}</span>
                   <span class="sr-only">items in cart, view bag</span>
                 </a>
               </div>
+
+
             </div>
           </div>
         </div>
@@ -143,6 +156,8 @@ import Cart from "@/components/Cart.vue";
 import {useCartStore} from "@/stores/cart";
 
 import {auth} from "@/firebase/config";
+import UserIcon from "@/assets/icons/UserIcon.vue";
+import UserProfileIcon from "@/components/UserProfileIcon.vue";
 
 console.log("Current User: ",auth.currentUser)
 

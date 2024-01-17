@@ -1,6 +1,7 @@
 import {defineStore} from 'pinia'
 import type {OrderedProduct} from "../../types";
-import {state} from "vue-tsc/out/shared";
+
+// @ts-ignore
 import Cookies from 'js-cookie';
 
 export const useCartStore = defineStore('cart', {
@@ -70,6 +71,6 @@ export const useCartStore = defineStore('cart', {
             return state.cart.reduce((total, product) => total + product.price, 0);
         }
     },
-    
+
 
 })
