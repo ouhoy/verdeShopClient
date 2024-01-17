@@ -24,6 +24,14 @@ export type ColorSelection = {
     id: number
 }
 
+export type AvailableColor = {
+    name: string,
+    class: string,
+    selectedClass: string
+    id: number,
+    selected: boolean
+}
+
 export interface Product {
     id:number,
     name: string,

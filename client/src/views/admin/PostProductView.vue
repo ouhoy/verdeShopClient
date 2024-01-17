@@ -1,31 +1,43 @@
 <script setup lang="ts">
 
-import {ref} from "vue";
+import {ref, watch} from "vue";
 import {RadioGroup, RadioGroupLabel, RadioGroupOption} from "@headlessui/vue";
-import {ColorSelection} from "../../../types";
-
-const sizes = ref([
-  { name: 'XXS', inStock: true, selected: false },
-  { name: 'XS', inStock: true, selected: false },
-  { name: 'S', inStock: true, selected: false },
-  { name: 'M', inStock: true, selected: false },
-  { name: 'L', inStock: true, selected: false },
-  { name: 'XL', inStock: true, selected: false },
-  { name: 'XXL', inStock: true, selected: false },
-  { name: 'XXXL', inStock: true, selected: false },
-])
+import {AvailableColor} from "../../../types";
+import {availableColors, sizes} from "@/availableStockData/availableStock";
+import MainButton from "@/components/buttons/MainButton.vue";
 
 
-const colors = ref<ColorSelection[]>([])
+const selectedGender = ref("men");
+const selectedProductType = ref("clothing")
+const colors = ref<AvailableColor[]>([])
 
-const selectedColor = ref(colors.value[0])
-
-
-const availableColors = ["green", "red", "blue", "purple", "orange", "orewood", "brown", "pink", "mauve", "black", "white"]
-availableColors.forEach((availableColor, index) => {
-  colors.value.push({name: `${availableColor}`, class: `bg-${availableColor}-600`, selectedClass: `ring-${availableColor}-600`, id: index})
+// Add colors
+colors.value = [];
+availableColors.forEach((availableColor: AvailableColor, index: number) => {
+  colors.value.push({name: `${availableColor}`, class: `bg-${availableColor}-600`, selectedClass: `ring-${availableColor}-600`, selected: false, id: index})
 
 })
+
+function handleColorChange(state: boolean) {
+
+  if (state) return
+
+  let selectedColors = 0;
+  colors.value.forEach((color, index) => {
+    if (color.selected) selectedColors++
+  })
+
+  if (selectedColors === 4) {
+    for (let i = 0; i < colors.value.length; i++) {
+      if (colors.value[i].selected) {
+        colors.value[i].selected = false;
+        break;
+      }
+    }
+  }
+}
+
+
 </script>
 
 <template>
@@ -50,6 +62,14 @@ availableColors.forEach((availableColor, index) => {
               </div>
             </div>
 
+            <div class="sm:col-span-4">
+              <label for="title" class="block text-sm font-medium leading-6 text-gray-900">Price</label>
+              <div class="mt-2">
+                <input id="price" name="price" type="number"
+                       class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
+              </div>
+            </div>
+
             <div class="col-span-full">
               <label for="description" class="block text-sm font-medium leading-6 text-gray-900">Description</label>
               <div class="mt-2">
@@ -69,44 +89,32 @@ availableColors.forEach((availableColor, index) => {
                 line.</p>
             </div>
 
-            <div class="col-span-full">
-              <label for="images" class="block text-sm font-medium leading-6 text-gray-900">Images</label>
-              <div class="mt-2">
-                <textarea id="images" name="images" rows="3"
-                          class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
-              </div>
-              <p class="mt-3 text-sm leading-6 text-gray-600">You must add 4 image urls seperated by a new line.</p>
-            </div>
-
-            <div class="sm:col-span-4">
-              <label for="thumbnail" class="block text-sm font-medium leading-6 text-gray-900">Thumbnail</label>
-              <div class="mt-2">
-                <input id="thumbnail" name="thumbnail" type="text"
-                       class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
-              </div>
-            </div>
-
             <div class="sm:col-span-4">
               <!-- Colors -->
 
 
-              <div>
-                <h3 class="text-sm font-medium text-gray-900">Color</h3>
+              <div class="">
+                <div class="flex flex-col items-start justify-between">
+                  <h3 class="text-sm font-medium text-gray-900">Color</h3>
+                  <p class="mt-1 text-sm leading-6 text-gray-600">The selection of the colors' order should match the
+                    order of images' urls.</p>
 
-                <RadioGroup v-model="selectedColor" class="mt-4">
-                  <RadioGroupLabel class="sr-only">Choose a color</RadioGroupLabel>
-                  <div class="flex items-center space-x-3">
-                    <RadioGroupOption as="template" v-for="color in colors" :key="color.name" :value="color"
-                                      v-slot="{ active, checked }">
-                      <div
-                          :class="[color.selectedClass, active && checked ? 'ring ring-offset-1' : '', !active && checked ? 'ring-2' : '', 'relative -m-0.5 flex cursor-pointer items-center justify-center rounded-full p-0.5 focus:outline-none']">
-                        <RadioGroupLabel as="span" class="sr-only">{{ color.name }}</RadioGroupLabel>
-                        <span aria-hidden="true"
-                              :class="[color.class, 'h-8 w-8 rounded-full border border-black border-opacity-10']"/>
-                      </div>
-                    </RadioGroupOption>
+                </div>
+                <div class="mt-4">
+                  <label id="headlessui-label-4" class="sr-only" role="none">Choose a color</label>
+                  <div class="grid grid-cols-4 gap-4 sm:grid-cols-8 lg:grid-cols-8 ">
+                    <div v-for="color in colors" :key="color.id">
+                      <label @click="handleColorChange(color.selected)"
+                             :class="[color.selected ? `${color.selectedClass} ${color.class} ring-offset-1 ring-2 text-white ` : ` ${color.class} text-gray-900`, 'group relative flex items-center justify-center rounded-full border  text-sm font-medium uppercase  focus:outline-none sm:flex-1 h-8 w-8  cursor-pointer']">
+                        <input type="checkbox" v-model="color.selected" class="hidden"/>
+
+                      </label>
+
+                    </div>
                   </div>
-                </RadioGroup>
+
+                </div>
+
               </div>
 
               <!-- Sizes -->
@@ -131,21 +139,83 @@ availableColors.forEach((availableColor, index) => {
               </div>
 
             </div>
+            <div class="sm:col-span-4">
+
+              <fieldset>
+                <legend class="text-sm font-semibold leading-6 text-gray-900">Gender</legend>
+                <div class="mt-4 flex gap-6">
+                  <div class="flex items-center gap-x-3">
+                    <input v-model="selectedGender" value="men" id="men" name="gender" checked type="radio"
+                           class="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"/>
+                    <label for="men" class="block text-sm font-medium leading-6 text-gray-900">Men</label>
+                  </div>
+                  <div class="flex items-center gap-x-3">
+                    <input v-model="selectedGender" value="women" id="women" name="gender" type="radio"
+                           class="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"/>
+                    <label for="women" class="block text-sm font-medium leading-6 text-gray-900">Women</label>
+                  </div>
+                  <div class="flex items-center gap-x-3">
+                    <input v-model="selectedGender" value="unisex" id="unisex" name="gender" type="radio"
+                           class="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"/>
+                    <label for="unisex" class="block text-sm font-medium leading-6 text-gray-900">Unisex</label>
+                  </div>
+                </div>
+              </fieldset>
+
+            </div>
+
+            <div class="sm:col-span-4">
+
+              <fieldset>
+                <legend class="text-sm font-semibold leading-6 text-gray-900">Product Type</legend>
+                <div class="mt-4 flex gap-6 ">
+                  <div class="flex items-center gap-x-3">
+                    <input v-model="selectedProductType" value="clothing" id="clothing" name="product-type" checked
+                           type="radio" class="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"/>
+                    <label for="clothing" class="block text-sm font-medium leading-6 text-gray-900">Clothing</label>
+                  </div>
+                  <div class="flex items-center gap-x-3">
+                    <input v-model="selectedProductType" value="shoes" id="shoes" name="product-type" type="radio"
+                           class="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"/>
+                    <label for="shoes" class="block text-sm font-medium leading-6 text-gray-900">Shoes</label>
+                  </div>
+                  <div class="flex items-center gap-x-3">
+                    <input v-model="selectedProductType" value="accessories" id="accessories" name="product-type"
+                           type="radio" class="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"/>
+                    <label for="accessories"
+                           class="block text-sm font-medium leading-6 text-gray-900">Accessories</label>
+                  </div>
+                </div>
+              </fieldset>
+
+            </div>
+
+            <div class="sm:col-span-4">
+              <label for="thumbnail" class="block text-sm font-medium leading-6 text-gray-900">Thumbnail</label>
+              <div class="mt-2">
+                <input id="thumbnail" name="thumbnail" type="text"
+                       class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
+              </div>
+            </div>
+
+            <div class="col-span-full">
+              <label for="images" class="block text-sm font-medium leading-6 text-gray-900">Images</label>
+              <div class="mt-2">
+                <textarea id="images" name="images" rows="3"
+                          class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
+              </div>
+              <p class="mt-3 text-sm leading-6 text-gray-600">You must add 4 image urls seperated by a new line.</p>
+            </div>
 
 
           </div>
-          <p class="mt-1 pt-2 text-sm leading-6 text-gray-600">We'll always let you know about important changes, but
-            you pick what else you want to hear about.</p>
+
         </div>
 
       </div>
 
       <div class="mt-6 flex items-center justify-end gap-x-6">
-        <button type="button" class="text-sm font-semibold leading-6 text-gray-900">Cancel</button>
-        <button type="submit"
-                class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
-          Save
-        </button>
+        <MainButton>Save</MainButton>
       </div>
     </form>
   </main>
