@@ -86,7 +86,7 @@ function handleSubmit() {
     highlights: highlights.value.split("\n"),
     details: "N/A",
     thumbnail: thumbnail.value,
-    imageSrc: [imageSrc[2], imageSrc[3], imageSrc[1], imageSrc[0]],
+    imageSrc: [imageSrc[3],imageSrc[2], imageSrc[1], imageSrc[0]],
     imageAlt: title.value,
     colors: selectedColors,
     gender: selectedGender.value.toUpperCase(),
@@ -96,10 +96,9 @@ function handleSubmit() {
 
   }
 
-  console.log(selectedColors)
-  console.log(product.colors)
-  axios.post("http://localhost:8080/v1/products/", product).then(result => {
-    console.log("OK");
+
+  axios.put(`http://localhost:8080/v1/products/${PRODUCT_ID}`, product).then(result => {
+    console.log("Product Updated");
     isPending.value = false;
 
   }).catch(error => {

@@ -43,7 +43,7 @@ function handleDeleteClick(id: number) {
 <template>
   <DangerDialog @takeAction="handleDelete" @toggle="updateDialogOpenState" title="Delete Product"
                 :is-open="dangerDialogOpen" action="Delete">
-    Are you sure you want to delete the product? All of
+    Are you sure you want to delete this product? All of
     your product data will be permanently removed. This action cannot be undone.
   </DangerDialog>
   <div class="w-full mb-20 " data-v0-t="card">
@@ -103,6 +103,7 @@ function handleDeleteClick(id: number) {
 
             <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">${{ product.price }}</td>
             <td class="p-4 text-sm align-middle [&amp;:has([role=checkbox])]:pr-0">
+
               {{ product.colors.toString().replaceAll(",", ", ") }}
             </td>
             <td class="p-4 text-sm align-middle [&amp;:has([role=checkbox])]:pr-0">
@@ -140,7 +141,7 @@ function handleDeleteClick(id: number) {
                       </MenuItem>
                       <MenuItem v-slot="{ active }">
                         <button @click="handleDeleteClick(product.id)"
-                                :class="[active ? 'bg-gray-100 text-gray-900' : 'text-gray-700', 'block w-full px-4 py-2 text-left text-sm']">
+                                :class="[active ? 'bg-red-50 text-red-700' : 'text-red-600', 'block w-full px-4 py-2 text-left text-sm']">
                           Delete
                         </button>
                       </MenuItem>
