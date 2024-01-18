@@ -1,12 +1,13 @@
 <script setup lang="ts">
 
 import {onMounted, reactive, ref} from "vue";
-import {AvailableColor} from "../../../types";
+import {AvailableColor, Product} from "../../../types";
 import {availableColors, sizes} from "@/availableStockData/availableStock";
 import MainButton from "@/components/buttons/MainButton.vue";
 import axios from "axios";
 import LoadingIcon from "@/assets/icons/LoadingIcon.vue";
 import {useRoute} from "vue-router";
+import CheckMarkIcon from "@/assets/icons/CheckMarkIcon.vue";
 
 const route = useRoute();
 const PRODUCT_ID = route.params.id;
@@ -24,10 +25,11 @@ const selectedProductType = ref("clothing")
 const colors = ref<AvailableColor[]>([])
 
 const isPending = ref(false);
+const productUpdated = ref(false);
 
 // Add colors
 colors.value = [];
-availableColors.forEach((availableColor: AvailableColor, index: number) => {
+availableColors.forEach((availableColor, index: number) => {
   colors.value.push({name: `${availableColor}`, class: `bg-${availableColor}-600`, selectedClass: `ring-${availableColor}-600`, selected: false, id: index})
 
 })
@@ -67,8 +69,8 @@ function handleSubmit() {
   isPending.value = true;
   const imageSrc = images.value.split("\n");
 
-  const selectedColors = []
-  const selectedSizes = []
+  const selectedColors: string[] = []
+  const selectedSizes: string[] = []
 
   colors.value.forEach((color) => {
     if (color.selected) selectedColors.push(color.name)
@@ -100,10 +102,13 @@ function handleSubmit() {
   axios.put(`http://localhost:8080/v1/products/${PRODUCT_ID}`, product).then(result => {
     console.log("Product Updated");
     isPending.value = false;
+    productUpdated.value = true;
 
   }).catch(error => {
-    console.log("Something went wrong")
+    alert("Something went wrong, please try again!")
     console.log(error)
+    productUpdated.value = false;
+
     isPending.value = false;
 
   })
@@ -324,6 +329,10 @@ onMounted(async () => {
       </div>
 
       <div class="mt-6 flex items-center justify-end gap-x-6">
+        <p v-if="productUpdated" class=" text-sm text-green-500 flex justify-start items-center gap-1">
+          <CheckMarkIcon/>
+          Product info has been updated!
+        </p>
         <MainButton v-if="isPending">
           <LoadingIcon/>
           Saving...

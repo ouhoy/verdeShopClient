@@ -6,6 +6,7 @@ import {availableColors, sizes} from "@/availableStockData/availableStock";
 import MainButton from "@/components/buttons/MainButton.vue";
 import axios from "axios";
 import LoadingIcon from "@/assets/icons/LoadingIcon.vue";
+import CheckMarkIcon from "@/assets/icons/CheckMarkIcon.vue";
 
 const errors = reactive({title: "", price:"", description: "", highlights: "", thumbnail: "", images:"", colors:""})
 
@@ -20,7 +21,7 @@ const selectedProductType = ref("clothing")
 const colors = ref<AvailableColor[]>([])
 
 const isPending = ref(false);
-
+const productPosted =ref(false);
 // Add colors
 colors.value = [];
 availableColors.forEach((availableColor: AvailableColor, index: number) => {
@@ -64,8 +65,8 @@ function handleSubmit() {
   isPending.value = true;
   const imageSrc = images.value.split("\n");
 
-  const selectedColors = []
-  const selectedSizes = []
+  const selectedColors: string[] = []
+  const selectedSizes: string[] = []
 
   colors.value.forEach((color)=>{
     if(color.selected) selectedColors.push(color.name)
@@ -93,16 +94,18 @@ function handleSubmit() {
 
   }
 
-  console.log(selectedColors)
-  console.log(product.colors)
+
   axios.post("http://localhost:8080/v1/products/", product).then(result=>{
     console.log("OK");
     isPending.value = false;
+    productPosted.value = true
 
   }).catch(error=>{
     console.log("Something went wrong")
     console.log(error)
     isPending.value = false;
+    productPosted.value = false
+
 
   })
 
@@ -285,6 +288,10 @@ function handleSubmit() {
       </div>
 
       <div class="mt-6 flex items-center justify-end gap-x-6">
+        <p v-if="productPosted" class=" text-sm text-green-500 flex justify-start items-center gap-1">
+          <CheckMarkIcon/>
+          Product has been posted with success!
+        </p>
         <MainButton v-if="isPending">   <LoadingIcon/> Saving...</MainButton>
         <MainButton v-if="!isPending">Save</MainButton>
       </div>

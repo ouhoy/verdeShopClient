@@ -32,7 +32,6 @@ function handleSubmit() {
 
   (password.value.length < 6) ? (errors.password = "Password should be more than 6 characters.") : (errors.password = "")
 
-  console.log(password.value)
 
   if (!errors.password && !errors.email && !errors.firstname && !errors.lastname) {
 
