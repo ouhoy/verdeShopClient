@@ -1,7 +1,6 @@
 <script setup lang="ts">
 
-import {reactive, ref, watch} from "vue";
-import {RadioGroup, RadioGroupLabel, RadioGroupOption} from "@headlessui/vue";
+import {reactive, ref} from "vue";
 import {AvailableColor} from "../../../types";
 import {availableColors, sizes} from "@/availableStockData/availableStock";
 import MainButton from "@/components/buttons/MainButton.vue";
@@ -29,13 +28,19 @@ availableColors.forEach((availableColor: AvailableColor, index: number) => {
 
 })
 
+const selectedColorsList = ref<string[]>([])
+
 function handleColorChange(state: boolean) {
 
   if (state) return
 
   let selectedColors = 0;
+  selectedColorsList.value = []
   colors.value.forEach((color, index) => {
-    if (color.selected) selectedColors++
+    if (color.selected) {
+      selectedColors++
+      selectedColorsList.value.push(color.name)
+    }
   })
 
   if (selectedColors === 4) {
@@ -46,7 +51,10 @@ function handleColorChange(state: boolean) {
       }
     }
   }
+
+
 }
+
 
 
 function handleSubmit() {
@@ -103,7 +111,7 @@ function handleSubmit() {
 </script>
 
 <template>
-  <main class="mt-20 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row lg:flex-row gap-20">
+  <main  class="mt-20 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row lg:flex-row gap-20">
 
     <form @submit.prevent="handleSubmit" class="mb-24">
       <div class="space-y-12">
@@ -169,7 +177,7 @@ function handleSubmit() {
                       <label @click="handleColorChange(color.selected)"
                              :class="[color.selected ? `${color.selectedClass} ${color.class} ring-offset-1 ring-2 text-white ` : ` ${color.class} text-gray-900`, 'group relative flex items-center justify-center rounded-full border  text-sm font-medium uppercase  focus:outline-none sm:flex-1 h-8 w-8  cursor-pointer']">
                         <input type="checkbox" v-model="color.selected" class="hidden"/>
-
+                        <span v-if="color.selected">{{selectedColorsList.indexOf(color.name) + 1?selectedColorsList.indexOf(color.name) + 1: '' }}</span>
                       </label>
 
                     </div>

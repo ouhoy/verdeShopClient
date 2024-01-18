@@ -32,13 +32,19 @@ availableColors.forEach((availableColor: AvailableColor, index: number) => {
 
 })
 
+const selectedColorsList = ref<string[]>([])
+
 function handleColorChange(state: boolean) {
 
   if (state) return
 
   let selectedColors = 0;
+  selectedColorsList.value = []
   colors.value.forEach((color, index) => {
-    if (color.selected) selectedColors++
+    if (color.selected) {
+      selectedColors++
+      selectedColorsList.value.push(color.name)
+    }
   })
 
   if (selectedColors === 4) {
@@ -49,6 +55,8 @@ function handleColorChange(state: boolean) {
       }
     }
   }
+
+
 }
 
 
@@ -115,7 +123,10 @@ onMounted(async () => {
   selectedGender.value = result.gender.toLowerCase();
   selectedProductType.value = result.type.toLowerCase();
   thumbnail.value = result.thumbnail;
-  images.value = result.imageSrc.join('\n');
+  const imageSrc = result.imageSrc
+
+  // Sort Images Cuz I messed up the code now I have to carry this suffering with me wherever I go :/
+  images.value = [imageSrc[3], imageSrc[0], imageSrc[1], imageSrc[2]].join('\n');
 
 
 
@@ -125,7 +136,7 @@ onMounted(async () => {
       colors.value[index].selected = true
     }
   })
-
+  selectedColorsList.value = result.colors;
   // Display selected sizes
   sizes.value.forEach((size, index)=> {
     if(result.sizes.includes(size.name)) {
@@ -206,7 +217,7 @@ onMounted(async () => {
                       <label @click="handleColorChange(color.selected)"
                              :class="[color.selected ? `${color.selectedClass} ${color.class} ring-offset-1 ring-2 text-white ` : ` ${color.class} text-gray-900`, 'group relative flex items-center justify-center rounded-full border  text-sm font-medium uppercase  focus:outline-none sm:flex-1 h-8 w-8  cursor-pointer']">
                         <input type="checkbox" v-model="color.selected" class="hidden"/>
-
+                        <span v-if="color.selected">{{selectedColorsList.indexOf(color.name) + 1?selectedColorsList.indexOf(color.name) + 1: '' }}</span>
                       </label>
 
                     </div>
