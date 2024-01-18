@@ -2,10 +2,9 @@
 import { Dialog, DialogPanel, DialogTitle, TransitionChild, TransitionRoot } from '@headlessui/vue'
 import { ExclamationTriangleIcon } from '@heroicons/vue/24/outline'
 
-const {itemId, isOpen}= defineProps<{
+const {isOpen}= defineProps<{
   title:string,
   action:string
-  itemId: number,
   isOpen:boolean,
 }>()
 
@@ -14,7 +13,7 @@ const emit = defineEmits();
 
 function handleRemoveProduct() {
   handleClose();
-  emit("takeAction", itemId)
+  emit("takeAction")
 
 }
 

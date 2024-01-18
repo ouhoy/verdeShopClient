@@ -5,18 +5,47 @@ import type {Product} from "../../types";
 import MainButton from "@/components/buttons/MainButton.vue";
 import {EllipsisVerticalIcon} from "@heroicons/vue/20/solid";
 import {Menu, MenuButton, MenuItem, MenuItems} from "@headlessui/vue";
+import DangerDialog from "@/components/dialogs/DangerDialog.vue";
+import axios from "axios";
 
 const products = ref<Product>()
-
+let PRODUCT_ID: number;
 onMounted(async () => {
   const data = await fetch("http://localhost:8080/v1/products/");
   products.value = await data.json();
 })
 
+const dangerDialogOpen = ref(false)
+
+function updateDialogOpenState(isOpen) {
+  dangerDialogOpen.value = isOpen
+}
+
+async function handleDelete() {
+  try {
+    await axios.delete(`http://localhost:8080/v1/products/${PRODUCT_ID}`)
+    const data = await fetch("http://localhost:8080/v1/products/");
+    products.value = await data.json();
+
+  } catch (error) {
+    console.log("Error deleting product.")
+    console.log(error)
+  }
+}
+
+function handleDeleteClick(id: number) {
+  dangerDialogOpen.value = true;
+  PRODUCT_ID = id;
+}
+
 </script>
 
 <template>
-
+  <DangerDialog @takeAction="handleDelete" @toggle="updateDialogOpenState" title="Delete Product"
+                :is-open="dangerDialogOpen" action="Delete">
+    Are you sure you want to delete the product? All of
+    your product data will be permanently removed. This action cannot be undone.
+  </DangerDialog>
   <div class="w-full mb-20 " data-v0-t="card">
     <div class="flex  space-y-1.5 justify-between items-center p-6">
       <h3 class="text-2xl font-semibold whitespace-nowrap leading-none tracking-tight">Products</h3>
@@ -98,24 +127,24 @@ onMounted(async () => {
                       class="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                     <div class="py-1">
                       <MenuItem v-slot="{ active }">
-                        <router-link  :to="{name: 'product', params: {id: product.id}}"
+                        <router-link :to="{name: 'product', params: {id: product.id}}"
                                      :class="[active ? 'bg-gray-100 text-gray-900' : 'text-gray-700', 'block px-4 py-2 text-sm']">
                           View
                         </router-link>
                       </MenuItem>
                       <MenuItem v-slot="{ active }">
-                        <router-link  :to="{name: 'updateProduct', params: {id: product.id}}"
-                           :class="[active ? 'bg-gray-100 text-gray-900' : 'text-gray-700', 'block px-4 py-2 text-sm']">Edit</router-link>
+                        <router-link :to="{name: 'updateProduct', params: {id: product.id}}"
+                                     :class="[active ? 'bg-gray-100 text-gray-900' : 'text-gray-700', 'block px-4 py-2 text-sm']">
+                          Edit
+                        </router-link>
+                      </MenuItem>
+                      <MenuItem v-slot="{ active }">
+                        <button @click="handleDeleteClick(product.id)"
+                                :class="[active ? 'bg-gray-100 text-gray-900' : 'text-gray-700', 'block w-full px-4 py-2 text-left text-sm']">
+                          Delete
+                        </button>
                       </MenuItem>
 
-                      <form method="POST" action="#">
-                        <MenuItem v-slot="{ active }">
-                          <button type="submit"
-                                  :class="[active ? 'bg-gray-100 text-gray-900' : 'text-gray-700', 'block w-full px-4 py-2 text-left text-sm']">
-                            Delete
-                          </button>
-                        </MenuItem>
-                      </form>
                     </div>
                   </MenuItems>
                 </transition>

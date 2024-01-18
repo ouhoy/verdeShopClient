@@ -1,7 +1,7 @@
 <template>
 
   <main class="mx-auto max-w-7xl mt-16">
-  <DangerDialog @takeAction="handleDelete" @toggle="updateDialogOpenState" :isOpen=dangerDialogOpen title="Delete Product" :item-id=1 action="Delete">Are you sure you want to delete the product? All of
+  <DangerDialog @takeAction="handleDelete" @toggle="updateDialogOpenState" :isOpen=dangerDialogOpen title="Delete Product" action="Delete">Are you sure you want to delete the product? All of
     your product data will be permanently removed. This action cannot be undone.
   </DangerDialog>
 <MainButton @click="handleClick">Open</MainButton>
