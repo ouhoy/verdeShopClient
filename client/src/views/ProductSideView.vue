@@ -2,6 +2,11 @@
 
 import {onMounted, ref} from "vue";
 import type {Product} from "../../types";
+import {Menu, MenuButton, MenuItem, MenuItems} from "@headlessui/vue";
+import UserIcon from "@/assets/icons/UserIcon.vue";
+import { ChevronDownIcon, EllipsisVerticalIcon } from '@heroicons/vue/20/solid'
+
+
 
 const products = ref<Product>()
 
@@ -38,6 +43,10 @@ onMounted(async ()=>{
               <th class="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0">
                 Sizes
               </th>
+
+              <th class="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0">
+               Options
+              </th>
             </tr>
             </thead>
 
@@ -57,6 +66,10 @@ onMounted(async ()=>{
               <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">${{product.price}}</td>
               <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">{{product.colors.toString().replaceAll(",", ", ")}}</td>
               <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">{{product.sizes.toString().replaceAll(",", ", ")}}</td>
+              <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">
+
+
+              </td>
 
             </tr>
 
