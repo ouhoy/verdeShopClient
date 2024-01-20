@@ -8,16 +8,20 @@ import {Menu, MenuButton, MenuItem, MenuItems} from "@headlessui/vue";
 import DangerDialog from "@/components/dialogs/DangerDialog.vue";
 import axios from "axios";
 
-const products = ref<Product>()
+const products = ref<Product[]>()
+
 let PRODUCT_ID: number;
 onMounted(async () => {
   const data = await fetch("http://localhost:8080/v1/products/");
-  products.value = await data.json();
+  products.value = await data.json() as Product[];
+
+
+
 })
 
 const dangerDialogOpen = ref(false)
 
-function updateDialogOpenState(isOpen) {
+function updateDialogOpenState(isOpen:boolean) {
   dangerDialogOpen.value = isOpen
 }
 
@@ -26,6 +30,7 @@ async function handleDelete() {
     await axios.delete(`http://localhost:8080/v1/products/${PRODUCT_ID}`)
     const data = await fetch("http://localhost:8080/v1/products/");
     products.value = await data.json();
+
 
   } catch (error) {
     console.log("Error deleting product.")
@@ -41,6 +46,7 @@ function handleDeleteClick(id: number) {
 </script>
 
 <template>
+
   <DangerDialog @takeAction="handleDelete" @toggle="updateDialogOpenState" title="Delete Product"
                 :is-open="dangerDialogOpen" action="Delete">
     Are you sure you want to delete this product? All of
@@ -104,10 +110,20 @@ function handleDeleteClick(id: number) {
             <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">${{ product.price }}</td>
             <td class="p-4 text-sm align-middle [&amp;:has([role=checkbox])]:pr-0">
 
-              {{ product.colors.toString().replaceAll(",", ", ") }}
+              <div class="flex gap-1 flex-wrap w-32">
+
+                <span v-for="(color, index) in product.colors" :key="index" class="inline-flex gap-1 items-center rounded-md bg-gray-50 px-2 py-1 text-xs font-medium text-gray-600 ring-1 ring-inset ring-gray-500/10">
+                    {{ color }}
+                </span>
+
+              </div>
             </td>
             <td class="p-4 text-sm align-middle [&amp;:has([role=checkbox])]:pr-0">
-              {{ product.sizes.toString().toLowerCase().replaceAll(",", ", ") }}
+              <div class="flex gap-1  flex-wrap w-32 " >
+
+                <span v-for="size in product.sizes" class="inline-flex items-center rounded-md bg-gray-50 px-2 py-1 text-xs font-medium text-gray-600 ring-1 ring-inset ring-gray-500/10">{{ size }}</span>
+
+              </div>
             </td>
             <td class="p-4 text-sm align-middle [&amp;:has([role=checkbox])]:pr-0">
               <Menu as="div" class="relative inline-block text-left">

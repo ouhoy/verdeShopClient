@@ -1,4 +1,6 @@
 /** @type {import('tailwindcss').Config} */
+const colors = require('tailwindcss/colors')
+
 export default {
   content: [],
   purge: ['./index.html', './src/**/*.{vue,js,ts,jsx,tsx}'],
@@ -19,10 +21,19 @@ export default {
         "primary-dark-active": "#494b3f",
         "primary-darker": "#393a31",
         "orewood-600": "#d6d3d1",
+        "orewood-500": "#d6d3d1",
+        "orewood-50": "#eaeaea",
         "mauve-600": "#9d174d",
+        "mauve-500": "#9d174d",
+        "mauve-50": "#ffc5dc",
         "pink-600": "#ec4899",
+        "pink-500": "#ec4899",
+        "pink-50": "#ffc3df",
         "brown-600": "#431407",
-        "black-600": "#000"
+        "brown-50": "#ffcec0",
+        "brown-500": "#622817",
+        "black-600": "#000",
+        ...colors,
 
 
 

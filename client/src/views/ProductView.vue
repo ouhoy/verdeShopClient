@@ -68,6 +68,7 @@ onMounted(async () => {
   colors.value.push({name: `black`, class: `bg-purple-600`, selectedClass: `ring-purple-600`, id: 1})
   colors.value.push({name: `black`, class: `bg-orange-600`, selectedClass: `ring-orange-600`, id: 1})
   colors.value.push({name: `black`, class: `bg-black-600`, selectedClass: `ring-black-600`, id: 1})
+  colors.value.push({name: `black`, class: `bg-green-600`, selectedClass: `ring-green-600`, id: 1})
 
 
   colors.value = []
