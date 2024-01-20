@@ -3,6 +3,8 @@ package com.dahmou.verdeShop.model;
 import jakarta.validation.constraints.NotBlank;
 import org.springframework.data.annotation.Id;
 
+import java.io.Serializable;
+
 public record Product(
         @Id
         Integer id,
@@ -23,5 +25,6 @@ public record Product(
 
 
 
-) {
+)  implements Serializable {
+
 }

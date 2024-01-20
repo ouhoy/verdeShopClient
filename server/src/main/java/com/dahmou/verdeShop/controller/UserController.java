@@ -27,9 +27,18 @@ public class UserController {
     }
 
 
-    @GetMapping("/{id}")
-    public User findById(@PathVariable int id) {
-        User user = repository.getUser(id);
+//    @GetMapping("/{id}")
+//    public User findById(@PathVariable int id) {
+//        User user = repository.getUser(id);
+//        if (user == null) {
+//            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+//        }
+//        return user;
+//    }
+
+    @GetMapping("/{email}")
+    public User findByEmail(@PathVariable String email) {
+        User user = repository.getUserByEmail(email);
         if (user == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }

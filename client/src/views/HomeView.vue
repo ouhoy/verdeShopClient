@@ -7,8 +7,8 @@
         <h1 class="font-kaisei-decol text-primary-darker text-center lg:text-6xl text-6xl  font-bold leading-16">Fresh
           Green Fitness Style</h1>
         <p class="support-text mx-auto text-center font-inter text-primary-darker text-base font-medium leading-6">
-          supportive designs.</p>
-        Achieve all your fitness goals with a handpicked selection of new sneakers, comfortable clothes, and
+          Achieve all your fitness goals with a handpicked selection of new sneakers, comfortable clothes, and supportive designs.</p>
+
         <div class="buttons flex gap-2">
           <button
               class="font-medium rounded-full max-h-12 flex items-center justify-center	 py-4 px-8 bg-primary-darker text-primary-light text-md">

@@ -78,6 +78,17 @@ public class UserCollectionRepository {
         }
     }
 
+    public User getUserByEmail(String email) {
+        try {
+            String sql = "SELECT * FROM Users WHERE email=?";
+
+            return jdbcTemplate.queryForObject(sql, new Object[]{email}, UserCollectionRepository::mapRow);
+        } catch (EmptyResultDataAccessException e) {
+            // Handle empty result - throw a custom exception or return null
+            return null; // Or throw a custom exception
+        }
+    }
+
 }
 
 
