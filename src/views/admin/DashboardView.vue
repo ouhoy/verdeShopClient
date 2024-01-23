@@ -17,7 +17,7 @@ const selected = ref("products");
       <div @click="selected='products'" :class="{'bg-gray-50': selected==='products'}"
            class="border w-full cursor-pointer hover:bg-gray-50 p-2 rounded-lg">
         <h2 class="text-base  font-semibold leading-7 text-gray-900">Products</h2>
-        <p class="mt-1 text-sm leading-6 text-gray-600">Create new products, modify existing or delete.</p>
+        <p class="mt-1 text-sm leading-6 text-gray-600">Add, update, delete products.</p>
       </div>
       <div @click="selected='orders'" :class="{'bg-gray-50': selected==='orders'}"
            class="border w-full cursor-pointer hover:bg-gray-50 p-2 rounded-lg">

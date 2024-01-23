@@ -56,6 +56,8 @@ async function handleSubmit() {
     total: storeCartProducts.getTotalPrice + shippingPrice.value
 
   }
+  console.log(order)
+  console.log(JSON.stringify(order))
   axios.post(`${SERVER_URL}/v1/orders/`, order).then(r=> {
     console.log("Order Posted")
   }).catch(e=> {

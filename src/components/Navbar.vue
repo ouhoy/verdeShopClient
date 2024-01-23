@@ -63,14 +63,13 @@
 
     <header class="relative bg-white">
 
-<!--      <div class="w-full bg-gray-50 h-10 flex items-center">-->
-<!--        <div class="flex justify-end items-center w-full mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">-->
-<!--          <div class="flex  justify-center items-center gap-2">-->
-<!--            <p class="text-gray-950 font-medium text-sm ">Hi, {{auth.currentUser.displayName.split(" ")[0]}}</p>-->
-<!--            <UserIcon/>-->
-<!--          </div>-->
-<!--        </div>-->
-<!--      </div>-->
+      <div class="w-full bg-gray-50 h-10 flex items-center">
+        <div class="flex justify-end items-center w-full mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div class="flex  justify-center items-center gap-2">
+            <router-link :to="{name: 'dashboard'}" class="text-gray-950 hover:underline underline-offset-1  font-medium text-sm ">Dashboard</router-link>
+          </div>
+        </div>
+      </div>
 <!--      <p class="flex h-10 items-center justify-center bg-primary-dark px-4 text-sm font-medium text-white sm:px-6 lg:px-8">-->
 <!--        Get free delivery on orders over $100</p>-->
 
