@@ -6,6 +6,7 @@ import {reactive, ref} from "vue";
 import {getCurrentDate} from "@/composables/getCurrentDate.ts";
 import FormInput from "@/components/form/FormInput.vue";
 import axios from "axios";
+import {SERVER_URL} from "@/production.js";
 // import {OrderedProduct} from "../../types/index.ts";
 
 const shippingPrice = ref(5)
@@ -31,7 +32,7 @@ function handleRemove(product) {
 
 async function handleSubmit() {
 
-  const data = await fetch(`/api/v1/users/${auth.currentUser?.email}`)
+  const data = await fetch(`${SERVER_URL}/v1/users/${auth.currentUser?.email}`)
   const currentUser = await data.json()
   const userId = currentUser.id;
 
@@ -55,7 +56,7 @@ async function handleSubmit() {
     total: storeCartProducts.getTotalPrice + shippingPrice.value
 
   }
-  axios.post(`/api/v1/orders/`, order).then(r=> {
+  axios.post(`${SERVER_URL}/v1/orders/`, order).then(r=> {
     console.log("Order Posted")
   }).catch(e=> {
     console.log("Something went wrong!")

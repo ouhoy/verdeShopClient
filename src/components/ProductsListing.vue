@@ -7,12 +7,13 @@ import {EllipsisVerticalIcon} from "@heroicons/vue/20/solid";
 import {Menu, MenuButton, MenuItem, MenuItems} from "@headlessui/vue";
 import DangerDialog from "@/components/dialogs/DangerDialog.vue";
 import axios from "axios";
+import {SERVER_URL} from "@/production";
 
 const products = ref<Product[]>()
 
 let PRODUCT_ID: number;
 onMounted(async () => {
-  const data = await fetch("/api/v1/products/");
+  const data = await fetch(`${SERVER_URL}/v1/products/`);
   products.value = await data.json() as Product[];
 
 
@@ -27,8 +28,8 @@ function updateDialogOpenState(isOpen:boolean) {
 
 async function handleDelete() {
   try {
-    await axios.delete(`/api/v1/products/${PRODUCT_ID}`)
-    const data = await fetch("/api/v1/products/");
+    await axios.delete(`${SERVER_URL}/v1/products/${PRODUCT_ID}`)
+    const data = await fetch(`${SERVER_URL}/v1/products/`);
     products.value = await data.json();
 
 

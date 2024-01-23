@@ -11,11 +11,12 @@
 import {onMounted, ref} from "vue";
 import Order from "@/components/tables/Order.vue";
 import type {CheckoutOrder} from "../../../types";
+import {SERVER_URL} from "@/production";
 
 const orders = ref<CheckoutOrder[]>([])
 
 onMounted(async ()=>{
-  const data = await fetch(`/api/v1/orders/`)
+  const data = await fetch(`${SERVER_URL}/v1/orders/`)
   const results = await data.json()
 
   results.forEach((order: any)=> {

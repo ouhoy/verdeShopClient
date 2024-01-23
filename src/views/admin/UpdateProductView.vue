@@ -8,6 +8,7 @@ import axios from "axios";
 import LoadingIcon from "@/assets/icons/LoadingIcon.vue";
 import {useRoute} from "vue-router";
 import CheckMarkIcon from "@/assets/icons/CheckMarkIcon.vue";
+import {SERVER_URL} from "@/production";
 
 const route = useRoute();
 const PRODUCT_ID = route.params.id;
@@ -99,7 +100,7 @@ function handleSubmit() {
   }
 
 
-  axios.put(`http://localhost:8080/v1/products/${PRODUCT_ID}`, product).then(result => {
+  axios.put(`${SERVER_URL}/v1/products/${PRODUCT_ID}`, product).then(result => {
     console.log("Product Updated");
     isPending.value = false;
     productUpdated.value = true;
@@ -117,7 +118,7 @@ function handleSubmit() {
 
 
 onMounted(async () => {
-  const data = await fetch(`http://localhost:8080/v1/products/${PRODUCT_ID}`);
+  const data = await fetch(`${SERVER_URL}/v1/products/${PRODUCT_ID}`);
   const result = await data.json() as Product;
 
   title.value = result.name;

@@ -7,6 +7,7 @@ import MainButton from "@/components/buttons/MainButton.vue";
 import axios from "axios";
 import LoadingIcon from "@/assets/icons/LoadingIcon.vue";
 import CheckMarkIcon from "@/assets/icons/CheckMarkIcon.vue";
+import {SERVER_URL} from "@/production";
 
 const errors = reactive({title: "", price: "", description: "", highlights: "", thumbnail: "", images: "", colors: ""})
 
@@ -100,7 +101,7 @@ function handleSubmit() {
   }
 
 
-  axios.post("http://localhost:8080/v1/products/", product).then(result => {
+  axios.post(`${SERVER_URL}/v1/products/`, product).then(result => {
     console.log("OK");
     isPending.value = false;
     productPosted.value = true

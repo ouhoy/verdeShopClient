@@ -5,12 +5,13 @@ import {RadioGroup, RadioGroupLabel, RadioGroupOption} from '@headlessui/vue'
 import type {Breadcrumb, ColorSelection, Product} from "../../types";
 import {useCartStore} from "@/stores/cart";
 import {useRoute} from "vue-router";
+import {SERVER_URL} from "@/production";
+
 
 const route = useRoute();
 const productId = route.params.id.toString();
 
 const storeCartProducts = useCartStore();
-
 
 const product = ref<Product>()
 const imgArray = ref<any>();
@@ -38,7 +39,7 @@ const selectedSize = ref(sizes.value[0])
 
 onMounted(async () => {
 
-  const data = await fetch(`/api/v1/products/${productId}`);
+  const data = await fetch(`${SERVER_URL}/v1/products/${productId}`);
   const result = await data.json();
 
   product.value = result;

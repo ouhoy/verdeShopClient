@@ -8,6 +8,7 @@ import axios from "axios";
 import {auth} from "@/firebase/config";
 import CheckMarkIcon from "@/assets/icons/CheckMarkIcon.vue";
 import LoadingIcon from "@/assets/icons/LoadingIcon.vue";
+import {SERVER_URL} from "@/production";
 
 const errors = reactive({email: "", password: "", firstname: "", lastname: ""})
 
@@ -23,7 +24,7 @@ onMounted(async () => {
   userUpdated.value = false;
 
   try {
-    const data = await fetch(`/api/v1/users/${auth.currentUser?.email}`)
+    const data = await fetch(`${SERVER_URL}/v1/users/${auth.currentUser?.email}`)
     const result = await data.json()
     firstName.value = result.firstName;
     lastName.value = result.lastName;
@@ -62,11 +63,11 @@ async function handleSubmit() {
     }
 
     isPending.value = true;
-    const data = await fetch(`/api/v1/users/${auth.currentUser?.email}`)
+    const data = await fetch(`${SERVER_URL}/v1/users/${auth.currentUser?.email}`)
     const currentUser = await data.json();
 
 
-    await axios.put(`/api/v1/users/${currentUser.id}`, userInfo).then(result => {
+    await axios.put(`${SERVER_URL}/v1/users/${currentUser.id}`, userInfo).then(result => {
       userUpdated.value = true;
       isPending.value = false;
 

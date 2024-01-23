@@ -208,6 +208,7 @@ import {
 import {XMarkIcon} from '@heroicons/vue/24/outline'
 import {ChevronDownIcon, FunnelIcon, MinusIcon, PlusIcon, Squares2X2Icon} from '@heroicons/vue/20/solid'
 import type {ColorItem, Product} from "../../types";
+import {SERVER_URL} from "@/production";
 
 const products = ref<Product[]>([]);
 const filteredProducts = ref<Product[]>(products.value);
@@ -362,7 +363,7 @@ function handleSortOptionClick(name: string) {
 // API Calling
 
 onMounted(async () => {
-  const data = await fetch("/api/v1/products/");
+  const data = await fetch(`${SERVER_URL}/v1/products/`);
   const result = await data.json();
   console.log(result)
   products.value = [...result]

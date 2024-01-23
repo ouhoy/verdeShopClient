@@ -37,6 +37,7 @@ import {onMounted, ref} from "vue";
 import type {Address, CheckoutOrder, OrderedProduct} from "../../../types";
 import Order from "@/components/tables/Order.vue";
 import {useRoute} from "vue-router";
+import {SERVER_URL} from "@/production";
 
 const route = useRoute();
 const address = ref<Address>();
@@ -45,7 +46,7 @@ const order = ref<CheckoutOrder>();
 onMounted(async () => {
 
   const productId = route.params.id.toString();
-  const data = await fetch(`http://localhost:8080/v1/orders/${productId}`);
+  const data = await fetch(`${SERVER_URL}/v1/orders/${productId}`);
   const result = await data.json();
   const parsedAddress = await JSON.parse(result.address) as Address;
   const parsedProducts = await JSON.parse(result.products) as OrderedProduct[];

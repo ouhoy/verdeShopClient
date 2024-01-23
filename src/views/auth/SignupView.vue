@@ -6,6 +6,7 @@ import {validateName} from "@/composables/useStringValidaitons";
 import axios from "axios";
 import useSignup from "@/composables/auth/useSignup";
 import {useRouter} from "vue-router";
+import {SERVER_URL} from "@/production";
 
 const errors = reactive({email: "", password: "", firstname: "", lastname: ""})
 const email = ref("")
@@ -44,7 +45,7 @@ function handleSubmit() {
     }
 
 
-    axios.post("/api/v1/users/", createdUser).then(async () => {
+    axios.post(`${SERVER_URL}/v1/users/`, createdUser).then(async () => {
 
       isPending.value = true;
 
