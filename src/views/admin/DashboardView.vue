@@ -9,7 +9,7 @@ const selected = ref("products");
 </script>
 
 <template>
-  <main class="mt-20 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex justify-center items-center flex-col gap-20">
+  <main class="mt-20 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex justify-center items-center flex-col gap-16">
 
     <div
         class="flex w-full sm:justify-center sm:items-center md:justify-start flex-col md:flex-row md:items-start gap-6">

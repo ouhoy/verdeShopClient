@@ -54,14 +54,14 @@ function handleDeleteClick(id: number) {
     your product data will be permanently removed. This action cannot be undone.
   </DangerDialog>
   <div class="w-full mb-20 " data-v0-t="card">
-    <div class="flex  space-y-1.5 justify-between items-center p-6">
-      <h3 class="text-2xl font-semibold whitespace-nowrap leading-none tracking-tight">Products</h3>
+    <div class="flex mb-12  justify-between items-center ">
+      <h3 class="text-2xl  font-semibold whitespace-nowrap leading-none tracking-tight">Products</h3>
       <router-link :to="{name: 'postProduct'}">
         <MainButton>New Product</MainButton>
       </router-link>
 
     </div>
-    <div class="p-6">
+    <div class="">
       <div class="relative w-full overflow-auto">
         <table class="w-full caption-bottom text-sm">
           <thead class="[&amp;_tr]:border-b">
