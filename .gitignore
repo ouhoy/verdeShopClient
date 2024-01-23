@@ -14,6 +14,10 @@ dist-ssr
 coverage
 *.local
 
+.env
+
+./.env
+
 HELP.md
 target/
 !.mvn/wrapper/maven-wrapper.jar
