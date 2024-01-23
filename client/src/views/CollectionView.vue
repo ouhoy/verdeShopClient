@@ -327,7 +327,7 @@ function sortProductsByType() {
 
     // if product category has item type add to array
     checked.forEach((word) => {
-      if (product.options.toString().toLocaleLowerCase().includes(word.toLowerCase())) addUniqueValueById(filteredProducts.value, product.id, product);
+      if (product.options.toString().toLocaleLowerCase().split(",").includes(word.toLowerCase())) addUniqueValueById(filteredProducts.value, product.id, product);
     })
 
   })
@@ -362,7 +362,7 @@ function handleSortOptionClick(name: string) {
 // API Calling
 
 onMounted(async () => {
-  const data = await fetch("http://localhost:8080/v1/products/");
+  const data = await fetch("/api/v1/products/");
   const result = await data.json();
   console.log(result)
   products.value = [...result]

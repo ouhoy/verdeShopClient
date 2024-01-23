@@ -23,7 +23,7 @@ onMounted(async () => {
   userUpdated.value = false;
 
   try {
-    const data = await fetch(`http://localhost:8080/v1/users/${auth.currentUser?.email}`)
+    const data = await fetch(`/api/v1/users/${auth.currentUser?.email}`)
     const result = await data.json()
     firstName.value = result.firstName;
     lastName.value = result.lastName;
@@ -62,11 +62,11 @@ async function handleSubmit() {
     }
 
     isPending.value = true;
-    const data = await fetch(`http://localhost:8080/v1/users/${auth.currentUser?.email}`)
+    const data = await fetch(`/api/v1/users/${auth.currentUser?.email}`)
     const currentUser = await data.json();
 
 
-    await axios.put(`http://localhost:8080/v1/users/${currentUser.id}`, userInfo).then(result => {
+    await axios.put(`/api/v1/users/${currentUser.id}`, userInfo).then(result => {
       userUpdated.value = true;
       isPending.value = false;
 

@@ -1,18 +1,18 @@
 <script setup lang="ts">
 
 import {reactive, ref} from "vue";
-import {AvailableColor} from "../../../types";
+import type {AvailableColor} from "../../../types";
 import {availableColors, sizes} from "@/availableStockData/availableStock";
 import MainButton from "@/components/buttons/MainButton.vue";
 import axios from "axios";
 import LoadingIcon from "@/assets/icons/LoadingIcon.vue";
 import CheckMarkIcon from "@/assets/icons/CheckMarkIcon.vue";
 
-const errors = reactive({title: "", price:"", description: "", highlights: "", thumbnail: "", images:"", colors:""})
+const errors = reactive({title: "", price: "", description: "", highlights: "", thumbnail: "", images: "", colors: ""})
 
 const title = ref("");
 const price = ref(0);
-const description= ref("");
+const description = ref("");
 const highlights = ref("");
 const thumbnail = ref("");
 const images = ref("")
@@ -21,11 +21,17 @@ const selectedProductType = ref("clothing")
 const colors = ref<AvailableColor[]>([])
 
 const isPending = ref(false);
-const productPosted =ref(false);
+const productPosted = ref(false);
 // Add colors
 colors.value = [];
-availableColors.forEach((availableColor: AvailableColor, index: number) => {
-  colors.value.push({name: `${availableColor}`, class: `bg-${availableColor}-600`, selectedClass: `ring-${availableColor}-600`, selected: false, id: index})
+availableColors.forEach((availableColor: string, index: number) => {
+  colors.value.push({
+    name: `${availableColor}`,
+    class: `bg-${availableColor}-600`,
+    selectedClass: `ring-${availableColor}-600`,
+    selected: false,
+    id: index
+  })
 
 })
 
@@ -57,7 +63,6 @@ function handleColorChange(state: boolean) {
 }
 
 
-
 function handleSubmit() {
 
 
@@ -68,13 +73,13 @@ function handleSubmit() {
   const selectedColors: string[] = []
   const selectedSizes: string[] = []
 
-  colors.value.forEach((color)=>{
-    if(color.selected) selectedColors.push(color.name)
+  colors.value.forEach((color) => {
+    if (color.selected) selectedColors.push(color.name)
 
   })
 
-  sizes.value.forEach((size)=>{
-    if(size.selected) selectedSizes.push(size.name)
+  sizes.value.forEach((size) => {
+    if (size.selected) selectedSizes.push(size.name)
   })
 
   const product = {
@@ -82,9 +87,9 @@ function handleSubmit() {
     price: price.value,
     description: description.value,
     highlights: highlights.value.split("\n"),
-    details:"N/A",
+    details: "N/A",
     thumbnail: thumbnail.value,
-    imageSrc: [imageSrc[2],imageSrc[3], imageSrc[1], imageSrc[0]],
+    imageSrc: [imageSrc[2], imageSrc[3], imageSrc[1], imageSrc[0]],
     imageAlt: title.value,
     colors: selectedColors,
     gender: selectedGender.value.toUpperCase(),
@@ -95,12 +100,12 @@ function handleSubmit() {
   }
 
 
-  axios.post("http://localhost:8080/v1/products/", product).then(result=>{
+  axios.post("http://localhost:8080/v1/products/", product).then(result => {
     console.log("OK");
     isPending.value = false;
     productPosted.value = true
 
-  }).catch(error=>{
+  }).catch(error => {
     console.log("Something went wrong")
     console.log(error)
     isPending.value = false;
@@ -114,7 +119,7 @@ function handleSubmit() {
 </script>
 
 <template>
-  <main  class="mt-20 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row lg:flex-row gap-20">
+  <main class="mt-20 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row lg:flex-row gap-20">
 
     <form @submit.prevent="handleSubmit" class="mb-24">
       <div class="space-y-12">
@@ -138,7 +143,7 @@ function handleSubmit() {
             <div class="sm:col-span-4">
               <label for="title" class="block text-sm font-medium leading-6 text-gray-900">Price</label>
               <div class="mt-2">
-                <input id="price" v-model="price"  name="price" type="number"
+                <input id="price" v-model="price" name="price" type="number"
                        class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
               </div>
             </div>
@@ -180,7 +185,9 @@ function handleSubmit() {
                       <label @click="handleColorChange(color.selected)"
                              :class="[color.selected ? `${color.selectedClass} ${color.class} ring-offset-1 ring-2 text-white ` : ` ${color.class} text-gray-900`, 'group relative flex items-center justify-center rounded-full border  text-sm font-medium uppercase  focus:outline-none sm:flex-1 h-8 w-8  cursor-pointer']">
                         <input type="checkbox" v-model="color.selected" class="hidden"/>
-                        <span v-if="color.selected">{{selectedColorsList.indexOf(color.name) + 1?selectedColorsList.indexOf(color.name) + 1: '' }}</span>
+                        <span v-if="color.selected">{{
+                            selectedColorsList.indexOf(color.name) + 1 ? selectedColorsList.indexOf(color.name) + 1 : ''
+                          }}</span>
                       </label>
 
                     </div>
@@ -292,7 +299,10 @@ function handleSubmit() {
           <CheckMarkIcon/>
           Product has been posted with success!
         </p>
-        <MainButton v-if="isPending">   <LoadingIcon/> Saving...</MainButton>
+        <MainButton v-if="isPending">
+          <LoadingIcon/>
+          Saving...
+        </MainButton>
         <MainButton v-if="!isPending">Save</MainButton>
       </div>
     </form>

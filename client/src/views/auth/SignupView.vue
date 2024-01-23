@@ -44,7 +44,7 @@ function handleSubmit() {
     }
 
 
-    axios.post("http://localhost:8080/v1/users/", createdUser).then(async () => {
+    axios.post("/api/v1/users/", createdUser).then(async () => {
 
       isPending.value = true;
 

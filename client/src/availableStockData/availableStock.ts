@@ -1,6 +1,7 @@
 import {ref} from "vue";
+import type {Sizes} from "../../types";
 
-export const sizes = ref([
+export const sizes = ref<Sizes[]>([
     {name: 'XXS', inStock: true, selected: false},
     {name: 'XS', inStock: true, selected: false},
     {name: 'S', inStock: true, selected: false},

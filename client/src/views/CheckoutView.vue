@@ -8,6 +8,7 @@ import FormInput from "@/components/form/FormInput.vue";
 import axios from "axios";
 // import {OrderedProduct} from "../../types/index.ts";
 
+const shippingPrice = ref(5)
 const errors = reactive({firstName: "", lastName: "", email: "", streetAddress: "", city: "", state: "", zipCode: ""})
 
 const firstName = ref("");
@@ -30,7 +31,7 @@ function handleRemove(product) {
 
 async function handleSubmit() {
 
-  const data = await fetch(`http://localhost:8080/v1/users/${auth.currentUser?.email}`)
+  const data = await fetch(`/api/v1/users/${auth.currentUser?.email}`)
   const currentUser = await data.json()
   const userId = currentUser.id;
 
@@ -39,6 +40,7 @@ async function handleSubmit() {
     lastName: lastName.value,
     email: email.value,
     country: country.value,
+    street:streetAddress.value,
     city: city.value,
     state: state.value,
     zip: zipCode.value,
@@ -50,9 +52,10 @@ async function handleSubmit() {
     products: storeCartProducts.cart,
     address,
     date: getCurrentDate(),
+    total: storeCartProducts.getTotalPrice + shippingPrice.value
 
   }
-  axios.post(`http://localhost:8080/v1/orders/`, order).then(r=> {
+  axios.post(`/api/v1/orders/`, order).then(r=> {
     console.log("Order Posted")
   }).catch(e=> {
     console.log("Something went wrong!")
@@ -253,7 +256,7 @@ async function handleSubmit() {
 
           <div class="flex mt-5 justify-between text-base font-sm text-gray-900">
             <p>Shipping</p>
-            <p class="font-medium">$5.00</p>
+            <p class="font-medium">${{shippingPrice}}</p>
           </div>
 
 
@@ -262,7 +265,7 @@ async function handleSubmit() {
         <div class="border-t border-gray-200 px-4 py-6 sm:px-6">
           <div class="flex justify-between text-base font-medium text-gray-900">
             <p>Total</p>
-            <p>$127.00</p>
+            <p>${{storeCartProducts.getTotalPrice + shippingPrice}}</p>
           </div>
         </div>
 

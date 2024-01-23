@@ -93,9 +93,9 @@ const router = createRouter({
             }
         },
         {
-            path: '/dashboard/update-product/:id',
-            name: 'updateProduct',
-            component: () => import('../views/admin/UpdateProductView.vue'),
+            path: '/dashboard/order/:id',
+            name: 'order',
+            component: () => import('../views/admin/OrderDetailsView.vue'),
             meta: {
                 hideNavbar: true,
             }

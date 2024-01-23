@@ -1,7 +1,7 @@
 <script setup lang="ts">
 
 import {onMounted, reactive, ref} from "vue";
-import {AvailableColor, Product} from "../../../types";
+import type {AvailableColor, Product} from "../../../types";
 import {availableColors, sizes} from "@/availableStockData/availableStock";
 import MainButton from "@/components/buttons/MainButton.vue";
 import axios from "axios";

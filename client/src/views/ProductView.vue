@@ -2,9 +2,9 @@
 import {onMounted, ref, watch} from 'vue'
 import {StarIcon} from '@heroicons/vue/20/solid'
 import {RadioGroup, RadioGroupLabel, RadioGroupOption} from '@headlessui/vue'
-import {useRoute} from "vue-router";
 import type {Breadcrumb, ColorSelection, Product} from "../../types";
 import {useCartStore} from "@/stores/cart";
+import {useRoute} from "vue-router";
 
 const route = useRoute();
 const productId = route.params.id.toString();
@@ -38,7 +38,7 @@ const selectedSize = ref(sizes.value[0])
 
 onMounted(async () => {
 
-  const data = await fetch(`http://localhost:8080/v1/products/${productId}`);
+  const data = await fetch(`/api/v1/products/${productId}`);
   const result = await data.json();
 
   product.value = result;

@@ -12,7 +12,7 @@ const products = ref<Product[]>()
 
 let PRODUCT_ID: number;
 onMounted(async () => {
-  const data = await fetch("http://localhost:8080/v1/products/");
+  const data = await fetch("/api/v1/products/");
   products.value = await data.json() as Product[];
 
 
@@ -27,8 +27,8 @@ function updateDialogOpenState(isOpen:boolean) {
 
 async function handleDelete() {
   try {
-    await axios.delete(`http://localhost:8080/v1/products/${PRODUCT_ID}`)
-    const data = await fetch("http://localhost:8080/v1/products/");
+    await axios.delete(`/api/v1/products/${PRODUCT_ID}`)
+    const data = await fetch("/api/v1/products/");
     products.value = await data.json();
 
 

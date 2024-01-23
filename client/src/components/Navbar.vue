@@ -112,7 +112,7 @@
                 <router-link :to="{name: 'login'}" class="text-sm font-medium text-gray-700 hover:text-gray-800">
                   Sign in
                 </router-link>
-                <span class="h-6 w-px bg-gray-200" aria-hidden="true" />
+                <span  class="h-6 w-px bg-gray-200 mr-[-8px]" aria-hidden="true" />
 
                 <router-link :to="{name: 'signup'}" class="text-sm font-medium text-gray-700 hover:text-gray-800">
                   Create Account
@@ -121,9 +121,11 @@
 
               <!-- Cart -->
               <UserProfileIcon/>
+              <span v-if="auth.currentUser" class="h-6 w-px bg-gray-200 mr-[-8px]" aria-hidden="true" />
+
 
               <div @click="toggleCart" class="ml-4 flow-root lg:ml-6 ">
-                <a href="#" class="group -m-2 flex items-center p-2">
+                <a href="#" class="group -m-2 flex items-center p-2 ">
                   <ShoppingBagIcon class="h-6 w-6 flex-shrink-0 text-primary-darker group-hover:text-gray-500 "
                                    aria-hidden="true"/>
                   <span class="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">{{storeCartProducts.cart.length}}</span>
