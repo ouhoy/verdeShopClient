@@ -6,7 +6,7 @@ import {reactive, ref} from "vue";
 import {getCurrentDate} from "@/composables/getCurrentDate.ts";
 import FormInput from "@/components/form/FormInput.vue";
 import axios from "axios";
-import {SERVER_URL} from "@/production.js";
+import {SERVER_URL} from "@/production.ts";
 // import {OrderedProduct} from "../../types/index.ts";
 
 const shippingPrice = ref(5)
