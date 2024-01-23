@@ -364,6 +364,7 @@ function handleSortOptionClick(name: string) {
 
 onMounted(async () => {
   const data = await fetch(`${SERVER_URL}/v1/products/`);
+
   const result = await data.json();
   console.log(result)
   products.value = [...result]
