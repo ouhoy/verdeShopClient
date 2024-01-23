@@ -36,6 +36,7 @@ CREATE TABLE IF NOT EXISTS Orders
     products  JSON,
     address JSON,
     date     TEXT,
+    total INT,
     user_id  INT,
     FOREIGN KEY (user_id) REFERENCES Users (id)
 

@@ -30,20 +30,26 @@ public class DataLoader implements CommandLineRunner {
     }
 
     private void loadProductsFromJson() {
-        try {
-            // Load products from the JSON file
-            InputStream inputStream = new ClassPathResource("/data/products.json").getInputStream();
-            List<Product> products = objectMapper.readValue(inputStream, new TypeReference<List<Product>>() {});
 
-            // Save each product to the database
-            for (Product product : products) {
-                repository.createProduct(product);
+        if (repository.getAllProducts().isEmpty()) {
+            try {
+                // Load products from the JSON file
+                InputStream inputStream = new ClassPathResource("/data/products.json").getInputStream();
+                List<Product> products = objectMapper.readValue(inputStream, new TypeReference<List<Product>>() {
+                });
+
+                // Save each product to the database
+                for (Product product : products) {
+                    repository.createProduct(product);
+                }
+
+                System.out.println("Products loaded successfully.");
+
+            } catch (IOException e) {
+                System.err.println("Error loading products from JSON: " + e.getMessage());
             }
-
-            System.out.println("Products loaded successfully.");
-
-        } catch (IOException e) {
-            System.err.println("Error loading products from JSON: " + e.getMessage());
         }
+
+
     }
 }

@@ -34,10 +34,10 @@ public class OrderCollectionRepository {
             JsonNode products = objectMapper.readTree(rs.getString("products"));
             if (products.isArray()) {
                 List<JsonNode> productNodes = objectMapper.convertValue(products, new TypeReference<List<JsonNode>>() {});
-                return new Order(rs.getInt("id"), productNodes, address, rs.getString("date"), rs.getInt("user_id"));
+                return new Order(rs.getInt("id"), productNodes, address, rs.getString("date"),rs.getInt("total"), rs.getInt("user_id"));
             } else {
                 // Handle string data (e.g., log a warning or store as a single string)
-                return new Order(rs.getInt("id"), List.of(products), address, rs.getString("date"), rs.getInt("user_id"));
+                return new Order(rs.getInt("id"), List.of(products), address, rs.getString("date"), rs.getInt("total"),rs.getInt("user_id"));
             }
 
 
@@ -59,8 +59,8 @@ public class OrderCollectionRepository {
         ObjectMapper objectMapper = new ObjectMapper();
 
         try {
-            String sql = "INSERT INTO Orders (products, address, date, user_id) VALUES (?, ?, ?, ?)";
-            jdbcTemplate.update(sql, objectMapper.writeValueAsString(order.products()), objectMapper.writeValueAsString(order.address()), order.date(), order.userId());
+            String sql = "INSERT INTO Orders (products, address, date,total, user_id) VALUES (?,?, ?, ?, ?)";
+            jdbcTemplate.update(sql, objectMapper.writeValueAsString(order.products()), objectMapper.writeValueAsString(order.address()), order.date(),order.total(), order.userId());
 
         } catch (Exception e) {
             // Handle the exception (log it or throw a specific exception)
@@ -73,8 +73,8 @@ public class OrderCollectionRepository {
         ObjectMapper objectMapper = new ObjectMapper();
 
         try {
-            String sql = "UPDATE Orders SET  products=?, address=?, date=?, user_id=? WHERE id=?";
-            jdbcTemplate.update(sql, objectMapper.writeValueAsString(order.products()), objectMapper.writeValueAsString(order.address()), order.date(), order.userId(), id);
+            String sql = "UPDATE Orders SET  products=?, address=?, date=?,total=?, user_id=? WHERE id=?";
+            jdbcTemplate.update(sql, objectMapper.writeValueAsString(order.products()), objectMapper.writeValueAsString(order.address()), order.date(), order.total(), order.userId(), id);
 
         } catch (Exception e) {
             // Handle the exception (log it or throw a specific exception)
