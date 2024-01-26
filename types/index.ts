@@ -4,11 +4,21 @@ enum Gender {
     Unisex = "UNISEX",
 }
 
+export interface User {
+
+    firstName: string,
+    lastName: string,
+    email: string,
+    id: number
+
+}
+
 enum Type {
     Clothing = "CLOTHING",
     Shoes = "SHOES",
     Accessories = "ACCESSORIES"
 }
+
 type Size = "XXS" | "XS" | "S" | "M" | "L" | "XL" | "XXL" | "XXXL";
 
 export interface Sizes {
@@ -38,28 +48,29 @@ export type AvailableColor = {
     selected: boolean
 }
 
-export interface  Address{
-    firstName:string,
+export interface Address {
+    firstName: string,
     lastName: string,
     email: string,
-    street:string,
+    street: string,
     country: string,
-    city:string,
-    state:string,
-    zip:string
+    city: string,
+    state: string,
+    zip: string
 }
 
 export interface CheckoutOrder {
-    id:number,
+    id: number,
     userId: number,
-    total:number,
+    total: number,
     products: OrderedProduct[],
     address: Address,
     date: string,
 
 }
+
 export interface Product {
-    id:number,
+    id: number,
     name: string,
     price: number,
     description: string,
@@ -71,13 +82,13 @@ export interface Product {
     colors: string[],
     options: string[],
     gender: Gender,
-    sizes:Size [],
+    sizes: Size [],
     type: Type
 
 }
 
 export interface OrderedProduct {
-    id:number,
+    id: number,
     name: string,
     price: number,
     quantity: number,
@@ -88,8 +99,8 @@ export interface OrderedProduct {
 
 }
 
-export interface Breadcrumb  {
+export interface Breadcrumb {
     id: number,
-    name:string,
+    name: string,
     href: string
 }

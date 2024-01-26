@@ -19,7 +19,7 @@ const router = useRouter()
 
 const {errorMessage, isPending, signup} = useSignup();
 
-function handleSubmit() {
+async function handleSubmit() {
 
   validateName(firstName.value, "First name") ?
       (errors.firstname = validateName(firstName.value, "First name").toString()) : (errors.firstname = "");
@@ -45,17 +45,28 @@ function handleSubmit() {
     }
 
 
-    axios.post(`${SERVER_URL}/v1/users/`, createdUser).then(async () => {
+    await signup(firstName.value, lastName.value, email.value, password.value)
+    if (!errorMessage.value) {
 
-      isPending.value = true;
+      axios.post(`${SERVER_URL}/v1/users/`, createdUser).then(async () => {
 
-      await signup(firstName.value, lastName.value, email.value, password.value)
-      await router.push('/')
+        isPending.value = true;
 
-    }).catch(error => {
-      isPending.value = false;
-      console.error('Error sending data to the backend:', error);
-    });
+
+      }).catch(error => {
+        isPending.value = false;
+        alert("Something went wrong while creating user")
+        console.error('Error sending data to the backend:', error);
+      });
+
+      await router.push('/app')
+
+    }
+
+    if (errorMessage.value.includes("email-already-in-use")) errors.email = "Email already in use.";
+    if (errorMessage.value.includes("password")) errors.email = "Password should be more than 6 characters.";
+
+
   }
 }
 
@@ -86,7 +97,7 @@ function handleSubmit() {
         <div>
           <button type="submit"
                   class="flex w-full justify-center rounded-md bg-primary-darker px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-primary-dark-hover focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-dark">
-            {{isPending? 'Signing Up': 'Sign Up'}}
+            {{ isPending ? 'Signing Up' : 'Sign Up' }}
           </button>
         </div>
       </form>

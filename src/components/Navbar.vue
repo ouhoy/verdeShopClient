@@ -66,7 +66,7 @@
       <div class="w-full bg-gray-50 h-10 flex items-center">
         <div class="flex justify-end items-center w-full mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div class="flex  justify-center items-center gap-2">
-            <router-link :to="{name: 'dashboard'}" class="text-gray-950 hover:underline underline-offset-1  font-medium text-sm ">Dashboard</router-link>
+            <router-link :to="{name: 'dashboard'}" class="text-gray-950 hover:underline underline-offset-1  font-base text-sm ">Dashboard</router-link>
           </div>
         </div>
       </div>
