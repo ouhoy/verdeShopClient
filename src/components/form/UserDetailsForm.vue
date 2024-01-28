@@ -51,7 +51,6 @@ async function handleSubmit() {
 
   !email.value ? (errors.email = "Email is required.") : (errors.email = "");
 
-  (password.value.length < 6) ? (errors.password = "Password should be more than 6 characters.") : (errors.password = "")
 
   if (!errors.password && !errors.email && !errors.firstname && !errors.lastname) {
     const userInfo = {
@@ -112,16 +111,34 @@ async function handleSubmit() {
           </div>
 
           <div class="sm:col-span-4">
-            <FormInput v-model="password" label="Password" placeholder="" type="password" :error="errors.password"/>
+            <label :for="'Password'.trim().replace(' ', '').toLowerCase()"
+                   class="block text-sm font-medium leading-6 text-gray-900">{{ 'Password' }}</label>
+            <div class="mt-2 relative cursor-not-allowed">
+
+              <input v-model="password" id="password" name="password" type="password" autocomplete="current-password"
+                     required disabled
+                     class="cursor-not-allowed outline-0 block w-full rounded-md border-0 pl-2 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary-darker sm:text-sm sm:leading-6"/>
+
+              <!-- Banned icon -->
+              <div class="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
+                <svg class="h-5 w-5 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                     xmlns="http://www.w3.org/2000/svg">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+              </div>
+
+            </div>
+
 
           </div>
 
         </div>
-        <p class="mt-1 pt-2 text-sm leading-6 text-gray-600">We'll always let you know about important changes, but you
-          pick what else you want to hear about.</p>
+        <p class="mt-1 pt-2 text-sm leading-6 text-gray-600">Future updates will enable this feature for enhanced user
+          experience and security enhancements.</p>
         <p v-if="userUpdated" class="mt-1 pt-2 text-sm text-green-500 flex justify-start items-center gap-1">
           <CheckMarkIcon/>
-          Profile info has been updated!
+          Profile information have been updated!
         </p>
       </div>
 

@@ -7,6 +7,7 @@ import {getCurrentDate} from "@/composables/getCurrentDate.ts";
 import FormInput from "@/components/form/FormInput.vue";
 import axios from "axios";
 import {SERVER_URL} from "@/production.ts";
+import {useRouter} from "vue-router";
 // import {OrderedProduct} from "../../types/index.ts";
 
 const shippingPrice = ref(5)
@@ -22,6 +23,8 @@ const city = ref("");
 const state = ref("");
 const zipCode = ref("");
 
+const router = useRouter()
+
 const storeCartProducts = useCartStore();
 
 function handleRemove(product) {
@@ -36,12 +39,17 @@ async function handleSubmit() {
   const currentUser = await data.json()
   const userId = currentUser.id;
 
+  if (!firstName.value || !lastName.value || !email.value || !country.value || !streetAddress.value || !city.value || !state.value || !zipCode.value) {
+    alert("Please make sure to fill in all the required inputs");
+    return
+  }
+
   const address = {
     firstName: firstName.value,
     lastName: lastName.value,
     email: email.value,
     country: country.value,
-    street:streetAddress.value,
+    street: streetAddress.value,
     city: city.value,
     state: state.value,
     zip: zipCode.value,
@@ -58,9 +66,12 @@ async function handleSubmit() {
   }
   console.log(order)
   console.log(JSON.stringify(order))
-  axios.post(`${SERVER_URL}/v1/orders/`, order).then(r=> {
+  axios.post(`${SERVER_URL}/v1/orders/`, order).then(r => {
     console.log("Order Posted")
-  }).catch(e=> {
+    router.push("/thankyou")
+
+
+  }).catch(e => {
     console.log("Something went wrong!")
   })
   console.log(order)
@@ -122,7 +133,8 @@ async function handleSubmit() {
             </div>
 
             <div class="sm:col-span-2">
-              <FormInput v-model="zipCode" label="Zip / Postal Code" placeholder="" type="text" :error="errors.zipCode"/>
+              <FormInput v-model="zipCode" label="Zip / Postal Code" placeholder="" type="text"
+                         :error="errors.zipCode"/>
 
             </div>
           </div>
@@ -259,7 +271,7 @@ async function handleSubmit() {
 
           <div class="flex mt-5 justify-between text-base font-sm text-gray-900">
             <p>Shipping</p>
-            <p class="font-medium">${{shippingPrice}}</p>
+            <p class="font-medium">${{ shippingPrice }}</p>
           </div>
 
 
@@ -268,7 +280,7 @@ async function handleSubmit() {
         <div class="border-t border-gray-200 px-4 py-6 sm:px-6">
           <div class="flex justify-between text-base font-medium text-gray-900">
             <p>Total</p>
-            <p>${{storeCartProducts.getTotalPrice + shippingPrice}}</p>
+            <p>${{ storeCartProducts.getTotalPrice + shippingPrice }}</p>
           </div>
         </div>
 

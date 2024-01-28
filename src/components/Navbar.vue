@@ -40,7 +40,7 @@
                   <a class="-m-2 block p-2 font-medium text-gray-900">Men</a>
                   <router-link :to="{name: 'collection'}" class="-m-2 block p-2 font-medium text-gray-900">Collection
                   </router-link>
-                  <a href="#" class="-m-2 block p-2 font-medium text-gray-900">Story</a>
+                  <router-link :to="{name: 'story'}" href="#" class="-m-2 block p-2 font-medium text-gray-900">Story</router-link>
                   <a href="#" class="-m-2 block p-2 font-medium text-gray-900">Track order</a>
                 </div>
               </div>
@@ -100,7 +100,7 @@
                              :to="{name: 'collection'}">Collection
                 </router-link>
                 <a href="#" class="flex items-center text-sm font-medium text-gray-900 hover:text-gray-800">Story</a>
-                <a href="#" class="flex items-center text-sm font-medium text-gray-900 hover:text-gray-800">Track order</a>
+                <router-link :to="{name: 'track'}"  class="flex items-center text-sm font-medium text-gray-900 hover:text-gray-800">Track order</router-link>
               </div>
 
             </PopoverGroup>

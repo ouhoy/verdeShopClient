@@ -71,7 +71,23 @@ const router = createRouter({
             path: '/side',
             name: 'side',
             component: () => import('../views/ProductSideView.vue')
+        },
+        {
+            path: '/thankyou',
+            name: 'thankyou',
+            component: () => import('../views/ThankYouView.vue')
+        },
+        {
+            path: '/story',
+            name: 'story',
+            component: () => import('../views/StoryView.vue')
+        },
+        {
+            path: '/track',
+            name: 'track',
+            component: () => import('../views/TrackOrderView.vue')
         }
+
 
         ,
         {
