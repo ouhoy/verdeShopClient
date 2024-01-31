@@ -10,7 +10,7 @@ const errors = reactive({order: ""});
 
 const message = ref("");
 
-function formatDateWithStatus(inputDate) {
+function formatDateWithStatus(inputDate:string) {
   // Parse inputDate string to Date object
   const date = new Date(inputDate);
 

@@ -40,7 +40,7 @@ import {onMounted} from "vue";
 import {SERVER_URL} from "@/production";
 import {auth} from "@/firebase/config";
 import {ref} from "vue";
-import {CheckoutOrder} from "../../../types";
+import type {CheckoutOrder} from "../../../types";
 
 const products = [
   {
