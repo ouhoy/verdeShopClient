@@ -164,11 +164,16 @@
               <div class="bg-white">
                 <div class="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-1 lg:max-w-7xl lg:px-8">
                   <h2 class="sr-only">Products</h2>
+
+                  <p v-if="isPending" class="mt-1 text-sm leading-6 text-gray-600">Loading Products...</p>
+                  <p v-if="isPending" class="mt-1 text-sm leading-6 text-gray-600">Please note that this may take a few
+                    seconds inorder for the server to fully restart (Wake up), this happens when you run the project after a while of being a sleep :).</p>
                   <p v-show="noProducts" class="mt-1 text-sm leading-6 text-gray-600">There are no products available
                     with that selection 🥺</p>
                   <div
                       class="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 xl:gap-x-8">
-                    <router-link :to="{name: 'product', params: {id: product.id}}" v-for="product in filteredProducts" :key="product.id" class="group">
+                    <router-link :to="{name: 'product', params: {id: product.id}}" v-for="product in filteredProducts"
+                                 :key="product.id" class="group">
                       <div
                           class="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-lg bg-gray-200 xl:aspect-h-8 xl:aspect-w-7">
                         <img :src="product.thumbnail" :alt="product.imageAlt"
@@ -222,6 +227,8 @@ const sortOptions = ref([
 const mobileFiltersOpen = ref(false)
 
 const noProducts = ref(false);
+const isPending = ref(true);
+
 const subCategories = [
   {name: 'Clothing', href: '#'},
   {name: 'Shoes', href: '#'},
@@ -363,9 +370,13 @@ function handleSortOptionClick(name: string) {
 // API Calling
 
 onMounted(async () => {
+
   const data = await fetch(`${SERVER_URL}/v1/products/`);
 
+
   const result = await data.json();
+
+  isPending.value = false;
   console.log(result)
   products.value = [...result]
   filteredProducts.value = [...result];
