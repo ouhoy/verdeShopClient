@@ -36,8 +36,8 @@
 
               <div class="space-y-6 border-t border-gray-200 px-4 py-6">
                 <div class="flow-root">
-                  <a class="-m-2 block p-2 font-medium text-gray-900">Women</a>
-                  <a class="-m-2 block p-2 font-medium text-gray-900">Men</a>
+                  <router-link :to="{name: 'collection', params: {gender: 'women'}}" class="-m-2 block p-2 font-medium text-gray-900">Women</router-link>
+                  <router-link :to="{name: 'collection', params: {gender: 'men'}}" class="-m-2 block p-2 font-medium text-gray-900">Men</router-link>
                   <router-link :to="{name: 'collection'}" class="-m-2 block p-2 font-medium text-gray-900">Collection
                   </router-link>
                   <router-link :to="{name: 'story'}" href="#" class="-m-2 block p-2 font-medium text-gray-900">Story</router-link>
@@ -94,8 +94,8 @@
             <!-- Flyout menus -->
             <PopoverGroup class="hidden lg:ml-8 lg:block lg:self-stretch">
               <div class="flex h-full space-x-8">
-                <a href="#" class="flex items-center text-sm font-medium text-gray-900 hover:text-gray-800">Men</a>
-                <a href="#" class="flex items-center text-sm font-medium text-gray-900 hover:text-gray-800">Women</a>
+                <router-link :to="{name: 'collection', params: {gender: 'women'}}" class="flex items-center text-sm font-medium text-gray-900 hover:text-gray-800">Women</router-link>
+                <router-link :to="{name: 'collection', params: {gender: 'men'}}" class="flex items-center text-sm font-medium text-gray-900 hover:text-gray-800">Men</router-link>
                 <router-link class="flex items-center text-sm font-medium text-gray-900 hover:text-gray-800"
                              :to="{name: 'collection'}">Collection
                 </router-link>

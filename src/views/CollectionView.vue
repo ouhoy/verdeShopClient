@@ -167,7 +167,8 @@
 
                   <p v-if="isPending" class="mt-1 text-sm leading-6 text-gray-600">Loading Products...</p>
                   <p v-if="isPending" class="mt-1 text-sm leading-6 text-gray-600">Please note that this may take a few
-                    seconds inorder for the server to fully restart (Wake up), this happens when you run the project after a while of being a sleep :).</p>
+                    seconds inorder for the server to fully restart (Wake up), this happens when you run the project
+                    after a while of being a sleep :).</p>
                   <p v-show="noProducts" class="mt-1 text-sm leading-6 text-gray-600">There are no products available
                     with that selection 🥺</p>
                   <div
@@ -196,7 +197,7 @@
 </template>
 
 <script setup lang="ts">
-import {onMounted, ref} from 'vue'
+import {onMounted, ref, watch} from 'vue'
 import {
   Dialog,
   DialogPanel,
@@ -214,6 +215,10 @@ import {XMarkIcon} from '@heroicons/vue/24/outline'
 import {ChevronDownIcon, FunnelIcon, MinusIcon, PlusIcon, Squares2X2Icon} from '@heroicons/vue/20/solid'
 import type {ColorItem, Product} from "../../types";
 import {SERVER_URL} from "@/production";
+import {useRoute} from "vue-router";
+
+const route = useRoute();
+
 
 const products = ref<Product[]>([]);
 const filteredProducts = ref<Product[]>(products.value);
@@ -371,10 +376,12 @@ function handleSortOptionClick(name: string) {
 
 onMounted(async () => {
 
+
   const data = await fetch(`${SERVER_URL}/v1/products/`);
-
-
   const result = await data.json();
+
+
+  const gender = route && route.params ? route.params.gender : undefined;
 
   isPending.value = false;
   console.log(result)
@@ -394,6 +401,51 @@ onMounted(async () => {
   })
 
   filters.value[1].options = colors;
+
+  // Sort by URL gender parameter
+  if (gender) {
+    console.log("Here is the selected gender: ", gender)
+    const genderFilter = filters.value.find(filter => filter.id === 'gender');
+    if (genderFilter) {
+      const option = genderFilter.options.find(option => option.value === gender);
+      if (option) {
+        option.checked = true;
+        sortProductsByType();
+      }
+    }
+  }
+
+
+// ... rest of your code
+
+
 })
+
+watch(() => route.params, (newParams, oldParams) => {
+  // This function will be called whenever `route.params` changes.
+  // `newParams` is the new value, and `oldParams` is the old value.
+
+  // You can add your logic here. For example, if you want to sort products by gender when the gender parameter changes:
+  const gender = newParams.gender;
+  if (gender !== oldParams.gender) {
+    const genderFilter = filters.value.find(filter => filter.id === 'gender');
+    if (genderFilter) {
+      // Unselect all options
+      genderFilter.options.forEach(option => {
+        option.checked = false;
+      });
+
+      // Find the option that matches the route parameter and select it
+      const option = genderFilter.options.find(option => option.value === gender);
+      if (option) {
+        option.checked = true;
+      }
+
+      // Apply the filter
+      sortProductsByType();
+    }
+  }
+});
+
 
 </script>

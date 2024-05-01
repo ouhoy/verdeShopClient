@@ -46,6 +46,11 @@ const router = createRouter({
             name: 'collection',
             component: () => import('../views/CollectionView.vue')
         },
+         {
+            path: '/collection/:gender?',
+            name: 'collection',
+            component: () => import('../views/CollectionView.vue')
+        },
         {
             path: '/login',
             name: 'login',
