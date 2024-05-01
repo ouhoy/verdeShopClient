@@ -169,6 +169,9 @@
                   <p v-if="isPending" class="mt-1 text-sm leading-6 text-gray-600">Please note that this may take a few
                     seconds inorder for the server to fully restart (Wake up), this happens when you run the project
                     after a while of being a sleep :).</p>
+                  <p v-if="error" class="mt-1 text-sm leading-6 text-red-600">It seems that we have a trouble loading
+                    products from our servers. Please try again!</p>
+
                   <p v-show="noProducts" class="mt-1 text-sm leading-6 text-gray-600">There are no products available
                     with that selection 🥺</p>
                   <div
@@ -219,7 +222,6 @@ import {useRoute} from "vue-router";
 
 const route = useRoute();
 
-
 const products = ref<Product[]>([]);
 const filteredProducts = ref<Product[]>(products.value);
 
@@ -233,6 +235,7 @@ const mobileFiltersOpen = ref(false)
 
 const noProducts = ref(false);
 const isPending = ref(true);
+const error = ref(false);
 
 const subCategories = [
   {name: 'Clothing', href: '#'},
@@ -371,80 +374,72 @@ function handleSortOptionClick(name: string) {
 
 }
 
+function handleGenderFilterChange(gender: string) {
+  // If there is a gender filter, update its options based on the route parameter
+  const genderFilter = filters.value.find(filter => filter.id === 'gender');
+  if (genderFilter) {
+    // Unselect all options
+    genderFilter.options.forEach(option => {
+      option.checked = false;
+    });
+
+    // Find the option that matches the route parameter and select it
+    const option = genderFilter.options.find(option => option.value === gender);
+    if (option) {
+      option.checked = true;
+    }
+
+    // Apply the filter
+    sortProductsByType();
+  }
+}
+
 
 // API Calling
 
 onMounted(async () => {
 
+  try {
+    const data = await fetch(`${SERVER_URL}/v1/products/`);
+    const result = await data.json();
 
-  const data = await fetch(`${SERVER_URL}/v1/products/`);
-  const result = await data.json();
 
+    const gender = route && route.params ? route.params.gender : undefined;
+    const colors: ColorItem[] = []
+    const uniqueColorsSet = new Set();
+    isPending.value = false;
 
-  const gender = route && route.params ? route.params.gender : undefined;
+    products.value = [...result]
+    filteredProducts.value = [...result];
 
-  isPending.value = false;
-  console.log(result)
-  products.value = [...result]
-  filteredProducts.value = [...result];
-  const uniqueColorsSet = new Set();
-
-  result.forEach((product: Product) => {
-    product.colors.forEach((color: string) => {
-      uniqueColorsSet.add(color);
+    result.forEach((product: Product) => {
+      product.colors.forEach((color: string) => {
+        uniqueColorsSet.add(color);
+      });
     });
-  });
+    uniqueColorsSet.forEach((color) => {
+      colors.push({value: `${color}`, label: `${color}`, checked: false})
+    })
 
-  const colors: ColorItem[] = []
-  uniqueColorsSet.forEach((color) => {
-    colors.push({value: `${color}`, label: `${color}`, checked: false})
-  })
+    filters.value[1].options = colors;
 
-  filters.value[1].options = colors;
+    // Sort by URL gender parameter
+    if (gender) handleGenderFilterChange(`${gender}`);
+  } catch (e) {
+    error.value = true;
+    isPending.value = false;
+    console.error("An error occurred while fetching the products:", error);
 
-  // Sort by URL gender parameter
-  if (gender) {
-    console.log("Here is the selected gender: ", gender)
-    const genderFilter = filters.value.find(filter => filter.id === 'gender');
-    if (genderFilter) {
-      const option = genderFilter.options.find(option => option.value === gender);
-      if (option) {
-        option.checked = true;
-        sortProductsByType();
-      }
-    }
+
   }
-
-
-// ... rest of your code
 
 
 })
 
+// Watch for changes in route parameters and update the gender filter accordingly
 watch(() => route.params, (newParams, oldParams) => {
-  // This function will be called whenever `route.params` changes.
-  // `newParams` is the new value, and `oldParams` is the old value.
-
-  // You can add your logic here. For example, if you want to sort products by gender when the gender parameter changes:
   const gender = newParams.gender;
-  if (gender !== oldParams.gender) {
-    const genderFilter = filters.value.find(filter => filter.id === 'gender');
-    if (genderFilter) {
-      // Unselect all options
-      genderFilter.options.forEach(option => {
-        option.checked = false;
-      });
-
-      // Find the option that matches the route parameter and select it
-      const option = genderFilter.options.find(option => option.value === gender);
-      if (option) {
-        option.checked = true;
-      }
-
-      // Apply the filter
-      sortProductsByType();
-    }
-  }
+  if (gender !== oldParams.gender) handleGenderFilterChange(`${gender}`);
 });
 
 
