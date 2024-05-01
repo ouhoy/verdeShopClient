@@ -22,17 +22,15 @@
       </div>
     </header>
     <section class="flex items-end gap-4">
-      <div class="relative">
-        <img src="@/assets/images/img-1.png" alt="" srcset="">
-
+      <div class="relative image-container">
+        <img class="animated-image" src="@/assets/images/img-1.png" alt="" srcset="">
       </div>
       <div class="flex flex-col items-center justify-center gap-2">
-        <img src="@/assets/images/img-2.png" alt="" srcset="">
-        <img src="@/assets/images/img-3.png" alt="" srcset="">
+        <img class="animated-image delay-1" src="@/assets/images/img-2.png" alt="" srcset="">
+        <img class="animated-image delay-2" src="@/assets/images/img-3.png" alt="" srcset="">
       </div>
-      <div>
-        <img src="@/assets/images/img-4.png" alt="" srcset="">
-
+      <div class="image-container">
+        <img class="animated-image delay-3" src="@/assets/images/img-4.png" alt="" srcset="">
       </div>
     </section>
 
@@ -45,6 +43,40 @@
 
 header > .support-text {
   max-width: 512px;
+}
+
+.image-container {
+  perspective: 1000px;
+}
+
+.animated-image {
+  opacity: 0.5;
+  transform: translateY(50px);
+  animation: tilt .8s ease-out forwards, fadeIn .8s ease-out forwards;
+}
+
+.delay-1 {
+  animation-delay: 0.2s;
+}
+
+.delay-2 {
+  animation-delay:.3s;
+}
+
+.delay-3 {
+  animation-delay: 0.4s;
+}
+
+@keyframes tilt {
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
 }
 
 </style>
