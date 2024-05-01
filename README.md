@@ -40,6 +40,8 @@ VerdeShop is a full-stack e-commerce platform built using Vue.js, Spring Boot, T
 
 ![Screenshot 2024-05-01 193121](https://github.com/ouhoy/verdeShopClient/assets/75227707/53c1e129-ada0-4625-b64a-b579557be710)
 
+![image](https://github.com/ouhoy/verdeShopClient/assets/75227707/582b25a6-e012-4948-beea-4c4bb3bea65e)
+
 ![Screenshot 2024-05-01 193153](https://github.com/ouhoy/verdeShopClient/assets/75227707/b4bd8b02-afd1-4ae1-9129-01c9b50f704f)
 
 ![Screenshot 2024-05-01 193204](https://github.com/ouhoy/verdeShopClient/assets/75227707/f8053a84-f439-4681-afd9-6f8454e6d916)
